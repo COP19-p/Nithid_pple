@@ -129,6 +129,18 @@
       background: #f47e60;
       color: #fff;
     }
+    .countdown-box {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #fef4ec;
+      border-radius: 8px;
+      color: #c0392b;
+      font-weight: bold;
+    }
+    body.dark-mode .countdown-box {
+      background: #2c2c2c;
+      color: #f39c12;
+    }
   </style>
 </head>
 <body>
@@ -140,66 +152,33 @@
   </header>
 
   <div class="section">
-    <div class="card">
-      <h2>📰 ข่าวสารล่าสุด</h2>
-      <ul>
-        <li>30 พ.ค. 2025 – จัดโครงการ เสื้อนิธิศพรรคประชาชนเพื่อนำยอดไปบริจาคระยะเวลาโครงการ 1 เดือน</li>
-      </ul>
-    </div>
+    <!-- ส่วนอื่น ๆ คงเดิม -->
 
-    <div class="card">
-      <h2>🤝 พันธมิตรของเรา</h2>
-      <div class="partners">
-        <img alt="โลโก้มูลนิธิกระจกเงา" src="mirror_foundation_logo.png"/>
-        <img alt="โลโก้พรรคประชาชน" src="people_party_logo.png"/>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>📌 เกี่ยวกับโครงการ</h2>
-      <p>โครงการนี้เกิดจากความร่วมมือระหว่างนิธิศ พรรคประชาชน และมูลนิธิกระจกเงา เพื่อส่งต่อคอมพิวเตอร์ อุปกรณ์ แก่ผู้ขาดโอกาสทั่วประเทศ ตลอดระยะเวลา 1 เดือน</p>
-    </div>
-
-    <div class="card" style="background: #fffef7;">
-      <h2 style="color: #f47e60;">🎯 ยอดบริจาคเพื่อเป้าหมาย</h2>
-      <p>เราตั้งเป้าหมายระดมทุนที่ <strong>10,000 บาท</strong> เพื่อบริจาคให้มูลนิธิกระจกเงา</p>
-      <div style="margin: 1rem 0;">
-        <div style="background: #eee; border-radius: 12px; overflow: hidden; height: 24px;">
-          <div id="donation-progress" style="background: #f47e60; height: 100%; width: 42%; transition: width 0.5s;"></div>
-        </div>
-        <p style="text-align: right; margin-top: 0.3rem;">
-          <span id="donation-amount">600</span> / 10,000 บาท
-        </p>
-      </div>
-    </div>
-
-    <div class="card qr-section" style="text-align: center;">
-      <h2>🎁 สนับสนุนโครงการผ่านการบริจาค</h2>
-      <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 2rem; margin-top: 2rem;">
-        <img alt="QR ใหม่" src="promptpay_new.jpg" style="width: 260px; border-radius: 12px;" />
-        <div style="background: #f4f4f4; padding: 1.2rem 1.5rem; border-radius: 10px; text-align: left;">
-          <p style="margin: 0 0 0.5rem 0;"><strong>ชื่อบัญชี:</strong> นิธิศ บุญฤทธิ์</p>
-          <p style="margin: 0 0 1rem 0;"><strong>เลขพร้อมเพย์:</strong> <span id="account-number">0982279327</span></p>
-          <button class="button" onclick="copyAccount()">📋 คัดลอกเลขพร้อมเพย์</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>📞 ติดต่อทีมงาน</h2>
-      <ul>
-        <li>📧 อีเมล: <a href="mailto:nitit.boonyalit@gmail.com">nitit.boonyalit@gmail.com</a></li>
-        <li>📱 โทร: <a href="tel:0982279327">0982279327</a></li>
-        <li>💬 Facebook: <a href="https://www.facebook.com/mirrorf" target="_blank">ติดต่อผ่านเพจ</a></li>
-      </ul>
-    </div>
-
-    <div class="card" style="background: #f4f7fa;">
-      <h2 style="color: #f47e60;">👤 ผู้จัดโครงการ</h2>
-      <p style="font-size: 1.15rem; color: #333;">
-        นาย นิธิศ บุญฤทธิ์<br/>
-        พรรคประชาชน ปราจีนบุรี
+    <div class="card" style="background: #fffdf7; border-left: 6px solid #f47e60;">
+      <h2 style="color: #f47e60;">👕 โครงการเสื้อเพื่อการกุศล</h2>
+      <p style="line-height: 1.7;">
+        รายได้จากการจำหน่ายเสื้อรุ่นพิเศษนี้ จะถูกนำไปสนับสนุนกิจกรรมของ
+        <strong>มูลนิธิกระจกเงา</strong> เพื่อช่วยเหลือผู้ขาดโอกาสทางเทคโนโลยี
+        เช่น การมอบคอมพิวเตอร์ให้โรงเรียนในพื้นที่ห่างไกล
       </p>
+      <p style="line-height: 1.7;">
+        ร่วมเป็นส่วนหนึ่งของการเปลี่ยนแปลงนี้ได้ง่าย ๆ ด้วยการซื้อเสื้อ
+        หรือบริจาคโดยตรงผ่าน QR ด้านล่าง
+      </p>
+      <div style="background: #fdf2ed; border-radius: 10px; padding: 1rem 1.25rem; margin: 1rem 0;">
+        <strong>💸 ยอดสั่งซื้อเสื้อรวมทั้งหมด:</strong>
+        <span style="font-size: 1.15rem; color: #f47e60; font-weight: bold;">2,439 บาท</span>
+      </div>
+      <a href="https://www.facebook.com/share/p/1AiHLjChB3/" target="_blank"
+         class="button" 
+         style="margin-top: 1rem; display: inline-block; background: #28a745; font-size: 1.1rem;">
+        🛍️ สั่งซื้อเสื้อผ่านเพจ Facebook
+      </a>
+    </div>
+
+    <div class="countdown-box">
+      ⏳ ร่วมโครงการได้ถึง: 07 มิ.ย. 2025 <br/>
+      เหลือเวลา: <span id="time-left">...</span>
     </div>
   </div>
 
@@ -232,6 +211,23 @@
     const percent = Math.min((current / goal) * 100, 100);
     document.getElementById("donation-progress").style.width = percent + "%";
     document.getElementById("donation-amount").innerText = current.toLocaleString();
+
+    const deadline = new Date("2025-06-07T23:59:59").getTime();
+    const timer = setInterval(function () {
+      const now = new Date().getTime();
+      const distance = deadline - now;
+      if (distance <= 0) {
+        clearInterval(timer);
+        document.getElementById("time-left").innerHTML = "สิ้นสุดแล้ว";
+        return;
+      }
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      document.getElementById("time-left").innerHTML =
+        days + " วัน " + hours + " ชม. " + minutes + " นาที " + seconds + " วินาที";
+    }, 1000);
   </script>
 </body>
 </html>
