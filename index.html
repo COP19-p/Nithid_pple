@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>โครงการนิธิศ พรรคประชาชน x มูลนิธิกระจกเงา | ร่วมส่งต่อโอกาสทางเทคโนโลยี</title>
+  <title>โครงการนิธิศ พรรคประชาชน x มูลนิธิกระจกเงา</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet"/>
   <style>
@@ -21,7 +21,6 @@
       color: white;
       padding: 2.5rem 1rem;
       text-align: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     header img {
       max-width: 160px;
@@ -49,31 +48,22 @@
     .qr-section img {
       max-width: 240px;
       border-radius: 12px;
-      margin-bottom: 1rem;
     }
     .button {
-      margin-top: 1rem;
-      display: inline-block;
-      padding: 0.6rem 1.2rem;
       background: #f47e60;
       color: white;
-      text-decoration: none;
+      padding: 0.6rem 1.2rem;
+      border: none;
       border-radius: 8px;
-      font-weight: bold;
-      font-size: 1rem;
-      transition: background 0.3s ease;
       cursor: pointer;
-    }
-    .button:hover {
-      background: #e25545;
+      font-weight: bold;
+      margin-top: 1rem;
     }
     footer {
       background: #f2f2f2;
       text-align: center;
       padding: 1rem;
-      font-size: 0.9rem;
       color: #666;
-      border-top: 1px solid #ddd;
     }
     #dark-toggle {
       position: fixed;
@@ -84,10 +74,10 @@
       color: #fff;
       border: none;
       border-radius: 8px;
-      font-size: 0.9rem;
       cursor: pointer;
       z-index: 1000;
     }
+
     body.dark-mode {
       background: #1e1e1e;
       color: #f5f5f5;
@@ -107,18 +97,6 @@
       background: #fcae91;
       color: #000;
     }
-    .countdown-box {
-      margin-top: 1.5rem;
-      padding: 1rem;
-      background: #fef4ec;
-      border-radius: 8px;
-      color: #c0392b;
-      font-weight: bold;
-    }
-    body.dark-mode .countdown-box {
-      background: #2c2c2c;
-      color: #f39c12;
-    }
   </style>
 </head>
 <body>
@@ -133,51 +111,54 @@
     <div class="card">
       <h2>📰 ข่าวสารล่าสุด</h2>
       <ul>
-        <li>30 พ.ค. 2025 – จัดโครงการ เสื้อนิธิศพรรคประชาชนเพื่อนำยอดไปบริจาคระยะเวลาโครงการ 1 เดือน</li>
+        <li>30 พ.ค. 2025 – จัดโครงการเสื้อนิธิศพรรคประชาชนเพื่อนำยอดไปบริจาค</li>
       </ul>
     </div>
 
     <div class="card">
-      <h2>📌 เกี่ยวกับโครงการ</h2>
-      <p>โครงการนี้เกิดจากความร่วมมือระหว่างนิธิศ พรรคประชาชน และมูลนิธิกระจกเงา เพื่อส่งต่อคอมพิวเตอร์ อุปกรณ์ แก่ผู้ขาดโอกาสทั่วประเทศ ตลอดระยะเวลา 1 เดือน</p>
-    </div>
-
-    <div class="card" style="background: #fffef7;">
-      <h2 style="color: #f47e60;">🎯 ยอดบริจาคเพื่อเป้าหมาย</h2>
-      <p>เราตั้งเป้าหมายระดมทุนที่ <strong>10,000 บาท</strong> เพื่อบริจาคให้มูลนิธิกระจกเงา</p>
-      <div style="margin: 1rem 0;">
-        <div style="background: #eee; border-radius: 12px; overflow: hidden; height: 24px;">
-          <div id="donation-progress" style="background: #f47e60; height: 100%; width: 42%; transition: width 0.5s;"></div>
-        </div>
-        <p style="text-align: right; margin-top: 0.3rem;">
-          <span id="donation-amount">600</span> / 10,000 บาท
-        </p>
+      <h2>🤝 พันธมิตรของเรา</h2>
+      <div class="partners">
+        <img src="mirror_foundation_logo.png" alt="มูลนิธิกระจกเงา">
+        <img src="people_party_logo.png" alt="พรรคประชาชน">
       </div>
     </div>
 
     <div class="card">
-      <h2 style="color: #f47e60;">👕 โครงการเสื้อเพื่อการกุศล</h2>
-      <p>รายได้จากการจำหน่ายเสื้อรุ่นพิเศษนี้ จะถูกนำไปสนับสนุนกิจกรรมของ <strong>มูลนิธิกระจกเงา</strong> เพื่อช่วยเหลือผู้ขาดโอกาสทางเทคโนโลยี เช่น การมอบคอมพิวเตอร์ให้โรงเรียนในพื้นที่ห่างไกล</p>
-      <p>ร่วมเป็นส่วนหนึ่งของการเปลี่ยนแปลงนี้ได้ง่าย ๆ ด้วยการซื้อเสื้อ หรือบริจาคโดยตรงผ่าน QR ด้านล่าง</p>
-      <div style="background: #fdf2ed; border-radius: 10px; padding: 1rem 1.25rem; margin: 1rem 0;">
-        <strong>💸 ยอดสั่งซื้อเสื้อรวมทั้งหมด:</strong>
-        <span style="font-size: 1.15rem; color: #f47e60; font-weight: bold;">2,439 บาท</span>
-      </div>
-      <a href="https://www.facebook.com/share/p/1AiHLjChB3/" target="_blank"
-         class="button" style="background: #28a745;">🛍️ สั่งซื้อเสื้อผ่านเพจ Facebook</a>
+      <h2>👕 โครงการเสื้อเพื่อการกุศล</h2>
+      <p>รายได้จากการจำหน่ายเสื้อจะนำไปช่วยเหลือผู้ขาดโอกาสทางเทคโนโลยี</p>
+      <p>ยอดสั่งซื้อรวม: <strong>2,439 บาท</strong></p>
+      <p id="countdown" style="color: #c0392b;"></p>
     </div>
 
-    <div class="countdown-box">
-      ⏳ ร่วมโครงการได้ถึง: 07 มิ.ย. 2025 <br/>
-      เหลือเวลา: <span id="time-left">...</span>
+    <div class="card qr-section" style="text-align: center;">
+      <h2>🎁 สนับสนุนโครงการผ่านการบริจาค</h2>
+      <img src="promptpay_new.jpg" alt="QR พร้อมเพย์">
+      <p><strong>บัญชี:</strong> นิธิศ บุญฤทธิ์</p>
+      <p><strong>เลขพร้อมเพย์:</strong> <span id="account-number">0982279327</span></p>
+      <button class="button" onclick="copyAccount()">📋 คัดลอกเลขพร้อมเพย์</button>
+    </div>
+
+    <div class="card">
+      <h2>📞 ติดต่อทีมงาน</h2>
+      <ul>
+        <li>อีเมล: <a href="mailto:nitit.boonyalit@gmail.com">nitit.boonyalit@gmail.com</a></li>
+        <li>โทร: <a href="tel:0982279327">0982279327</a></li>
+        <li>Facebook: <a href="https://www.facebook.com/mirrorf" target="_blank">ติดต่อเพจ</a></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>👤 ผู้จัดโครงการ</h2>
+      <p>นาย นิธิศ บุญฤทธิ์<br>พรรคประชาชน ปราจีนบุรี</p>
     </div>
   </div>
 
   <footer>
-    © 2025 โครงการนิธิศ พรรคประชาชน x มูลนิธิกระจกเงา | ขับเคลื่อนโดยผู้มีจิตอาสา
+    © 2025 โครงการนิธิศ พรรคประชาชน x มูลนิธิกระจกเงา
   </footer>
 
   <script>
+    // Dark Mode toggle
     const toggleDark = document.getElementById("dark-toggle");
     function applyDarkMode(state) {
       document.body.classList.toggle("dark-mode", state);
@@ -188,31 +169,31 @@
       const isDark = !document.body.classList.contains("dark-mode");
       applyDarkMode(isDark);
     });
-    const savedDark = localStorage.getItem("dark-mode") === "true";
-    applyDarkMode(savedDark);
+    applyDarkMode(localStorage.getItem("dark-mode") === "true");
 
+    // Countdown
     const deadline = new Date("2025-06-07T23:59:59").getTime();
-    const timer = setInterval(function () {
+    const countdownEl = document.getElementById("countdown");
+    const timer = setInterval(() => {
       const now = new Date().getTime();
-      const distance = deadline - now;
-      if (distance <= 0) {
+      const dist = deadline - now;
+      if (dist <= 0) {
         clearInterval(timer);
-        document.getElementById("time-left").innerHTML = "สิ้นสุดแล้ว";
+        countdownEl.textContent = "⏳ สิ้นสุดโครงการแล้ว";
         return;
       }
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      document.getElementById("time-left").innerHTML =
-        days + " วัน " + hours + " ชม. " + minutes + " นาที " + seconds + " วินาที";
+      const d = Math.floor(dist / (1000 * 60 * 60 * 24));
+      const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((dist % (1000 * 60)) / 1000);
+      countdownEl.textContent = `⏳ เหลือเวลา: ${d} วัน ${h} ชม. ${m} นาที ${s} วินาที`;
     }, 1000);
 
-    const current = 600;
-    const goal = 10000;
-    const percent = Math.min((current / goal) * 100, 100);
-    document.getElementById("donation-progress").style.width = percent + "%";
-    document.getElementById("donation-amount").innerText = current.toLocaleString();
+    function copyAccount() {
+      const text = document.getElementById("account-number").textContent;
+      navigator.clipboard.writeText(text);
+      alert("คัดลอกเลขพร้อมเพย์แล้ว: " + text);
+    }
   </script>
 </body>
 </html>
