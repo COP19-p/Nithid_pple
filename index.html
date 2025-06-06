@@ -324,96 +324,99 @@
     </div>
   </div>
   <style>
-    .transparency-ui {
-      max-width: 960px;
-      margin: 0 auto;
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-      padding: 3rem 2rem;
-      animation: fadeInUp 0.8s ease-out;
-    }
-    .transparency-header h2 {
-      font-size: 2rem;
-      color: #f85c50;
-      margin-bottom: 0.5rem;
-    }
-    .transparency-header p {
-      font-size: 1.1rem;
-      color: #555;
-    }
-    .transparency-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 2rem;
-      margin-top: 2.5rem;
-    }
-    .transparency-card {
-      background: #fafafa;
-      border-radius: 16px;
-      padding: 1.5rem;
-      text-align: center;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.03);
-      transition: transform 0.3s;
-    }
-    .transparency-card:hover {
-      transform: translateY(-6px);
-    }
-    .icon-box {
-      font-size: 2rem;
-      width: 60px;
-      height: 60px;
-      margin: 0 auto 1rem;
-      background: linear-gradient(135deg, #f47e60, #f85c50);
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      color: white;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .icon-box.green {
-      background: linear-gradient(135deg, #28a745, #43d17e);
-    }
-    .transparency-card h3 {
-      font-size: 1.2rem;
-      margin: 0.5rem 0;
-      color: #333;
-    }
-    .transparency-card p {
-      font-size: 0.95rem;
-      color: #666;
-    }
-    .cta-section {
-      margin-top: 3rem;
-      text-align: center;
-    }
-    .cta-button {
-      background: linear-gradient(135deg, #28a745, #43d17e);
-      color: white;
-      padding: 0.9rem 2rem;
-      font-size: 1rem;
-      font-weight: bold;
-      border-radius: 14px;
-      text-decoration: none;
-      box-shadow: 0 8px 16px rgba(40, 167, 69, 0.3);
-      transition: transform 0.3s;
-    }
-    .cta-button:hover {
-      transform: scale(1.05);
-    }
-    .contact-note {
-      margin-top: 1.5rem;
-      font-size: 0.9rem;
-      color: #555;
-    }
-    .contact-note a {
-      color: #f47e60;
-      text-decoration: underline;
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+ .transparency-ui {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  padding: 2.5rem 1.5rem;
+  animation: fadeInUp 0.8s ease-out;
+}
+.transparency-header h2 {
+  font-size: 2rem;
+  color: #f85c50;
+  margin-bottom: 0.5rem;
+}
+.transparency-header p {
+  font-size: 1.1rem;
+  color: #555;
+}
+.transparency-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem; /* ลดช่องว่าง */
+  margin-top: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.transparency-card {
+  background: #fafafa;
+  border-radius: 16px;
+  padding: 1.2rem;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.03);
+  transition: transform 0.3s;
+}
+.transparency-card:hover {
+  transform: translateY(-6px);
+}
+.icon-box {
+  font-size: 2rem;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1rem;
+  background: linear-gradient(135deg, #f47e60, #f85c50);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.icon-box.green {
+  background: linear-gradient(135deg, #28a745, #43d17e);
+}
+.transparency-card h3 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+  color: #333;
+}
+.transparency-card p {
+  font-size: 0.95rem;
+  color: #666;
+}
+.cta-section {
+  margin-top: 2.5rem;
+  text-align: center;
+}
+.cta-button {
+  background: linear-gradient(135deg, #28a745, #43d17e);
+  color: white;
+  padding: 0.9rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 14px;
+  text-decoration: none;
+  box-shadow: 0 8px 16px rgba(40, 167, 69, 0.3);
+  transition: transform 0.3s;
+}
+.cta-button:hover {
+  transform: scale(1.05);
+}
+.contact-note {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+.contact-note a {
+  color: #f47e60;
+  text-decoration: underline;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
   </style>
 <div class="section" style="text-align: center;">
 <div class="card">
