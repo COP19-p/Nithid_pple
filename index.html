@@ -289,43 +289,44 @@
     document.getElementById("donation-amount").textContent = current;
   })();
 </script>
-    <div class="section">
-    <div class="transparency-ui">
-      <div class="transparency-header">
-        <h2>🔍 ความโปร่งใสหลังจบกิจกรรม</h2>
-        <p>เรายึดหลัก “เปิดเผย โปร่งใส ตรวจสอบได้” ทุกขั้นตอนบริจาค</p>
+<div class="section">
+  <div class="transparency-ui">
+    <div class="transparency-header">
+      <h2>🔍 ความโปร่งใสหลังจบกิจกรรม</h2>
+      <p>เรายึดหลัก “เปิดเผย โปร่งใส ตรวจสอบได้” ทุกขั้นตอนบริจาค</p>
+    </div>
+    <div class="transparency-cards">
+      <div class="transparency-card">
+        <div class="icon-box">📅</div>
+        <h3>วันที่สิ้นสุด</h3>
+        <p>กิจกรรมจะสิ้นสุดวันที่ <strong>30 มิ.ย. 2025</strong> และเริ่มกระบวนการสรุปยอดทันที</p>
       </div>
-      <div class="transparency-cards">
-        <div class="transparency-card">
-          <div class="icon-box">📅</div>
-          <h3>วันที่สิ้นสุด</h3>
-          <p>กิจกรรมจะสิ้นสุดวันที่ <strong>30 มิ.ย. 2025</strong> และเริ่มกระบวนการสรุปยอดทันที</p>
-        </div>
-        <div class="transparency-card">
-          <div class="icon-box green">💸</div>
-          <h3>สรุปยอดบริจาค</h3>
-          <p>สรุปยอดรวมจากทุกช่องทาง ทั้งเสื้อ พร้อมเพย์ และกิจกรรมออฟไลน์</p>
-        </div>
-        <div class="transparency-card">
-          <div class="icon-box">📄</div>
-          <h3>รายงาน+สลิป</h3>
-          <p>เผยแพร่เอกสารจริง และภาพสลิปการโอนเข้าบัญชี <strong>มูลนิธิกระจกเงา</strong></p>
-        </div>
+      <div class="transparency-card">
+        <div class="icon-box green">💸</div>
+        <h3>สรุปยอดบริจาค</h3>
+        <p>สรุปยอดรวมจากทุกช่องทาง ทั้งเสื้อ พร้อมเพย์ และกิจกรรมออฟไลน์</p>
       </div>
-      <div class="cta-section">
-        <a href="https://docs.google.com/spreadsheets/d/..." target="_blank" class="cta-button">
-          📄 เปิดรายงานการเงิน (Google Sheet)
-        </a>
-        <p class="contact-note">
-          มีคำถาม? ติดต่อ <a href="mailto:nitit.boonyalit@gmail.com">ทีมงานโครงการ</a> หรือ  
-          <a href="https://www.facebook.com/mirrorf" target="_blank">เพจมูลนิธิกระจกเงา</a>
-        </p>
+      <div class="transparency-card">
+        <div class="icon-box">📄</div>
+        <h3>รายงาน+สลิป</h3>
+        <p>เผยแพร่เอกสารจริง และภาพสลิปการโอนเข้าบัญชี <strong>มูลนิธิกระจกเงา</strong></p>
       </div>
     </div>
+    <div class="cta-section">
+      <a href="https://docs.google.com/spreadsheets/d/..." target="_blank" class="cta-button">
+        📄 เปิดรายงานการเงิน (Google Sheet)
+      </a>
+      <p class="contact-note">
+        มีคำถาม? ติดต่อ <a href="mailto:nitit.boonyalit@gmail.com">ทีมงานโครงการ</a> หรือ  
+        <a href="https://www.facebook.com/mirrorf" target="_blank">เพจมูลนิธิกระจกเงา</a>
+      </p>
+    </div>
   </div>
-  <style>
- .transparency-ui {
-  max-width: 800px;
+</div>
+
+<style>
+.transparency-ui {
+  max-width: 700px;
   margin: 0 auto;
   background: #fff;
   border-radius: 20px;
@@ -344,10 +345,10 @@
 }
 .transparency-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.2rem; /* ลดช่องว่าง */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
   margin-top: 2rem;
-  max-width: 800px;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -358,6 +359,9 @@
   text-align: center;
   box-shadow: 0 6px 12px rgba(0,0,0,0.03);
   transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .transparency-card:hover {
   transform: translateY(-6px);
@@ -417,7 +421,8 @@
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
-  </style>
+</style>
+
 <div class="section" style="text-align: center;">
 <div class="card">
 <h2>📱 ดาวน์โหลดแอปพลิเคชัน</h2>
