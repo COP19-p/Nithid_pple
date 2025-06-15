@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>โครงการนิธิศ พรรคประชาชน x มูลนิธิกระจกเงา</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon"/>
-   <!-- SEO Meta Tags -->
+  <!-- SEO Meta Tags -->
   <meta name="description" content="โครงการนิธิศ พรรคประชาชน x มูลนิธิกระจกเงา รวมพลังบริจาคคอมพิวเตอร์และอุปกรณ์ให้ผู้ขาดโอกาสทั่วประเทศ กิจกรรมเสื้อการกุศล พร้อมเพย์ และช่องทางสนับสนุนอื่น ๆ">
   <meta name="keywords" content="นิธิศ, มูลนิธิกระจกเงา, พรรคประชาชน, กิจกรรมการกุศล, รับบริจาค, คอมพิวเตอร์, เสื้อการกุศล, พร้อมเพย์, ปราจีนบุรี, กลุ่มอาสา, นิธิศ บุญฤทธิ์">
   <meta name="robots" content="index, follow">
@@ -22,10 +22,10 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="โครงการนิธิศ พรรคประชาชน x มูลนิธิกระจกเงา | กิจกรรมบริจาคคอมพิวเตอร์-เสื้อการกุศล">
-  <meta name="twitter:description" content="บริจาคคอมพิวเตอร์ เสื้อการกุศล นิธิศ x มูลนิธิกระจกเงา เพื่อส่งต่อโอกาสทางเทคโนโลยีให้ผู้ขาดโอกาส">More actions
+  <meta name="twitter:description" content="บริจาคคอมพิวเตอร์ เสื้อการกุศล นิธิศ x มูลนิธิกระจกเงา เพื่อส่งต่อโอกาสทางเทคโนโลยีให้ผู้ขาดโอกาส">
   <meta name="twitter:image" content="https://cop19-p.github.io/Nithidpplexthemirrorf/main_logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&amp;display=swap" rel="stylesheet"/>
- <style>
+  <style>
 :root {
   --orange: #ff8826;
   --yellow: #ffe38b;
@@ -102,13 +102,17 @@ header.main-header {
   min-height: 126px;
 }
 header img.logo {
-  width: 82px;
+  width: 74px;
   margin-bottom: .7rem;
-  border-radius: 19px;
-  box-shadow: 0 4px 20px #fff6, 0 1.5px 8px #ffe38b1e;
-  background: #fff;
+  border-radius: 0px;
+  box-shadow: none !important;
+  background: none !important;
+  border: none !important;
   z-index: 3;
   position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 header h1 {
   font-size: 2.08rem;
@@ -482,8 +486,25 @@ body.dark-mode .card.project-owner .owner-name,
 body.dark-mode .card.project-owner .owner-detail {
   color: #fffde5 !important;
 }
+/* responsive: แก้ไข header, logo, h1, p */
 @media (max-width: 700px) {
-  header.main-header {padding:1.15rem .4rem .8rem;}
+  header.main-header {
+    padding:1rem .2rem .7rem;
+    min-height: 90px;
+    margin-bottom: 1.2rem;
+  }
+  header img.logo {
+    width: 54px;
+    margin-bottom: .5rem;
+    margin-top: .3rem;
+  }
+  header h1 {
+    font-size: 1.23rem;
+    margin: 0 0 .23rem 0;
+  }
+  header p {
+    font-size: .98rem;
+  }
   .section { padding: 0 .5rem 2.0rem; gap: 1.0rem;}
   .card, .section { max-width: 98vw; }
   .transparency-cards { flex-direction: column; gap: .7rem;}
@@ -653,9 +674,7 @@ body.dark-mode .card.project-owner .owner-detail {
       }else{
         toggleIco.textContent = '🌙';
         darkToggle.lastChild.textContent = 'โหมดกลางคืน';
-        
       }
-      
     });
     // Progress bar animate
     window.addEventListener('DOMContentLoaded', function() {
