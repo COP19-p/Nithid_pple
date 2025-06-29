@@ -651,7 +651,6 @@ body.dark-mode .card.project-owner .owner-detail {
       <a class="button" href="https://www.facebook.com/share/p/1AiHLjChB3/" target="_blank">
         🛍️ สั่งซื้อเสื้อผ่านเพจ Facebook
       </a>
-      <p>ยอดสั่งซื้อรวม: <strong>2,439 บาท</strong></p>
       <p id="countdown" class="countdown-text"></p>
     </div>
     <!-- บริจาคและ Progress -->
@@ -795,7 +794,7 @@ body.dark-mode .card.project-owner .owner-detail {
   }, 1000);
 
   // Countdown (ยอดบริจาคเพื่อเป้าหมาย)
-  const donationDeadline = new Date("2025-06-30T23:59:59").getTime();
+  const donationDeadline = new Date("2025-06-29T23:59:59").getTime();
   const donationCountdownEl = document.getElementById("donation-countdown");
   const donationTimer = setInterval(() => {
     const now = new Date().getTime();
