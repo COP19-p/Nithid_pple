@@ -80,6 +80,10 @@
         .toast-animation {
             animation: fadeInOut 3s ease-in-out forwards;
         }
+        /* Admin Modal Styles */
+        .modal-overlay {
+            transition: opacity 0.3s ease;
+        }
     </style>
 </head>
 <body class="transition-colors duration-300">
@@ -107,7 +111,7 @@
     <main class="container mx-auto px-4 py-8 md:py-12">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-            <!-- เกี่ยวกับโครงการ & ข่าวสาร (รวมกัน) -->
+            <!-- เกี่ยวกับโครงการ & ข่าวสาร -->
             <div class="md:col-span-2 lg:col-span-3 p-6 bg-white dark-card rounded-2xl shadow-lg border border-gray-100 transition-all duration-300">
                 <h2 class="text-2xl font-bold text-orange-500 dark-heading mb-4">📌 เกี่ยวกับโครงการและกำหนดการ</h2>
                 <p class="text-gray-600 dark-text mb-4">โครงการนี้เกิดจากความร่วมมือระหว่าง <strong>นิธิศ พรรคประชาชน</strong> และ <strong>มูลนิธิกระจกเงา</strong> เพื่อส่งต่อคอมพิวเตอร์และอุปกรณ์ไอทีที่ได้รับบริจาคแก่ผู้ขาดโอกาสทั่วประเทศ โดยมีเป้าหมายเพื่อลดความเหลื่อมล้ำทางการศึกษาและสร้างโอกาสใหม่ๆ ผ่านเทคโนโลยี</p>
@@ -125,12 +129,12 @@
                     <div id="donation-progress" class="bg-gradient-to-r from-yellow-400 to-orange-500 h-4 rounded-full transition-all duration-1000 ease-out" style="width: 0%;"></div>
                 </div>
                 <div class="flex justify-between items-center">
-                    <p class="font-bold text-orange-500 dark-heading"><span id="donation-amount">600</span> / 10,000 บาท</p>
+                    <p class="font-bold text-orange-500 dark-heading"><span id="donation-amount">0</span> / 10,000 บาท</p>
                     <p id="donation-countdown" class="text-sm text-gray-500 dark-text"></p>
                 </div>
             </div>
-
-            <!-- เสื้อการกุศล -->
+            
+             <!-- เสื้อการกุศล -->
             <div class="p-6 bg-white dark-card rounded-2xl shadow-lg border border-gray-100 flex flex-col justify-between transition-all duration-300">
                 <div>
                     <h2 class="text-2xl font-bold text-orange-500 dark-heading mb-2">👕 โครงการเสื้อเพื่อการกุศล</h2>
@@ -153,14 +157,27 @@
                 </button>
             </div>
 
+            <!-- NEW: Newsletter Subscription -->
+            <div class="md:col-span-2 p-6 bg-white dark-card rounded-2xl shadow-lg border border-gray-100 transition-all duration-300">
+                <h2 class="text-2xl font-bold text-orange-500 dark-heading mb-4">💌 สมัครรับข่าวสาร</h2>
+                <p class="text-gray-600 dark-text mb-4">ติดตามความคืบหน้าและกิจกรรมใหม่ๆ ของเราได้โดยตรงผ่านอีเมลของคุณ</p>
+                <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3">
+                    <input type="email" id="newsletter-email" placeholder="กรอกอีเมลของคุณที่นี่" required class="flex-grow p-3 rounded-lg border border-gray-300 dark:bg-gray-600 dark:border-gray-500 dark-text focus:ring-2 focus:ring-orange-400 focus:outline-none transition-all duration-300">
+                    <button type="submit" class="btn-gradient dark-btn text-white font-bold py-3 px-6 rounded-lg shadow-md hover:opacity-90 transform hover:-translate-y-1 transition-all duration-300">
+                        สมัครสมาชิก
+                    </button>
+                </form>
+                 <p id="newsletter-feedback" class="text-sm mt-2 text-center sm:text-left"></p>
+            </div>
+
             <!-- ความโปร่งใส -->
-            <div class="md:col-span-2 lg:col-span-2 p-6 bg-white dark-card rounded-2xl shadow-lg border border-gray-100 transition-all duration-300">
+            <div class="p-6 bg-white dark-card rounded-2xl shadow-lg border border-gray-100 transition-all duration-300">
                  <h2 class="text-2xl font-bold text-orange-500 dark-heading mb-4">🔍 ความโปร่งใส</h2>
                  <p class="text-gray-600 dark-text mb-6">เรายึดหลัก “เปิดเผย โปร่งใส ตรวจสอบได้” ทุกขั้นตอนบริจาค หลังจบกิจกรรมจะมีการสรุปยอดและแสดงหลักฐานการส่งมอบทั้งหมด</p>
                  <div class="text-center">
-                    <a href="https://docs.google.com/spreadsheets/d/1JKdgtfxGAi0VkAueTiL56FT56K5eCNRNZxp_qBIYdos/edit?usp=sharing" target="_blank" class="inline-block btn-gradient dark-btn text-white font-bold py-3 px-6 rounded-lg shadow-md hover:opacity-90 transform hover:-translate-y-1 transition-all duration-300">
-                        📄 เปิดรายงานการเงิน (Google Sheet)
-                    </a>
+                     <a href="https://docs.google.com/spreadsheets/d/1JKdgtfxGAi0VkAueTiL56FT56K5eCNRNZxp_qBIYdos/edit?usp=sharing" target="_blank" class="inline-block btn-gradient dark-btn text-white font-bold py-3 px-6 rounded-lg shadow-md hover:opacity-90 transform hover:-translate-y-1 transition-all duration-300">
+                         📄 เปิดรายงานการเงิน (Google Sheet)
+                     </a>
                  </div>
             </div>
 
@@ -183,122 +200,329 @@
     <!-- Footer -->
     <footer class="bg-gray-800 text-gray-300 text-center p-6 mt-12">
         <p>© 2025 โครงการนิธิศ พรรคประชาชน x มูลนิธิกระจกเงา</p>
+        <!-- Admin Login Trigger -->
+        <button id="admin-login-trigger" class="mt-2 text-xs text-gray-500 hover:text-gray-400">Admin</button>
     </footer>
 
     <!-- Notification Toast -->
     <div id="toast-notification" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-green-500 text-white py-2 px-6 rounded-full shadow-lg opacity-0">
         คัดลอกเลขพร้อมเพย์แล้ว!
     </div>
+    
+    <!-- Admin Login Modal -->
+    <div id="admin-login-modal" class="fixed inset-0 z-50 items-center justify-center bg-black bg-opacity-50 modal-overlay hidden">
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-2xl w-full max-w-sm m-4">
+            <h2 class="text-2xl font-bold text-center text-orange-500 dark:text-yellow-400 mb-6">สำหรับผู้ดูแลระบบ</h2>
+            <form id="admin-login-form">
+                <div class="mb-4">
+                    <label for="admin-email" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">อีเมล</label>
+                    <input type="email" id="admin-email" required class="w-full p-3 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-orange-400 focus:outline-none">
+                </div>
+                <div class="mb-6">
+                    <label for="admin-password" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">รหัสผ่าน</label>
+                    <input type="password" id="admin-password" required class="w-full p-3 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-orange-400 focus:outline-none">
+                </div>
+                <button type="submit" class="w-full btn-gradient dark:bg-yellow-400 dark:text-gray-900 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:opacity-90 transition-all">เข้าสู่ระบบ</button>
+                 <p id="admin-login-error" class="text-red-500 text-sm text-center mt-3"></p>
+            </form>
+            <button id="close-admin-modal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">&times;</button>
+        </div>
+    </div>
+    
+    <!-- Admin Panel (hidden by default) -->
+    <div id="admin-panel" class="hidden fixed inset-0 z-40 bg-gray-100 dark:bg-gray-900 p-4 sm:p-8 overflow-y-auto">
+        <div class="container mx-auto">
+            <div class="flex justify-between items-center mb-8">
+                 <h1 class="text-3xl font-bold text-orange-500 dark:text-yellow-400">แผงควบคุมแอดมิน</h1>
+                 <button id="admin-logout-btn" class="bg-red-500 text-white font-bold py-2 px-5 rounded-lg shadow-md hover:bg-red-600 transition-all">ออกจากระบบ</button>
+            </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // --- Dark Mode Toggle ---
-            const darkToggle = document.getElementById('dark-toggle');
-            const sunIcon = document.getElementById('toggle-icon-sun');
-            const moonIcon = document.getElementById('toggle-icon-moon');
-            const htmlEl = document.documentElement;
+            <!-- Update Donation Section -->
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg mb-8">
+                <h2 class="text-xl font-bold mb-4 dark:text-white">อัปเดตยอดบริจาค</h2>
+                <form id="update-donation-form" class="flex items-center gap-4">
+                    <input type="number" id="new-donation-amount" placeholder="กรอกยอดบริจาคล่าสุด" required class="flex-grow p-3 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    <button type="submit" class="btn-gradient dark:bg-yellow-400 dark:text-gray-900 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:opacity-90">อัปเดต</button>
+                </form>
+                 <p id="donation-update-feedback" class="text-sm mt-2"></p>
+            </div>
 
-            // Check for saved theme in localStorage and apply it
+            <!-- Newsletter Subscribers Section -->
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+                <h2 class="text-xl font-bold mb-4 dark:text-white">รายชื่อผู้สมัครรับข่าวสาร (<span id="subscriber-count">0</span>)</h2>
+                <div id="subscriber-list" class="max-h-96 overflow-y-auto space-y-2 pr-2">
+                    <!-- Subscriber emails will be injected here by JavaScript -->
+                    <p class="text-gray-500 dark:text-gray-400">กำลังโหลดข้อมูล...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, addDoc, collection, onSnapshot, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- IMPORTANT: CONFIGURE FIREBASE HERE ---
+        // Replace with your actual Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDJtLC1ORoD2LJCfIJ3GCGUkn5L0_P3zxw",
+            authDomain: "nithidpple.firebaseapp.com",
+            projectId: "nithidpple",
+            storageBucket: "nithidpple.firebasestorage.app",
+            messagingSenderId: "274483203775",
+            appId: "1:274483203775:web:856ed1b3669808fe71400a"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // --- DOM Elements ---
+        const darkToggle = document.getElementById('dark-toggle');
+        const sunIcon = document.getElementById('toggle-icon-sun');
+        const moonIcon = document.getElementById('toggle-icon-moon');
+        const htmlEl = document.documentElement;
+        const toast = document.getElementById('toast-notification');
+        const accountNumberEl = document.getElementById('account-number');
+        
+        // Donation elements
+        const donationAmountEl = document.getElementById('donation-amount');
+        const progressBar = document.getElementById('donation-progress');
+        const goal = 10000;
+
+        // Newsletter elements
+        const newsletterForm = document.getElementById('newsletter-form');
+        const newsletterEmailEl = document.getElementById('newsletter-email');
+        const newsletterFeedbackEl = document.getElementById('newsletter-feedback');
+
+        // Admin Modal elements
+        const adminLoginTrigger = document.getElementById('admin-login-trigger');
+        const adminLoginModal = document.getElementById('admin-login-modal');
+        const closeAdminModalBtn = document.getElementById('close-admin-modal');
+        const adminLoginForm = document.getElementById('admin-login-form');
+        const adminLoginErrorEl = document.getElementById('admin-login-error');
+
+        // Admin Panel elements
+        const adminPanel = document.getElementById('admin-panel');
+        const adminLogoutBtn = document.getElementById('admin-logout-btn');
+        const updateDonationForm = document.getElementById('update-donation-form');
+        const newDonationAmountEl = document.getElementById('new-donation-amount');
+        const donationUpdateFeedbackEl = document.getElementById('donation-update-feedback');
+        const subscriberListEl = document.getElementById('subscriber-list');
+        const subscriberCountEl = document.getElementById('subscriber-count');
+
+        // --- Dark Mode ---
+        function setupDarkMode() {
             if (localStorage.getItem('theme') === 'dark') {
                 htmlEl.classList.add('dark');
                 sunIcon.classList.add('hidden');
                 moonIcon.classList.remove('hidden');
             }
-
             darkToggle.addEventListener('click', () => {
                 htmlEl.classList.toggle('dark');
                 sunIcon.classList.toggle('hidden');
                 moonIcon.classList.toggle('hidden');
-                
-                // Save theme preference
-                if (htmlEl.classList.contains('dark')) {
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    localStorage.removeItem('theme');
-                }
+                localStorage.setItem('theme', htmlEl.classList.contains('dark') ? 'dark' : 'light');
             });
+        }
 
-            // --- Progress Bar Animation ---
-            const donationAmount = parseInt(document.getElementById('donation-amount')?.innerText.replace(/,/g, '') || '0');
-            const goal = 10000;
-            const percent = Math.min(100, (donationAmount / goal) * 100);
-            const progressBar = document.getElementById('donation-progress');
-            
-            // Set width with a slight delay for a better visual effect
-            setTimeout(() => {
-                if (progressBar) {
-                    progressBar.style.width = percent + '%';
+        // --- Countdown Timers ---
+        function setupCountdown(elementId, deadlineString) {
+            const countdownEl = document.getElementById(elementId);
+            if (!countdownEl) return;
+            const deadline = new Date(deadlineString).getTime();
+            const timer = setInterval(() => {
+                const now = new Date().getTime();
+                const dist = deadline - now;
+                if (dist <= 0) {
+                    clearInterval(timer);
+                    countdownEl.innerHTML = `กิจกรรมสิ้นสุดแล้ว`;
+                    countdownEl.classList.add('text-red-500', 'font-bold');
+                    return;
                 }
-            }, 300);
+                const d = Math.floor(dist / (1000 * 60 * 60 * 24));
+                const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((dist % (1000 * 60)) / 1000);
+                countdownEl.textContent = `⏳ เหลือเวลา: ${d} วัน ${h} ชม. ${m} นาที ${s} วินาที`;
+            }, 1000);
+        }
 
-            // --- Countdown Timers ---
-            function setupCountdown(elementId, deadlineString) {
-                const countdownEl = document.getElementById(elementId);
-                if (!countdownEl) return;
-
-                const deadline = new Date(deadlineString).getTime();
-
-                const timer = setInterval(() => {
-                    const now = new Date().getTime();
-                    const dist = deadline - now;
-
-                    if (dist <= 0) {
-                        clearInterval(timer);
-                        countdownEl.innerHTML = `กิจกรรมสิ้นสุดแล้ว`;
-                        countdownEl.classList.add('text-red-500', 'font-bold');
-                        return;
-                    }
-
-                    const d = Math.floor(dist / (1000 * 60 * 60 * 24));
-                    const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-                    const s = Math.floor((dist % (1000 * 60)) / 1000);
-                    
-                    countdownEl.textContent = `⏳ เหลือเวลา: ${d} วัน ${h} ชม. ${m} นาที ${s} วินาที`;
-                }, 1000);
-            }
-
-            // Initialize countdowns
-            setupCountdown('countdown', "2025-06-07T23:59:59");
-            setupCountdown('donation-countdown', "2025-06-29T23:59:59");
-        });
-
-        // --- Copy Account Number Function ---
-        function copyAccount() {
-            const accountNumber = document.getElementById('account-number').innerText;
-            // Use the Clipboard API for modern browsers
-            navigator.clipboard.writeText(accountNumber).then(() => {
-                // Show custom notification
-                const toast = document.getElementById('toast-notification');
+        // --- Copy Account Number ---
+        window.copyAccount = function() {
+            navigator.clipboard.writeText(accountNumberEl.innerText).then(() => {
                 toast.classList.add('toast-animation');
-                // Remove animation class after it finishes to allow re-triggering
-                setTimeout(() => {
-                    toast.classList.remove('toast-animation');
-                }, 3000);
+                setTimeout(() => toast.classList.remove('toast-animation'), 3000);
             }).catch(err => {
-                console.error('ไม่สามารถคัดลอกได้: ', err);
-                // Fallback for older browsers (less reliable)
+                console.error('Copy failed:', err);
+                alert('การคัดลอกล้มเหลว โปรดคัดลอกด้วยตนเอง');
+            });
+        }
+
+        // --- Firebase: Real-time Donation Updates ---
+        function listenToDonations() {
+            const donationDocRef = doc(db, "project_data", "main");
+            onSnapshot(donationDocRef, (doc) => {
+                const data = doc.data();
+                const currentAmount = data ? data.donationAmount : 0;
+                
+                donationAmountEl.innerText = currentAmount.toLocaleString();
+                const percent = Math.min(100, (currentAmount / goal) * 100);
+                progressBar.style.width = percent + '%';
+            }, (error) => {
+                console.error("Error listening to donation data:", error);
+                donationAmountEl.innerText = "N/A";
+            });
+        }
+
+        // --- Firebase: Newsletter Subscription ---
+        function handleNewsletterSubscription() {
+            newsletterForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = newsletterEmailEl.value;
+                newsletterFeedbackEl.textContent = 'กำลังส่งข้อมูล...';
+                newsletterFeedbackEl.className = 'text-sm mt-2 text-gray-500';
+
                 try {
-                    const textArea = document.createElement("textarea");
-                    textArea.value = accountNumber;
-                    document.body.appendChild(textArea);
-                    textArea.focus();
-                    textArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textArea);
-                    
-                    // Show custom notification
-                    const toast = document.getElementById('toast-notification');
-                    toast.classList.add('toast-animation');
-                    setTimeout(() => {
-                        toast.classList.remove('toast-animation');
-                    }, 3000);
-                } catch (e) {
-                    console.error('Fallback copy failed:', e);
-                    alert('การคัดลอกล้มเหลว โปรดคัดลอกด้วยตนเอง');
+                    await addDoc(collection(db, "subscribers"), {
+                        email: email,
+                        subscribedAt: new Date()
+                    });
+                    newsletterFeedbackEl.textContent = 'ขอบคุณสำหรับการสมัครรับข่าวสาร!';
+                    newsletterFeedbackEl.className = 'text-sm mt-2 text-green-600';
+                    newsletterForm.reset();
+                } catch (error) {
+                    console.error("Error adding subscriber: ", error);
+                    newsletterFeedbackEl.textContent = 'เกิดข้อผิดพลาด โปรดลองอีกครั้ง';
+                    newsletterFeedbackEl.className = 'text-sm mt-2 text-red-500';
+                }
+                 setTimeout(() => newsletterFeedbackEl.textContent = '', 4000);
+            });
+        }
+        
+        // --- Firebase: Admin Authentication ---
+        function handleAuthChanges() {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    // User is signed in
+                    console.log("Admin logged in:", user.email);
+                    adminPanel.classList.remove('hidden');
+                    adminLoginModal.classList.add('hidden');
+                    fetchSubscribers();
+                } else {
+                    // User is signed out
+                    adminPanel.classList.add('hidden');
                 }
             });
         }
+
+        function setupAdminLogin() {
+            adminLoginTrigger.addEventListener('click', () => adminLoginModal.classList.remove('hidden', 'opacity-0'));
+            closeAdminModalBtn.addEventListener('click', () => adminLoginModal.classList.add('hidden', 'opacity-0'));
+            adminLoginModal.addEventListener('click', (e) => {
+                if(e.target === adminLoginModal) {
+                     adminLoginModal.classList.add('hidden', 'opacity-0');
+                }
+            });
+
+            adminLoginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('admin-email').value;
+                const password = document.getElementById('admin-password').value;
+                adminLoginErrorEl.textContent = '';
+
+                signInWithEmailAndPassword(auth, email, password)
+                    .catch((error) => {
+                        console.error("Admin login failed:", error.code, error.message);
+                        adminLoginErrorEl.textContent = 'อีเมลหรือรหัสผ่านไม่ถูกต้อง';
+                    });
+            });
+
+            adminLogoutBtn.addEventListener('click', () => {
+                signOut(auth).catch(error => console.error("Logout failed:", error));
+            });
+        }
+
+        // --- Firebase: Admin Panel Functions ---
+        function setupAdminPanelActions() {
+            updateDonationForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const newAmount = parseInt(newDonationAmountEl.value);
+                if (isNaN(newAmount) || newAmount < 0) {
+                    donationUpdateFeedbackEl.textContent = 'กรุณาใส่ตัวเลขที่ถูกต้อง';
+                    donationUpdateFeedbackEl.className = 'text-sm mt-2 text-red-500';
+                    return;
+                }
+
+                donationUpdateFeedbackEl.textContent = 'กำลังอัปเดต...';
+                donationUpdateFeedbackEl.className = 'text-sm mt-2 text-gray-500';
+
+                try {
+                    const donationDocRef = doc(db, "project_data", "main");
+                    await setDoc(donationDocRef, { donationAmount: newAmount });
+                    donationUpdateFeedbackEl.textContent = 'อัปเดตยอดบริจาคสำเร็จ!';
+                    donationUpdateFeedbackEl.className = 'text-sm mt-2 text-green-600';
+                    updateDonationForm.reset();
+                } catch (error) {
+                    console.error("Error updating donation:", error);
+                    donationUpdateFeedbackEl.textContent = 'อัปเดตล้มเหลว โปรดลองอีกครั้ง';
+                    donationUpdateFeedbackEl.className = 'text-sm mt-2 text-red-500';
+                }
+                setTimeout(() => donationUpdateFeedbackEl.textContent = '', 4000);
+            });
+        }
+
+        async function fetchSubscribers() {
+            subscriberListEl.innerHTML = '<p class="text-gray-500 dark:text-gray-400">กำลังโหลดข้อมูล...</p>';
+            try {
+                const querySnapshot = await getDocs(collection(db, "subscribers"));
+                subscriberCountEl.textContent = querySnapshot.size;
+                if (querySnapshot.empty) {
+                    subscriberListEl.innerHTML = '<p class="text-gray-500 dark:text-gray-400">ยังไม่มีผู้สมัคร</p>';
+                    return;
+                }
+                
+                let html = '';
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    html += `<div class="p-2 bg-gray-100 dark:bg-gray-700 rounded-md text-sm dark:text-gray-300">${data.email}</div>`;
+                });
+                subscriberListEl.innerHTML = html;
+            } catch (error) {
+                console.error("Error fetching subscribers:", error);
+                subscriberListEl.innerHTML = '<p class="text-red-500">ไม่สามารถโหลดข้อมูลได้</p>';
+            }
+        }
+
+
+        // --- Initialize everything on DOMContentLoaded ---
+        document.addEventListener('DOMContentLoaded', function() {
+            // UI setup
+            setupDarkMode();
+            setupCountdown('countdown', "2025-06-07T23:59:59");
+            setupCountdown('donation-countdown', "2025-06-29T23:59:59");
+            
+            // Firebase-dependent features
+            try {
+                listenToDonations();
+                handleNewsletterSubscription();
+                setupAdminLogin();
+                handleAuthChanges();
+                setupAdminPanelActions();
+            } catch(e) {
+                console.error("Firebase initialization failed. Please check your firebaseConfig.", e);
+                // Display error to user if Firebase fails
+                donationAmountEl.innerText = "Error";
+                progressBar.style.width = '100%';
+                progressBar.style.backgroundColor = 'red';
+                newsletterFeedbackEl.textContent = 'ระบบสมัครสมาชิกไม่พร้อมใช้งาน';
+            }
+        });
+
     </script>
 </body>
 </html>
