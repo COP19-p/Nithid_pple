@@ -141,7 +141,7 @@
              <!-- เสื้อการกุศล -->
             <div class="p-6 bg-white dark-card rounded-2xl shadow-lg border border-gray-100 flex flex-col justify-between transition-all duration-300">
                 <div>
-                    <h2 class="text-2xl font-bold text-orange-500 dark-heading mb-2">👕 โครงการเสื้อเพื่อการกุศล</h2>
+                    <h2 class="text-2xl font-bold text-orange-500 dark-heading mb-2">� โครงการเสื้อเพื่อการกุศล</h2>
                     <p class="text-gray-600 dark-text mb-4">รายได้จากการจำหน่ายเสื้อจะนำไปสมทบทุนโครงการทั้งหมด</p>
                     <p id="countdown" class="text-sm text-center font-medium text-gray-500 dark-text mb-4"></p>
                 </div>
@@ -199,7 +199,6 @@
                         <li><svg class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.28C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.84C20.33,8.63 20.33,8.42 20.32,8.21C21.17,7.63 21.88,6.87 22.46,6Z"></path></svg> <a href="https://www.facebook.com/mirrorf" target="_blank" class="hover:underline">Facebook มูลนิธิ</a></li>
                     </ul>
                 </div>
-                <!-- NEW: Admin Login Button -->
                 <div class="mt-6 text-center">
                     <button id="admin-login-trigger" class="w-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-700 dark:text-gray-200 font-bold py-2 px-4 rounded-lg transition-colors duration-300">
                         สำหรับผู้ดูแลระบบ
@@ -273,7 +272,7 @@
         // Import Firebase modules
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, addDoc, collection, onSnapshot, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, addDoc, collection, onSnapshot, getDocs, query, where, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // --- Firebase Configuration ---
         const firebaseConfig = {
@@ -387,6 +386,7 @@
                 handleAdminLogin(auth);
                 handleAuthChanges(auth, db);
                 setupAdminPanelActions(db);
+                setupSubscriberDeletion(db); // NEW: Add listener for delete buttons
 
             } catch(e) {
                 console.error("Firebase initialization failed. Please check your firebaseConfig and API settings.", e);
@@ -416,13 +416,28 @@
             });
         }
 
+        // UPDATED: Function to prevent duplicate subscriptions
         function handleNewsletterSubscription(db) {
             newsletterForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const email = newsletterEmailEl.value;
-                newsletterFeedbackEl.textContent = 'กำลังส่งข้อมูล...';
+                const email = newsletterEmailEl.value.trim().toLowerCase();
+                newsletterFeedbackEl.textContent = 'กำลังตรวจสอบ...';
                 newsletterFeedbackEl.className = 'text-sm mt-2 text-gray-500';
+
+                // Check if email already exists
+                const q = query(collection(db, "subscribers"), where("email", "==", email));
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    newsletterFeedbackEl.textContent = 'อีเมลนี้ได้สมัครรับข่าวสารแล้ว';
+                    newsletterFeedbackEl.className = 'text-sm mt-2 text-yellow-600';
+                    setTimeout(() => newsletterFeedbackEl.textContent = '', 4000);
+                    return;
+                }
+
+                // If not a duplicate, add to database
                 try {
+                    newsletterFeedbackEl.textContent = 'กำลังส่งข้อมูล...';
                     await addDoc(collection(db, "subscribers"), {
                         email: email,
                         subscribedAt: new Date()
@@ -459,7 +474,7 @@
                     console.log("Admin logged in:", user.email);
                     adminPanel.classList.remove('hidden');
                     adminLoginModal.classList.add('hidden');
-                    fetchSubscribers(db);
+                    listenForSubscribers(db); // Use real-time listener
                 } else {
                     adminPanel.classList.add('hidden');
                 }
@@ -495,10 +510,10 @@
             });
         }
 
-        async function fetchSubscribers(db) {
-            subscriberListEl.innerHTML = '<p class="text-gray-500 dark:text-gray-400">กำลังโหลดข้อมูล...</p>';
-            try {
-                const querySnapshot = await getDocs(collection(db, "subscribers"));
+        // UPDATED: Use onSnapshot for real-time updates
+        function listenForSubscribers(db) {
+            const q = query(collection(db, "subscribers"));
+            onSnapshot(q, (querySnapshot) => {
                 subscriberCountEl.textContent = querySnapshot.size;
                 if (querySnapshot.empty) {
                     subscriberListEl.innerHTML = '<p class="text-gray-500 dark:text-gray-400">ยังไม่มีผู้สมัคร</p>';
@@ -507,13 +522,40 @@
                 let html = '';
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    html += `<div class="p-2 bg-gray-100 dark:bg-gray-700 rounded-md text-sm dark:text-gray-300">${data.email}</div>`;
+                    // NEW: Added delete button with document ID
+                    html += `
+                        <div class="flex items-center justify-between p-2 bg-gray-100 dark:bg-gray-700 rounded-md text-sm dark:text-gray-300">
+                            <span>${data.email}</span>
+                            <button data-id="${doc.id}" class="delete-subscriber-btn p-1 hover:bg-red-200 dark:hover:bg-red-800 rounded-full">
+                                <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            </button>
+                        </div>
+                    `;
                 });
                 subscriberListEl.innerHTML = html;
-            } catch (error) {
-                console.error("Error fetching subscribers:", error);
+            }, (error) => {
+                console.error("Error listening for subscribers:", error);
                 subscriberListEl.innerHTML = '<p class="text-red-500">ไม่สามารถโหลดข้อมูลได้</p>';
-            }
+            });
+        }
+
+        // NEW: Function to handle deletion
+        function setupSubscriberDeletion(db) {
+            subscriberListEl.addEventListener('click', async (e) => {
+                const deleteBtn = e.target.closest('.delete-subscriber-btn');
+                if (deleteBtn) {
+                    const docId = deleteBtn.dataset.id;
+                    if (confirm(`คุณต้องการลบผู้สมัครนี้ใช่หรือไม่?`)) {
+                        try {
+                            await deleteDoc(doc(db, "subscribers", docId));
+                            console.log("Subscriber deleted:", docId);
+                        } catch (error) {
+                            console.error("Error deleting subscriber:", error);
+                            alert("เกิดข้อผิดพลาดในการลบข้อมูล");
+                        }
+                    }
+                }
+            });
         }
 
         // --- Initialize everything on DOMContentLoaded ---
