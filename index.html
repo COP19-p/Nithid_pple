@@ -1,824 +1,304 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" class="scroll-smooth">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>โครงการนิธิศ พรรคประชาชน x มูลนิธิกระจกเงา</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon"/>
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="โครงการนิธิศ พรรคประชาชน x มูลนิธิกระจกเงา รวมพลังบริจาคคอมพิวเตอร์และอุปกรณ์ให้ผู้ขาดโอกาสทั่วประเทศ กิจกรรมเสื้อการกุศล พร้อมเพย์ และช่องทางสนับสนุนอื่น ๆ">
-  <meta name="keywords" content="นิธิศ, มูลนิธิกระจกเงา, พรรคประชาชน, กิจกรรมการกุศล, รับบริจาค, คอมพิวเตอร์, เสื้อการกุศล, พร้อมเพย์, ปราจีนบุรี, กลุ่มอาสา, นิธิศ บุญฤทธิ์">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://cop19-p.github.io/Nithidpplexthemirrorf/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โครงการนิธิศ พรรคประชาชน x มูลนิธิกระจกเงา</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Open Graph for Social Media -->
-  <meta property="og:title" content="โครงการนิธิศ พรรคประชาชน x มูลนิธิกระจกเงา | กิจกรรมบริจาคคอมพิวเตอร์-เสื้อการกุศล">
-  <meta property="og:description" content="บริจาคคอมพิวเตอร์ เสื้อการกุศล นิธิศ x มูลนิธิกระจกเงา เพื่อส่งต่อโอกาสทางเทคโนโลยีให้ผู้ขาดโอกาสในปราจีนบุรีและทั่วประเทศ">
-  <meta property="og:url" content="https://cop19-p.github.io/Nithidpplexthemirrorf/">
-  <meta property="og:image" content="https://cop19-p.github.io/Nithidpplexthemirrorf/main_logo.png">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="th_TH">
+    <!-- Google Fonts: Kanit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="โครงการนิธิศ พรรคประชาชน x มูลนิธิกระจกเงา | กิจกรรมบริจาคคอมพิวเตอร์-เสื้อการกุศล">
-  <meta name="twitter:description" content="บริจาคคอมพิวเตอร์ เสื้อการกุศล นิธิศ x มูลนิธิกระจกเงา เพื่อส่งต่อโอกาสทางเทคโนโลยีให้ผู้ขาดโอกาส">
-  <meta name="twitter:image" content="https://cop19-p.github.io/Nithidpplexthemirrorf/main_logo.png">
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&amp;display=swap" rel="stylesheet"/>
-  <style>
-:root {
-  --orange: #ff8826;
-  --yellow: #ffe38b;
-  --orange-grad: linear-gradient(110deg, #ff8826 8%, #ffe38b 100%);
-  --white-grad: linear-gradient(110deg, #fff8ee 30%, #fff 100%);
-  --glass-bg: rgba(255,255,255,0.92);
-  --glass-blur: blur(13px);
-  --radius-xl: 2.2rem;
-  --shadow-strong: 0 18px 50px 0 #ffbf6e2c, 0 2px 8px rgba(0,0,0,0.06);
-  --max-width: 880px;
-}
-*, *:before, *:after { box-sizing: border-box; }
-body {
-  font-family: 'Kanit', sans-serif;
-  background: var(--white-grad);
-  color: #212124;
-  margin: 0;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-/* Animated Bubbles + Stars */
-.particles {
-  pointer-events: none;
-  position: fixed; left:0;top:0;width:100vw;height:100vh;z-index:0;
-  overflow: hidden;
-}
-.particle {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.21;
-  pointer-events: none;
-  animation: float 9s linear infinite;
-  background: radial-gradient(circle at 60% 40%, #fff9 55%, #ffe38bcc 100%);
-}
-.particle.s1 {width:32px;height:32px;left:8vw;top:17vh;animation-delay:0s;}
-.particle.s2 {width:19px;height:19px;left:82vw;top:23vh;animation-delay:2s;}
-.particle.s3 {width:15px;height:15px;left:55vw;top:34vh;animation-delay:1.3s;}
-.particle.s4 {width:37px;height:37px;left:21vw;top:68vh;animation-delay:4.6s;}
-.particle.s5 {width:25px;height:25px;left:73vw;top:76vh;animation-delay:7.1s;}
-@keyframes float {
-  0% { transform: translateY(0) scale(1);}
-  100% { transform: translateY(-48px) scale(1.1);}
-}
-.star {
-  position: absolute;
-  pointer-events:none;
-  width: 13px; height: 13px; opacity:.38;
-  animation: starTwinkle 3.7s infinite;
-}
-.star svg { width:100%;height:100%;}
-.star.s1 { left:13vw; top:27vh; animation-delay:0s;}
-.star.s2 { left:79vw; top:19vh; animation-delay:.7s;}
-.star.s3 { left:39vw; top:60vh; animation-delay:2.2s;}
-.star.s4 { left:65vw; top:49vh; animation-delay:1.5s;}
-@keyframes starTwinkle {
-  0%,100% { opacity: .25;}
-  12% {opacity: 1;}
-  77% {opacity:.53;}
-}
-/* HEADER */
-header.main-header {
-  background: var(--orange-grad);
-  color: #fff;
-  text-align: center;
-  padding: 1.85rem 1.1rem 1.1rem 1.1rem;
-  border-bottom-left-radius: 48px 16px;
-  border-bottom-right-radius: 48px 16px;
-  box-shadow: var(--shadow-strong);
-  margin-bottom: 2.3rem;
-  position: relative;
-  z-index: 2;
-  overflow: hidden;
-  isolation: isolate;
-  min-height: 126px;
-}
-header img.logo {
-  width: 170px;
-  margin-bottom: .9rem;
-  border-radius: 0px;
-  box-shadow: none !important;
-  background: none !important;
-  border: none !important;
-  z-index: 3;
-  position: relative;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-header h1 {
-  font-size: 2.08rem;
-  font-weight: 900;
-  margin: 0 0 .37rem 0;
-  letter-spacing: 0.01em;
-  z-index: 3;
-  position: relative;
-  text-shadow: 0 2px 10px #ffba5477;
-}
-header p {
-  font-size: 1.09rem;
-  margin: 0;
-  font-weight: 500;
-  z-index: 3;
-  position: relative;
-  text-shadow: 0 1.5px 6px #fff8;
-}
-/* wave */
-.header-wave {
-  position: absolute; left: 0; right: 0; bottom: -1px;
-  width: 100%; height: 52px;
-  z-index: 4; pointer-events: none;
-}
-/* SECTION + CARD */
-.section {
-  max-width: var(--max-width);
-  margin: auto;
-  padding: 0 1.5rem 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2.2rem;
-  position: relative;
-  z-index: 2;
-}
-.card {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  border-radius: var(--radius-xl);
-  padding: 2.1rem 1.2rem 1.7rem;
-  box-shadow: 0 10px 24px 0 #ffbf6e1b, 0 1.5px 8px #ffe38b0d;
-  margin: 0 auto;
-  width: 100%;
-  max-width: 670px;
-  position: relative;
-  border: 1.1px solid #ffe38bc0;
-  transition: box-shadow .22s, transform .15s, border-color .15s;
-  overflow: hidden;
-  isolation: isolate;
-}
-.card:hover {
-  box-shadow: 0 14px 40px 0 #ffd57b41, 0 2px 11px #ffe38b22, 0 0 0 3px #ffe38b4b;
-  border-color: #ffd57bbd;
-  transform: translateY(-2px) scale(1.012);
-}
-.card h2 {
-  color: var(--orange);
-  font-size: 1.16rem;
-  margin-top: 0;
-  margin-bottom: 1.0rem;
-  font-weight: 800;
-  text-shadow: 0 1.5px 8px #fff6, 0 1px 3px #ffe38b16;
-  letter-spacing: .01em;
-}
-.card h2:before {
-  content: attr(data-icon);
-  font-size: 1.32em;
-  vertical-align: middle;
-  margin-right: .38em;
-  filter: drop-shadow(0 2px 3px #fff8);
-  opacity: .95;
-}
-.progress-container {
-  background: #fffde7;
-  border-radius: 12px;
-  width: 100%;
-  height: 22px;
-  margin-bottom: 1rem;
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 3px 12px #ffe38b15;
-}
-.progress-bar {
-  height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, #ff8826, #ffe38b 85%, #fff9 100%);
-  box-shadow: 0 0 32px 9px #ffe38b51, 0 3px 6px #fff7;
-  border-radius: 13px 0 0 13px;
-  animation: progressIn 2.1s cubic-bezier(.15,.92,.22,1.15) 1;
-  transition: width 1.4s cubic-bezier(.15,.92,.22,1.15);
-  position: relative;
-  z-index: 2;
-}
-.progress-bar:after {
-  content:"";
-  display: block;
-  position: absolute; right:6px; top:2px;
-  width: 29px; height: 90%;
-  background: linear-gradient(120deg,#fff7 50%,#ffe38b4c 85%);
-  opacity: .32;
-  border-radius: 13px;
-  pointer-events: none;
-}
-@keyframes progressIn {
-  from { width: 0;}
-}
-.progress-amount {
-  text-align: right;
-  font-weight: 700;
-  color: #ff8826;
-  margin-top: -10px;
-  letter-spacing: .02em;
-  font-size: 1.01rem;
-}
-.button, .cta-button {
-  background: var(--orange-grad);
-  color: #fff;
-  padding: .61rem 1.35rem;
-  border: none;
-  border-radius: 15px;
-  font-size: .97rem;
-  font-weight: bold;
-  box-shadow: 0 3px 20px #ffe38b33, 0 1.5px 8px #ffe38b16;
-  cursor: pointer;
-  margin-top: 1rem;
-  letter-spacing: .02em;
-  display: inline-block;
-  transition: background .19s, transform .19s, box-shadow .14s, color .13s;
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-  isolation: isolate;
-}
-.button:after, .cta-button:after {
-  content: "";
-  display: block;
-  position: absolute;
-  top:0; left:0; right:0; bottom:0;
-  box-shadow: 0 0 14px 4px #ffe38b2a;
-  opacity: 0;
-  transition: opacity .14s;
-  pointer-events: none;
-  border-radius: inherit;
-  z-index: 2;
-}
-.button:hover, .cta-button:hover {
-  filter: brightness(1.09);
-  transform: translateY(-2px) scale(1.022);
-  color: #fff9ef;
-  box-shadow: 0 7px 33px #ffe38baa, 0 1.5px 8px #ffe38b19;
-}
-.button:hover:after, .cta-button:hover:after {
-  opacity: .7;
-}
-/* ---------- ปรับตรงนี้ ---------- */
-.qr-section {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.qr-section p,
-.qr-section button {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-.qr-section img.qr-image {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 230px;
-  width: 90%;
-  height: auto;
-  border-radius: 14px;
-  box-shadow: 0 2px 10px #ffe38b2c;
-  background: #fff;
-  padding: 9px;
-}
-@media (max-width: 600px) {
-  .qr-section img.qr-image {
-    max-width: 85vw;
-    padding: 6px;
-  }
-}
-/* ---------- จบส่วนปรับตรงนี้ ---------- */
-.transparency-cards {
-  display: flex;
-  gap: 1.0rem;
-  margin-top: 1.1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.transparency-card {
-  background: rgba(255,255,255,0.98);
-  backdrop-filter: blur(6px);
-  border-radius: 14px;
-  box-shadow: 0 2px 10px #ffe38b0f;
-  padding: .95rem .65rem .7rem .65rem;
-  min-width: 155px;
-  flex: 1 1 140px;
-  text-align: center;
-  margin-bottom: .5rem;
-  transition: box-shadow .15s, transform .13s;
-  position: relative;
-  border: 1px solid #ffe6ba;
-}
-.transparency-card:hover {
-  box-shadow: 0 7px 22px #ffe38b28, 0 1.5px 8px #ffe38b11;
-  transform: scale(1.022);
-  z-index: 3;
-}
-.icon-box {
-  font-size: 2.05rem;
-  width: 38px; height: 38px;
-  background: #fff;
-  border-radius: 50%;
-  margin: auto auto .6rem auto;
-  box-shadow: 0 2px 12px #ffe38b13;
-  display: flex; align-items: center; justify-content: center;
-  color: #ff8826;
-  filter: drop-shadow(0 4px 8px #ffe38b08);
-}
-.transparency-card h3 {
-  margin: .29rem 0 .41rem 0;
-  color: #f2783d;
-  font-size: .95rem;
-  font-weight: bold;
-  letter-spacing: .01em;
-}
-.transparency-card p { font-size: .93rem; color: #232; }
-/* ---------- ปรับตรงนี้ ---------- */
-.app-badges {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.8rem;
-  flex-wrap: wrap;
-}
-.app-badges img {
-  height: 44px;
-  min-width: 120px;
-  max-width: 180px;
-  width: auto;
-  margin: 0 .5rem .3rem .5rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px #ffe38b0a;
-  transition: transform .15s;
-  background: #fff;
-  display: inline-block;
-  object-fit: contain;
-}
-@media (max-width: 700px) {
-  .app-badges {
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 0.7rem !important;
-  }
-  .app-badges img {
-    height: 38px !important;
-    min-width: 95px !important;
-    max-width: 140px !important;
-    margin: 0 .2rem .2rem .2rem !important;
-    display: inline-block !important;
-  }
-}
-/* ---------- จบส่วนปรับตรงนี้ ---------- */
-footer {
-  background: #212124;
-  color: #ffe38b;
-  padding: 1.45rem 1rem 1rem;
-  font-size: 1.01rem;
-  text-align: center;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  margin-top: 2.3rem;
-  letter-spacing: .05em;
-  box-shadow: 0 -6px 32px #ffe38b13;
-}
-#dark-toggle {
-  position: fixed; top: 1.2rem; right: 1.1rem;
-  padding: .65rem 1.3rem;
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(11px);
-  color: #ff8826;
-  border: 1.1px solid #ffe38bb4;
-  border-radius: 13px;
-  font-weight: 700;
-  font-size: 1.07rem;
-  cursor: pointer;
-  z-index: 15;
-  box-shadow: 0 5px 16px #ffe38b10;
-  display: flex;
-  align-items: center;
-  gap: .6em;
-  transition: background .17s, color .13s, border .13s;
-  isolation: isolate;
-}
-#dark-toggle:hover {
-  background: #ffe38ba9;
-  color: #212124;
-  border-color: #ff8826c7;
-}
-/* Owner */
-.card.project-owner h2 {
-  color: #ff8826;
-  display: flex;
-  align-items: center;
-  gap: .7em;
-  font-size: 1.12rem;
-}
-.card.project-owner .owner-name {
-  font-size: 1.01rem;
-  font-weight: 700;
-  color: #222;
-}
-.card.project-owner .owner-detail {
-  font-size: .93rem;
-  color: #444;
-}
-/* DARK MODE */
-body.dark-mode {
-  background: #141417 !important;
-  color: #fff7e3 !important;
-}
-body.dark-mode .particles,
-body.dark-mode .star svg circle {
-  opacity: .45 !important;
-}
-body.dark-mode header.main-header {
-  background: #232323 !important;
-  color: #fff !important;
-  box-shadow: none !important;
-}
-body.dark-mode .card,
-body.dark-mode .transparency-card {
-  background: #212124 !important;
-  color: #ececec !important;
-  border-color: #1b1b1b !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-}
-body.dark-mode .progress-container {
-  background: #181818 !important;
-  box-shadow: none !important;
-}
-body.dark-mode .progress-bar {
-  background: #ffe38b !important;
-  box-shadow: none !important;
-}
-body.dark-mode .progress-bar:after {
-  background: linear-gradient(120deg,#fff6 50%,#ffe38b16 85%);
-}
-body.dark-mode footer {
-  background: #181818 !important;
-  color: #ffe38b !important;
-  box-shadow: none !important;
-}
-body.dark-mode #dark-toggle {
-  background: #232323 !important;
-  color: #ffe38b !important;
-  border-color: #232323 !important;
-  box-shadow: none !important;
-}
-body.dark-mode .icon-box {
-  background: #252525 !important;
-  color: #ffe38b !important;
-  box-shadow: none !important;
-}
-body.dark-mode .card h2,
-body.dark-mode .transparency-card h3,
-body.dark-mode .progress-amount,
-body.dark-mode .transparency-card p,
-body.dark-mode .card p,
-body.dark-mode .card ul,
-body.dark-mode .transparency-card ul,
-body.dark-mode .qr-section p {
-  color: #fffbe8 !important;
-}
-body.dark-mode .transparency-card strong,
-body.dark-mode .card strong {
-  color: #ffe38b !important;
-}
-body.dark-mode .button,
-body.dark-mode .cta-button,
-body.dark-mode .qr-section .button {
-  background: #ffe38b !important;
-  color: #232323 !important;
-  text-shadow: 0 2px 10px #000b !important;
-  border: none !important;
-  box-shadow: 0 0 16px 2px #ffe38b14 !important;
-}
-body.dark-mode .button:hover,
-body.dark-mode .cta-button:hover {
-  background: #ffb347 !important;
-  color: #232323 !important;
-}
-body.dark-mode a,
-body.dark-mode .transparency-card a,
-body.dark-mode .card a {
-  color: #ffffff !important;
-  text-decoration: underline;
-  font-weight: bold;
-  transition: color 0.18s;
-}
-body.dark-mode a:hover {
-  color: #ffe38b !important;
-  text-decoration: underline;
-}
-body.dark-mode table,
-body.dark-mode th,
-body.dark-mode td {
-  background: #1b1b1b !important;
-  color: #fafafa !important;
-  border-color: #252525 !important;
-}
-body.dark-mode .card.project-owner h2 {
-  color: #ffe38b !important;
-}
-body.dark-mode .card.project-owner .owner-name,
-body.dark-mode .card.project-owner .owner-detail {
-  color: #fffde5 !important;
-}
-.cta-highlight {
-  background: linear-gradient(92deg, #ffe38b 0%, #ff8826 95%) !important;
-  color: #222 !important;
-  border: 2.5px solid #ff8826;
-  font-size: 1.14rem;
-  font-weight: 900;
-  letter-spacing: .035em;
-  box-shadow: 0 8px 34px #ffe38b99, 0 2px 10px #ff882650;
-  text-shadow: 0 1.5px 8px #fff8, 0 1px 2px #ffe38b55;
-  outline: 2px solid #fff8;
-  transition: background .2s, color .17s, box-shadow .15s, border-color .15s;
-}
-.cta-highlight:hover {
-  background: linear-gradient(90deg, #ff8826 15%, #ffe38b 85%);
-  color: #fff !important;
-  border-color: #ffe38b;
-  box-shadow: 0 10px 45px #ff882699;
-}
-@media (max-width: 700px) {
-  .section {
-    max-width: 100% !important;
-    padding: 0 0.5rem 1.2rem 0.5rem !important;
-    gap: 0.8rem !important;
-  }
-  .card {
-    max-width: 100% !important;
-    margin: 0 auto 1.1rem auto !important;
-    padding: 1.1rem 0.6rem 1.1rem 0.6rem !important;
-    border-radius: 1.1rem !important;
-  }
-  header.main-header {
-    padding:1rem .2rem .7rem;
-    min-height: 90px;
-    margin-bottom: 1.2rem;
-  }
-  header img.logo {
-    width: 85px;
-    margin-bottom: .6rem;
-    margin-top: .3rem;
-  }
-  header h1 {
-    font-size: 1.08rem !important;
-    margin: 0 0 .17rem 0 !important;
-    line-height: 1.22 !important;
-  }
-  header p {
-    font-size: .93rem !important;
-  }
-  .card h2 {
-    font-size: 1.07rem !important;
-    margin-bottom: .63rem !important;
-  }
-  .card p, .card ul, .transparency-card p {
-    font-size: .97rem !important;
-  }
-  .button, .cta-button {
-    font-size: .92rem !important;
-    padding: .55rem 1rem !important;
-    border-radius: 12px !important;
-  }
-  img, video, .qr-section img {
-    max-width: 100% !important;
-    height: auto !important;
-    display: block !important;
-  }
-  .transparency-cards { flex-direction: column; gap: .7rem;}
-  #dark-toggle { padding:.45rem .95rem; font-size:.98rem; right:.4rem; top:.5rem;}
-  .particles, .star {display:none;}
-}
-  </style>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="โครงการนิธิศ พรรคประชาชน x มูลนิธิกระจกเงา รวมพลังบริจาคคอมพิวเตอร์และอุปกรณ์ให้ผู้ขาดโอกาสทั่วประเทศ กิจกรรมเสื้อการกุศล พร้อมเพย์ และช่องทางสนับสนุนอื่น ๆ">
+    <meta name="keywords" content="นิธิศ, มูลนิธิกระจกเงา, พรรคประชาชน, กิจกรรมการกุศล, รับบริจาค, คอมพิวเตอร์, เสื้อการกุศล, พร้อมเพย์, ปราจีนบุรี, กลุ่มอาสา, นิธิศ บุญฤทธิ์">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://cop19-p.github.io/Nithidpplexthemirrorf/">
+    <link rel="icon" href="https://cop19-p.github.io/Nithidpplexthemirrorf/main_logo.png" type="image/png">
+
+    <!-- Open Graph for Social Media -->
+    <meta property="og:title" content="โครงการนิธิศ พรรคประชาชน x มูลนิธิกระจกเงา | กิจกรรมบริจาคคอมพิวเตอร์-เสื้อการกุศล">
+    <meta property="og:description" content="บริจาคคอมพิวเตอร์ เสื้อการกุศล นิธิศ x มูลนิธิกระจกเงา เพื่อส่งต่อโอกาสทางเทคโนโลยีให้ผู้ขาดโอกาสในปราจีนบุรีและทั่วประเทศ">
+    <meta property="og:url" content="https://cop19-p.github.io/Nithidpplexthemirrorf/">
+    <meta property="og:image" content="https://cop19-p.github.io/Nithidpplexthemirrorf/main_logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="th_TH">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="โครงการนิธิศ พรรคประชาชน x มูลนิธิกระจกเงา | กิจกรรมบริจาคคอมพิวเตอร์-เสื้อการกุศล">
+    <meta name="twitter:description" content="บริจาคคอมพิวเตอร์ เสื้อการกุศล นิธิศ x มูลนิธิกระจกเงา เพื่อส่งต่อโอกาสทางเทคโนโลยีให้ผู้ขาดโอกาส">
+    <meta name="twitter:image" content="https://cop19-p.github.io/Nithidpplexthemirrorf/main_logo.png">
+
+    <style>
+        /* กำหนดฟอนต์หลักและสีพื้นฐาน */
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #FFFBF2;
+            color: #4A4A4A;
+        }
+        /* สไตล์สำหรับโหมดมืด */
+        .dark body {
+            background-color: #1A202C;
+            color: #E2E8F0;
+        }
+        /* ไล่สีพื้นหลังส่วนหัว */
+        .header-gradient {
+            background: linear-gradient(120deg, #FF8C42 0%, #FFD34E 100%);
+        }
+        /* ไล่สีปุ่ม */
+        .btn-gradient {
+            background: linear-gradient(110deg, #FF8C42 0%, #FFA751 100%);
+        }
+        /* การ์ดในโหมดมืด */
+        .dark .dark-card {
+            background-color: #2D3748;
+            border-color: #4A5568;
+        }
+        /* ข้อความหัวข้อในโหมดมืด */
+        .dark .dark-heading {
+            color: #FFD34E;
+        }
+        /* ข้อความทั่วไปในโหมดมืด */
+        .dark .dark-text {
+            color: #A0AEC0;
+        }
+        /* ปุ่มในโหมดมืด */
+        .dark .dark-btn {
+            background: #FFD34E;
+            color: #1A202C;
+        }
+        /* Custom animation for notification */
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateY(20px); }
+            10%, 90% { opacity: 1; transform: translateY(0); }
+        }
+        .toast-animation {
+            animation: fadeInOut 3s ease-in-out forwards;
+        }
+    </style>
 </head>
-<body>
-  <!-- BG Bubbles + Stars -->
-  <div class="particles">
-    <div class="particle s1"></div>
-    <div class="particle s2"></div>
-    <div class="particle s3"></div>
-    <div class="particle s4"></div>
-    <div class="particle s5"></div>
-    <span class="star s1"><svg viewBox="0 0 14 14"><circle cx="7" cy="7" r="3" fill="#fffbe7"/></svg></span>
-    <span class="star s2"><svg viewBox="0 0 14 14"><circle cx="7" cy="7" r="3" fill="#ffe38b"/></svg></span>
-    <span class="star s3"><svg viewBox="0 0 14 14"><circle cx="7" cy="7" r="2.5" fill="#fff"/></svg></span>
-    <span class="star s4"><svg viewBox="0 0 14 14"><circle cx="7" cy="7" r="2.8" fill="#fffbe7"/></svg></span>
-  </div>
-  <button id="dark-toggle"><span id="toggle-ico">🌙</span>โหมดกลางคืน</button>
-  <header class="main-header">
-    <img alt="โลโก้" src="main_logo.png" class="logo" />
-    <h1>นิธิศ พรรคประชาชน x มูลนิธิกระจกเงา</h1>
-    <p>ร่วมมือเพื่อส่งต่อโอกาสทางเทคโนโลยี</p>
-    <svg class="header-wave" viewBox="0 0 1920 52" width="100%" height="52" preserveAspectRatio="none">
-      <path d="M0,28 Q480,52 960,28 T1920,28 V52 H0Z" fill="#fff" opacity="0.22"/>
-    </svg>
-  </header>
-  <div class="section">
-    <!-- ข่าวสาร -->
-    <div class="card">
-      <h2 data-icon="📰">ข่าวสารล่าสุด</h2>
-      <ul>
-        <li>30 พ.ค. 2025 – จัดโครงการเสื้อนิธิศพรรคประชาชนเพื่อนำยอดไปบริจาค</li>
-        <li>30 มิ.ย. 2025 – สิ้นสุดการรับบริจาคเงินสนับสนุน และดำเนินการส่งมอบเงินทั้งหมดให้แก่มูลนิธิกระจกเงา</li>
-      </ul>
-    </div>
-    <!-- เกี่ยวกับโครงการ -->
-    <div class="card">
-      <h2 data-icon="📌">เกี่ยวกับโครงการ</h2>
-      <p>โครงการนี้เกิดจากความร่วมมือระหว่างนิธิศ พรรคประชาชน และมูลนิธิกระจกเงา เพื่อส่งต่อคอมพิวเตอร์ อุปกรณ์ แก่ผู้ขาดโอกาสทั่วประเทศ ตลอดระยะเวลา 1 เดือน</p>
-    </div>
-    <!-- เสื้อ -->
-    <div class="card">
-      <h2 data-icon="👕">โครงการเสื้อเพื่อการกุศล</h2>
-      <p>รายได้จากการจำหน่ายเสื้อจะนำไปช่วยเหลือผู้ขาดโอกาสทางเทคโนโลยี</p>
-      <a class="button" href="https://www.facebook.com/share/p/1AiHLjChB3/" target="_blank">
-        🛍️ สั่งซื้อเสื้อผ่านเพจ Facebook
-      </a>
-      <p id="countdown" class="countdown-text"></p>
-    </div>
-    <!-- บริจาคและ Progress -->
-    <div class="card" id="donation-goal">
-      <h2 data-icon="🎯">ยอดบริจาคเพื่อเป้าหมาย</h2>
-      <p>เราตั้งเป้าหมายระดมทุนที่ <strong>10,000 บาท</strong> เพื่อบริจาคให้มูลนิธิกระจกเงา</p>
-      <div class="progress-container">
-        <div class="progress-bar" id="donation-progress"></div>
-      </div>
-      <p class="progress-amount"><span id="donation-amount">600</span> / 10,000 บาท</p>
-      <p id="donation-countdown" class="donation-countdown"></p>
-    </div>
-    <!-- QR พร้อมเพย์ -->
-    <div class="card qr-section">
-      <h2 data-icon="🎁">สนับสนุนโครงการผ่านการบริจาค</h2>
-      <img alt="QR พร้อมเพย์" src="promptpay_new.jpg" class="qr-image" />
-      <p><strong>บัญชี:</strong> นิธิศ บุญฤทธิ์</p>
-      <p><strong>เลขพร้อมเพย์:</strong> <span id="account-number">0982279327</span></p>
-      <button class="button" onclick="copyAccount()">📋 คัดลอกเลขพร้อมเพย์</button>
-    </div>
-    <!-- ติดต่อ -->
-    <div class="card">
-      <h2 data-icon="📞">ติดต่อทีมงาน</h2>
-      <ul>
-        <li>อีเมล: <a href="mailto:nitit.boonyalit@gmail.com">nitit.boonyalit@gmail.com</a></li>
-        <li>โทร: <a href="tel:0982279327">0982279327</a></li>
-        <li>Facebook: <a href="https://www.facebook.com/mirrorf" target="_blank">ติดต่อเพจ</a></li>
-      </ul>
-    </div>
-    <!-- ผู้จัดโครงการ -->
-    <div class="card project-owner">
-      <h2><span style="font-size:1.2em;">🧑‍💼</span>ผู้จัดโครงการ</h2>
-      <div style="margin-top:.7rem; margin-bottom:.7rem;">
-        <div class="owner-name">นาย นิธิศ บุญฤทธิ์</div>
-        <div class="owner-detail">พรรคประชาชน ปราจีนบุรี</div>
-      </div>
-    </div>
-    <!-- โปร่งใส -->
-    <div class="card">
-      <h2 data-icon="🔍">ความโปร่งใสหลังจบกิจกรรม</h2>
-      <p>เรายึดหลัก “เปิดเผย โปร่งใส ตรวจสอบได้” ทุกขั้นตอนบริจาค</p>
-      <div class="transparency-cards">
-        <div class="transparency-card">
-          <div class="icon-box">📅</div>
-          <h3>วันที่สิ้นสุด</h3>
-          <p>กิจกรรมจะสิ้นสุดวันที่ <strong>30 มิ.ย. 2025</strong> และเริ่มกระบวนการสรุปยอดทันที</p>
-        </div>
-        <div class="transparency-card">
-          <div class="icon-box">💸</div>
-          <h3>สรุปยอดบริจาค</h3>
-          <p>สรุปยอดรวมจากทุกช่องทาง ทั้งเสื้อ พร้อมเพย์ และกิจกรรมออฟไลน์</p>
-        </div>
-        <div class="transparency-card">
-          <div class="icon-box">📄</div>
-          <h3>รายงาน+สลิป</h3>
-          <p>เผยแพร่เอกสารจริง และภาพสลิปการโอนเข้าบัญชี <strong>มูลนิธิกระจกเงา</strong></p>
-        </div>
-      </div>
-      <div style="margin-top:1.0rem;text-align:center">
-        <a href="https://docs.google.com/spreadsheets/d/1JKdgtfxGAi0VkAueTiL56FT56K5eCNRNZxp_qBIYdos/edit?usp=sharing"
-           target="_blank" class="cta-button cta-highlight">
-          📄 เปิดรายงานการเงิน (Google Sheet)
-        </a>
-        <p style="margin-top:.5rem;">
-          มีคำถาม? ติดต่อ <a href="mailto:nitit.boonyalit@gmail.com">ทีมงานโครงการ</a> หรือ
-          <a href="https://www.facebook.com/mirrorf" target="_blank">เพจมูลนิธิกระจกเงา</a>
-        </p>
-      </div>
-    </div>
-    <!-- แอป -->
-    <div class="card" style="text-align: center;">
-      <h2 data-icon="📱">ดาวน์โหลดแอปพลิเคชัน</h2>
-      <p>ติดตามโครงการผ่านแอปพลิเคชันได้ที่:</p>
-      <div class="app-badges">
-        <a href="https://nithidpple-19.glide.page/" target="_blank" rel="noopener">
-          <img alt="Google Play" src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"/>
-        </a>
-        <a href="https://nithidpple-19.glide.page/" target="_blank" rel="noopener">
-          <img alt="App Store" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"/>
-        </a>
-      </div>
-    </div>
-  </div>
-  <footer>
-    © 2025 โครงการนิธิศ พรรคประชาชน x มูลนิธิกระจกเงา
-  </footer>
-  <script>
-    // Toggle Dark Mode
-    const darkToggle = document.getElementById('dark-toggle');
-    const toggleIco = document.getElementById('toggle-ico');
-    darkToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      if(document.body.classList.contains('dark-mode')){
-        toggleIco.textContent = '☀️';
-        darkToggle.lastChild.textContent = 'โหมดกลางวัน';
-      }else{
-        toggleIco.textContent = '🌙';
-        darkToggle.lastChild.textContent = 'โหมดกลางคืน';
-      }
-    });
-    // Progress bar animate
-    window.addEventListener('DOMContentLoaded', function() {
-      var donationAmount = parseInt(document.getElementById('donation-amount')?.innerText.replace(/,/g, '')||'0');
-      var goal = 10000;
-      var percent = Math.min(100, Math.round((donationAmount / goal) * 100));
-      if(document.getElementById('donation-progress'))
-        document.getElementById('donation-progress').style.width = percent + '%';
-    });
-    // Copy account
-    function copyAccount() {
-      const account = document.getElementById('account-number').innerText;
-      navigator.clipboard.writeText(account).then(function() {
-        alert('คัดลอกเลขพร้อมเพย์แล้ว!');
-      });
-    }
-    // Countdown (เสื้อการกุศล)
-  const deadline = new Date("2025-06-07T23:59:59").getTime();
-  const countdownEl = document.getElementById("countdown");
-  const timer = setInterval(() => {
-    const now = new Date().getTime();
-    const dist = deadline - now;
-    if (dist <= 0) {
-      clearInterval(timer);
-      countdownEl.innerHTML = `
-        <p style="
-          color: #777;
-          font-size: 1rem;
-          text-align: center;
-          margin: 1rem auto;
-        ">
-          กิจกรรมจบลงแล้ว ขอบคุณทุกการสนับสนุน
-        </p>
-      `;
-      return;
-    }
-    const d = Math.floor(dist / (1000 * 60 * 60 * 24));
-    const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-    const s = Math.floor((dist % (1000 * 60)) / 1000);
-    countdownEl.textContent = `⏳ เหลือเวลา: ${d} วัน ${h} ชม. ${m} นาที ${s} วินาที`;
-  }, 1000);
+<body class="transition-colors duration-300">
 
-  // Countdown (ยอดบริจาคเพื่อเป้าหมาย)
-  const donationDeadline = new Date("2025-06-29T23:59:59").getTime();
-  const donationCountdownEl = document.getElementById("donation-countdown");
-  const donationTimer = setInterval(() => {
-    const now = new Date().getTime();
-    const dist = donationDeadline - now;
-    if (dist <= 0) {
-      clearInterval(donationTimer);
-      donationCountdownEl.innerHTML = `
-        <p style="
-          color: #777;
-          font-size: 1rem;
-          text-align: center;
-          margin: 1rem auto;
-        ">
-          กิจกรรมจบลงแล้ว ขอบคุณทุกการสนับสนุน
-        </p>
-      `;
-      return;
-    }
-    const d = Math.floor(dist / (1000 * 60 * 60 * 24));
-    const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-    const s = Math.floor((dist % (1000 * 60)) / 1000);
-    donationCountdownEl.textContent = `⏳ เหลือเวลา: ${d} วัน ${h} ชม. ${m} นาที ${s} วินาที`;
-  }, 1000);
-  </script>
+    <!-- ปุ่มสลับโหมด Dark/Light -->
+    <button id="dark-toggle" class="fixed top-4 right-4 z-50 p-3 rounded-full bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm shadow-lg border border-gray-200 dark:border-gray-600 transition-all duration-300">
+        <svg id="toggle-icon-sun" class="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <svg id="toggle-icon-moon" class="h-6 w-6 text-gray-300 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+    </button>
+
+    <!-- Header -->
+    <header class="header-gradient text-white pt-12 pb-16 text-center rounded-b-3xl shadow-xl overflow-hidden relative">
+        <div class="relative z-10">
+            <img alt="โลโก้โครงการ" src="https://cop19-p.github.io/Nithidpplexthemirrorf/main_logo.png" class="mx-auto h-28 w-auto mb-4" onerror="this.onerror=null;this.src='https://placehold.co/112x112/FFFFFF/FF8C42?text=Logo';">
+            <h1 class="text-3xl md:text-4xl font-black tracking-wide text-shadow">นิธิศ พรรคประชาชน x มูลนิธิกระจกเงา</h1>
+            <p class="text-lg md:text-xl font-light mt-2 text-shadow-sm">ร่วมมือเพื่อส่งต่อโอกาสทางเทคโนโลยี</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 md:py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- เกี่ยวกับโครงการ & ข่าวสาร (รวมกัน) -->
+            <div class="md:col-span-2 lg:col-span-3 p-6 bg-white dark-card rounded-2xl shadow-lg border border-gray-100 transition-all duration-300">
+                <h2 class="text-2xl font-bold text-orange-500 dark-heading mb-4">📌 เกี่ยวกับโครงการและกำหนดการ</h2>
+                <p class="text-gray-600 dark-text mb-4">โครงการนี้เกิดจากความร่วมมือระหว่าง <strong>นิธิศ พรรคประชาชน</strong> และ <strong>มูลนิธิกระจกเงา</strong> เพื่อส่งต่อคอมพิวเตอร์และอุปกรณ์ไอทีที่ได้รับบริจาคแก่ผู้ขาดโอกาสทั่วประเทศ โดยมีเป้าหมายเพื่อลดความเหลื่อมล้ำทางการศึกษาและสร้างโอกาสใหม่ๆ ผ่านเทคโนโลยี</p>
+                <ul class="list-disc list-inside space-y-2 text-gray-600 dark-text">
+                    <li><strong class="text-orange-500 dark-heading">30 พ.ค. 2025:</strong> เริ่มโครงการเสื้อการกุศลเพื่อระดมทุน</li>
+                    <li><strong class="text-orange-500 dark-heading">30 มิ.ย. 2025:</strong> สิ้นสุดการรับบริจาค และส่งมอบเงินทั้งหมดให้มูลนิธิกระจกเงา</li>
+                </ul>
+            </div>
+
+            <!-- ยอดบริจาค -->
+            <div class="lg:col-span-2 p-6 bg-white dark-card rounded-2xl shadow-lg border border-gray-100 transition-all duration-300">
+                <h2 class="text-2xl font-bold text-orange-500 dark-heading mb-4">🎯 ยอดบริจาคเพื่อเป้าหมาย</h2>
+                <p class="text-gray-600 dark-text mb-2">เราตั้งเป้าหมายระดมทุน <strong class="text-gray-800 dark-text">10,000 บาท</strong> เพื่อบริจาคให้มูลนิธิกระจกเงา</p>
+                <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-4 mb-2 overflow-hidden">
+                    <div id="donation-progress" class="bg-gradient-to-r from-yellow-400 to-orange-500 h-4 rounded-full transition-all duration-1000 ease-out" style="width: 0%;"></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <p class="font-bold text-orange-500 dark-heading"><span id="donation-amount">600</span> / 10,000 บาท</p>
+                    <p id="donation-countdown" class="text-sm text-gray-500 dark-text"></p>
+                </div>
+            </div>
+
+            <!-- เสื้อการกุศล -->
+            <div class="p-6 bg-white dark-card rounded-2xl shadow-lg border border-gray-100 flex flex-col justify-between transition-all duration-300">
+                <div>
+                    <h2 class="text-2xl font-bold text-orange-500 dark-heading mb-2">👕 โครงการเสื้อเพื่อการกุศล</h2>
+                    <p class="text-gray-600 dark-text mb-4">รายได้จากการจำหน่ายเสื้อจะนำไปสมทบทุนโครงการทั้งหมด</p>
+                    <p id="countdown" class="text-sm text-center font-medium text-gray-500 dark-text mb-4"></p>
+                </div>
+                <a href="https://www.facebook.com/share/p/1AiHLjChB3/" target="_blank" class="w-full text-center btn-gradient dark-btn text-white font-bold py-3 px-4 rounded-lg shadow-md hover:opacity-90 transform hover:-translate-y-1 transition-all duration-300">
+                    🛍️ สั่งซื้อเสื้อผ่าน Facebook
+                </a>
+            </div>
+
+            <!-- QR พร้อมเพย์ -->
+            <div class="md:col-span-2 lg:col-span-1 p-6 bg-white dark-card rounded-2xl shadow-lg border border-gray-100 text-center transition-all duration-300">
+                <h2 class="text-2xl font-bold text-orange-500 dark-heading mb-4">🎁 สนับสนุนผ่านการบริจาค</h2>
+                <img alt="QR Code สำหรับบริจาคผ่านพร้อมเพย์" src="https://cop19-p.github.io/Nithidpplexthemirrorf/promptpay_new.jpg" class="mx-auto w-48 h-48 rounded-lg shadow-md p-1 bg-white" onerror="this.onerror=null;this.src='https://placehold.co/192x192/FFFFFF/FF8C42?text=QR+Code';">
+                <p class="font-semibold mt-4 dark-text">บัญชี: นิธิศ บุญฤทธิ์</p>
+                <p class="text-gray-600 dark-text">เลขพร้อมเพย์: <span id="account-number">0982279327</span></p>
+                <button onclick="copyAccount()" class="mt-4 w-full bg-gray-200 dark:bg-gray-600 dark-text font-bold py-3 px-4 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition-all duration-300">
+                    📋 คัดลอกเลขพร้อมเพย์
+                </button>
+            </div>
+
+            <!-- ความโปร่งใส -->
+            <div class="md:col-span-2 lg:col-span-2 p-6 bg-white dark-card rounded-2xl shadow-lg border border-gray-100 transition-all duration-300">
+                 <h2 class="text-2xl font-bold text-orange-500 dark-heading mb-4">🔍 ความโปร่งใส</h2>
+                 <p class="text-gray-600 dark-text mb-6">เรายึดหลัก “เปิดเผย โปร่งใส ตรวจสอบได้” ทุกขั้นตอนบริจาค หลังจบกิจกรรมจะมีการสรุปยอดและแสดงหลักฐานการส่งมอบทั้งหมด</p>
+                 <div class="text-center">
+                    <a href="https://docs.google.com/spreadsheets/d/1JKdgtfxGAi0VkAueTiL56FT56K5eCNRNZxp_qBIYdos/edit?usp=sharing" target="_blank" class="inline-block btn-gradient dark-btn text-white font-bold py-3 px-6 rounded-lg shadow-md hover:opacity-90 transform hover:-translate-y-1 transition-all duration-300">
+                        📄 เปิดรายงานการเงิน (Google Sheet)
+                    </a>
+                 </div>
+            </div>
+
+            <!-- ติดต่อ & ผู้จัด -->
+            <div class="p-6 bg-white dark-card rounded-2xl shadow-lg border border-gray-100 transition-all duration-300">
+                <h2 class="text-2xl font-bold text-orange-500 dark-heading mb-4">🧑‍💼 ผู้จัดและช่องทางติดต่อ</h2>
+                <div class="mb-4">
+                    <p class="font-bold dark-text">นาย นิธิศ บุญฤทธิ์</p>
+                    <p class="text-sm text-gray-500 dark-text">พรรคประชาชน ปราจีนบุรี</p>
+                </div>
+                <ul class="space-y-2 text-gray-600 dark-text">
+                    <li>📧 <a href="mailto:nitit.boonyalit@gmail.com" class="hover:underline">nitit.boonyalit@gmail.com</a></li>
+                    <li>📞 <a href="tel:0982279327" class="hover:underline">098-227-9327</a></li>
+                    <li><svg class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.28C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.84C20.33,8.63 20.33,8.42 20.32,8.21C21.17,7.63 21.88,6.87 22.46,6Z"></path></svg> <a href="https://www.facebook.com/mirrorf" target="_blank" class="hover:underline">Facebook มูลนิธิ</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 text-center p-6 mt-12">
+        <p>© 2025 โครงการนิธิศ พรรคประชาชน x มูลนิธิกระจกเงา</p>
+    </footer>
+
+    <!-- Notification Toast -->
+    <div id="toast-notification" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-green-500 text-white py-2 px-6 rounded-full shadow-lg opacity-0">
+        คัดลอกเลขพร้อมเพย์แล้ว!
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Dark Mode Toggle ---
+            const darkToggle = document.getElementById('dark-toggle');
+            const sunIcon = document.getElementById('toggle-icon-sun');
+            const moonIcon = document.getElementById('toggle-icon-moon');
+            const htmlEl = document.documentElement;
+
+            // Check for saved theme in localStorage and apply it
+            if (localStorage.getItem('theme') === 'dark') {
+                htmlEl.classList.add('dark');
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            }
+
+            darkToggle.addEventListener('click', () => {
+                htmlEl.classList.toggle('dark');
+                sunIcon.classList.toggle('hidden');
+                moonIcon.classList.toggle('hidden');
+                
+                // Save theme preference
+                if (htmlEl.classList.contains('dark')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.removeItem('theme');
+                }
+            });
+
+            // --- Progress Bar Animation ---
+            const donationAmount = parseInt(document.getElementById('donation-amount')?.innerText.replace(/,/g, '') || '0');
+            const goal = 10000;
+            const percent = Math.min(100, (donationAmount / goal) * 100);
+            const progressBar = document.getElementById('donation-progress');
+            
+            // Set width with a slight delay for a better visual effect
+            setTimeout(() => {
+                if (progressBar) {
+                    progressBar.style.width = percent + '%';
+                }
+            }, 300);
+
+            // --- Countdown Timers ---
+            function setupCountdown(elementId, deadlineString) {
+                const countdownEl = document.getElementById(elementId);
+                if (!countdownEl) return;
+
+                const deadline = new Date(deadlineString).getTime();
+
+                const timer = setInterval(() => {
+                    const now = new Date().getTime();
+                    const dist = deadline - now;
+
+                    if (dist <= 0) {
+                        clearInterval(timer);
+                        countdownEl.innerHTML = `กิจกรรมสิ้นสุดแล้ว`;
+                        countdownEl.classList.add('text-red-500', 'font-bold');
+                        return;
+                    }
+
+                    const d = Math.floor(dist / (1000 * 60 * 60 * 24));
+                    const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+                    const s = Math.floor((dist % (1000 * 60)) / 1000);
+                    
+                    countdownEl.textContent = `⏳ เหลือเวลา: ${d} วัน ${h} ชม. ${m} นาที ${s} วินาที`;
+                }, 1000);
+            }
+
+            // Initialize countdowns
+            setupCountdown('countdown', "2025-06-07T23:59:59");
+            setupCountdown('donation-countdown', "2025-06-29T23:59:59");
+        });
+
+        // --- Copy Account Number Function ---
+        function copyAccount() {
+            const accountNumber = document.getElementById('account-number').innerText;
+            // Use the Clipboard API for modern browsers
+            navigator.clipboard.writeText(accountNumber).then(() => {
+                // Show custom notification
+                const toast = document.getElementById('toast-notification');
+                toast.classList.add('toast-animation');
+                // Remove animation class after it finishes to allow re-triggering
+                setTimeout(() => {
+                    toast.classList.remove('toast-animation');
+                }, 3000);
+            }).catch(err => {
+                console.error('ไม่สามารถคัดลอกได้: ', err);
+                // Fallback for older browsers (less reliable)
+                try {
+                    const textArea = document.createElement("textarea");
+                    textArea.value = accountNumber;
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    
+                    // Show custom notification
+                    const toast = document.getElementById('toast-notification');
+                    toast.classList.add('toast-animation');
+                    setTimeout(() => {
+                        toast.classList.remove('toast-animation');
+                    }, 3000);
+                } catch (e) {
+                    console.error('Fallback copy failed:', e);
+                    alert('การคัดลอกล้มเหลว โปรดคัดลอกด้วยตนเอง');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
