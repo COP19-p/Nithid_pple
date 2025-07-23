@@ -272,14 +272,14 @@
         // Import Firebase modules
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, addDoc, collection, onSnapshot, getDocs, query, where, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, onSnapshot, query, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // --- Firebase Configuration ---
         const firebaseConfig = {
             apiKey: "AIzaSyDJtLC1ORoD2LJCfIJ3GCGUkn5L0_P3zxw",
             authDomain: "nithidpple.firebaseapp.com",
             projectId: "nithidpple",
-            storageBucket: "nithidpple.appspot.com", // Corrected domain
+            storageBucket: "nithidpple.appspot.com",
             messagingSenderId: "274483203775",
             appId: "1:274483203775:web:856ed1b3669808fe71400a",
             measurementId: "G-SMXB69H0ET"
@@ -386,7 +386,7 @@
                 handleAdminLogin(auth);
                 handleAuthChanges(auth, db);
                 setupAdminPanelActions(db);
-                setupSubscriberDeletion(db); // NEW: Add listener for delete buttons
+                setupSubscriberDeletion(db);
 
             } catch(e) {
                 console.error("Firebase initialization failed. Please check your firebaseConfig and API settings.", e);
@@ -416,41 +416,39 @@
             });
         }
 
-        // UPDATED: Function to prevent duplicate subscriptions
-        function handleNewsletterSubscription(db) {
+        // UPDATED: Robust duplicate check using document ID
+        async function handleNewsletterSubscription(db) {
             newsletterForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const email = newsletterEmailEl.value.trim().toLowerCase();
+                if (!email) return;
+
                 newsletterFeedbackEl.textContent = 'กำลังตรวจสอบ...';
                 newsletterFeedbackEl.className = 'text-sm mt-2 text-gray-500';
 
-                // Check if email already exists
-                const q = query(collection(db, "subscribers"), where("email", "==", email));
-                const querySnapshot = await getDocs(q);
+                const subscriberDocRef = doc(db, "subscribers", email);
 
-                if (!querySnapshot.empty) {
-                    newsletterFeedbackEl.textContent = 'อีเมลนี้ได้สมัครรับข่าวสารแล้ว';
-                    newsletterFeedbackEl.className = 'text-sm mt-2 text-yellow-600';
-                    setTimeout(() => newsletterFeedbackEl.textContent = '', 4000);
-                    return;
-                }
-
-                // If not a duplicate, add to database
                 try {
-                    newsletterFeedbackEl.textContent = 'กำลังส่งข้อมูล...';
-                    await addDoc(collection(db, "subscribers"), {
-                        email: email,
-                        subscribedAt: new Date()
-                    });
-                    newsletterFeedbackEl.textContent = 'ขอบคุณสำหรับการสมัครรับข่าวสาร!';
-                    newsletterFeedbackEl.className = 'text-sm mt-2 text-green-600';
-                    newsletterForm.reset();
+                    const docSnap = await getDoc(subscriberDocRef);
+                    if (docSnap.exists()) {
+                        newsletterFeedbackEl.textContent = 'อีเมลนี้ได้สมัครรับข่าวสารแล้ว';
+                        newsletterFeedbackEl.className = 'text-sm mt-2 text-yellow-600';
+                    } else {
+                        await setDoc(subscriberDocRef, {
+                            email: email,
+                            subscribedAt: new Date()
+                        });
+                        newsletterFeedbackEl.textContent = 'ขอบคุณสำหรับการสมัครรับข่าวสาร!';
+                        newsletterFeedbackEl.className = 'text-sm mt-2 text-green-600';
+                        newsletterForm.reset();
+                    }
                 } catch (error) {
-                    console.error("Error adding subscriber: ", error);
+                    console.error("Error handling subscription: ", error);
                     newsletterFeedbackEl.textContent = 'เกิดข้อผิดพลาด โปรดลองอีกครั้ง';
                     newsletterFeedbackEl.className = 'text-sm mt-2 text-red-500';
+                } finally {
+                    setTimeout(() => newsletterFeedbackEl.textContent = '', 4000);
                 }
-                setTimeout(() => newsletterFeedbackEl.textContent = '', 4000);
             });
         }
         
@@ -474,7 +472,7 @@
                     console.log("Admin logged in:", user.email);
                     adminPanel.classList.remove('hidden');
                     adminLoginModal.classList.add('hidden');
-                    listenForSubscribers(db); // Use real-time listener
+                    listenForSubscribers(db);
                 } else {
                     adminPanel.classList.add('hidden');
                 }
@@ -510,7 +508,6 @@
             });
         }
 
-        // UPDATED: Use onSnapshot for real-time updates
         function listenForSubscribers(db) {
             const q = query(collection(db, "subscribers"));
             onSnapshot(q, (querySnapshot) => {
@@ -521,11 +518,10 @@
                 }
                 let html = '';
                 querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    // NEW: Added delete button with document ID
+                    // doc.id is now the email address
                     html += `
                         <div class="flex items-center justify-between p-2 bg-gray-100 dark:bg-gray-700 rounded-md text-sm dark:text-gray-300">
-                            <span>${data.email}</span>
+                            <span>${doc.id}</span>
                             <button data-id="${doc.id}" class="delete-subscriber-btn p-1 hover:bg-red-200 dark:hover:bg-red-800 rounded-full">
                                 <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                             </button>
@@ -539,13 +535,12 @@
             });
         }
 
-        // NEW: Function to handle deletion
         function setupSubscriberDeletion(db) {
             subscriberListEl.addEventListener('click', async (e) => {
                 const deleteBtn = e.target.closest('.delete-subscriber-btn');
                 if (deleteBtn) {
                     const docId = deleteBtn.dataset.id;
-                    if (confirm(`คุณต้องการลบผู้สมัครนี้ใช่หรือไม่?`)) {
+                    if (confirm(`คุณต้องการลบอีเมล "${docId}" ใช่หรือไม่?`)) {
                         try {
                             await deleteDoc(doc(db, "subscribers", docId));
                             console.log("Subscriber deleted:", docId);
@@ -567,3 +562,4 @@
     </script>
 </body>
 </html>
+�
