@@ -122,8 +122,7 @@
             <div class="container mx-auto px-6 py-3 flex justify-between items-center">
                 <!-- Logo -->
                 <a href="#" class="flex items-center">
-                    <!-- LOGO FIXED: Increased size from h-12 to h-16 -->
-                    <img src="https://storage.googleapis.com/gemini-prod-us-west1-409903-output-bucket-1/image_668b61.png" alt="นิธิศ พรรคประชาชน Logo" class="h-16 w-auto">
+                    <img src="นิธิศ.png" alt="นิธิศ พรรคประชาชน Logo" class="h-16 w-auto">
                 </a>
                 <!-- Navigation Links -->
                 <div class="hidden md:flex items-center space-x-8">
@@ -162,7 +161,7 @@
     <div id="news-modal" class="modal-overlay">
         <div class="modal-content text-center">
             <button id="close-modal-btn" class="modal-close-btn">&times;</button>
-            <img src="https://storage.googleapis.com/gemini-prod-us-west1-409903-output-bucket-1/image_668b80.png" alt="โปรโมทเสื้อนิธิศ พรรคประชาชน" class="w-full max-w-xs rounded-lg shadow-xl mx-auto mb-6" onerror="this.onerror=null;this.src='https://placehold.co/400x400/f8f9fa/333?text=Image+Not+Found';">
+            <img src="tshirt-promo.png" alt="โปรโมทเสื้อนิธิศ พรรคประชาชน" class="w-full max-w-xs rounded-lg shadow-xl mx-auto mb-6" onerror="this.onerror=null;this.src='https://placehold.co/400x400/f8f9fa/333?text=Image+Not+Found';">
             <h2 class="text-3xl font-bold text-orange-500 mb-3">Coming Soon!</h2>
             <p class="text-gray-700 text-lg">
                 เสื้อ <strong class="font-semibold">"นิธิศ พรรคประชาชน"</strong> กลับมาเปิดพรีออเดอร์อีกครั้งเร็วๆ นี้
@@ -243,8 +242,7 @@
         <div class="container mx-auto px-6 py-10">
             <div class="flex flex-col items-center text-center">
                 <a href="#" class="mb-6">
-                    <!-- LOGO FIXED: Increased size from h-16 to h-24 -->
-                    <img src="https://storage.googleapis.com/gemini-prod-us-west1-409903-output-bucket-1/image_668b61.png" alt="นิธิศ พรรคประชาชน Logo" class="h-24 w-auto opacity-75 brightness-0 invert">
+                    <img src="นิธิศ.png" alt="นิธิศ พรรคประชาชน Logo" class="h-24 w-auto opacity-75 brightness-0 invert">
                 </a>
                 <div class="flex justify-center space-x-6 mb-6">
                     <a href="https://www.instagram.com/Nithxd_19" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full hover:bg-gray-700 hover:text-white transition-all duration-300">
@@ -279,7 +277,6 @@
 
             // Navbar Scroll Effect
             const navbar = document.getElementById('navbar');
-            const logoText = document.querySelector('.logo-text'); // Select the logo text
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
                     navbar.classList.add('scrolled');
@@ -288,25 +285,42 @@
                 }
             });
 
-            // Modal Logic
+            // --- MODAL LOGIC UPDATED FOR SESSION ---
             const newsModal = document.getElementById('news-modal');
             const closeModalBtn = document.getElementById('close-modal-btn');
             const followUsBtn = document.getElementById('follow-us-btn');
 
-            const showModal = () => newsModal.classList.add('visible');
-            const hideModal = () => newsModal.classList.remove('visible');
+            // Function to show the modal
+            const showModal = () => {
+                newsModal.classList.add('visible');
+            };
 
-            // Show modal after a delay
-            setTimeout(showModal, 2000);
+            // Function to hide the modal and set a flag in sessionStorage
+            const hideModal = () => {
+                newsModal.classList.remove('visible');
+                // Set a flag that the modal has been closed during this session.
+                sessionStorage.setItem('modalClosedInSession', 'true');
+            };
 
-            // Event listeners to close
+            // Check if the modal has been closed in the current session
+            if (!sessionStorage.getItem('modalClosedInSession')) {
+                // If not, show the modal after a 2-second delay
+                setTimeout(showModal, 2000);
+            }
+
+            // Event listeners to close the modal
             closeModalBtn.addEventListener('click', hideModal);
+            
             followUsBtn.addEventListener('click', () => {
                 document.getElementById('footer').scrollIntoView({ behavior: 'smooth' });
                 hideModal();
             });
+
             newsModal.addEventListener('click', (e) => {
-                if (e.target === newsModal) hideModal();
+                // Close the modal if the overlay (the dark background) is clicked
+                if (e.target === newsModal) {
+                    hideModal();
+                }
             });
         });
     </script>
