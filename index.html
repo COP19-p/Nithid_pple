@@ -3,51 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>นิธิศ พรรคประชาชน</title>
-    
+    <title>นิธิศ พรรคประชาชน | สร้างสรรค์สังคม พัฒนาประเทศ</title>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Kanit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Kanit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         body {
-            font-family: 'Kanit', 'Inter', sans-serif;
+            font-family: 'Kanit', sans-serif;
             background-color: #F8F9FA;
+            color: #212529;
         }
+
         .hero-section {
+            /* Original orange gradient background */
             background: linear-gradient(135deg, rgba(255, 110, 60, 0.85), rgba(255, 145, 80, 0.85)), url('https://images.unsplash.com/photo-1590845947676-fa2576f402b5?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
         }
+
         .btn {
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 9999px;
             font-weight: 600;
-            padding: 0.75rem 2rem;
+            padding: 0.8rem 2.5rem;
         }
+
+        /* Using the original red button color */
         .btn-primary {
             background-color: #FF6B6B;
             color: white;
             box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
         }
+
         .btn-primary:hover {
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.03);
             box-shadow: 0 7px 25px rgba(255, 107, 107, 0.4);
         }
+
         .btn-secondary {
-             background-color: rgba(255, 255, 255, 0.2);
-             border: 1px solid white;
-             color: white;
-             backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            color: white;
+            backdrop-filter: blur(5px);
         }
+
         .btn-secondary:hover {
             background-color: rgba(255, 255, 255, 0.3);
             transform: translateY(-3px);
         }
+        
         .card {
             background-color: white;
             border-radius: 1rem;
@@ -55,177 +72,200 @@
             transition: all 0.3s ease;
             border: 1px solid #E5E7EB;
         }
+
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
 
         /* Modal Styles */
         .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
+            position: fixed; inset: 0;
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000; opacity: 0; visibility: hidden;
             transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .modal-overlay.visible {
-            opacity: 1;
-            visibility: visible;
-        }
+        .modal-overlay.visible { opacity: 1; visibility: visible; }
         .modal-content {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 1.5rem;
-            width: 90%;
-            max-width: 500px;
-            position: relative;
+            background: white; padding: 2.5rem; border-radius: 1.5rem;
+            width: 90%; max-width: 500px; position: relative;
             transform: scale(0.95);
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .modal-overlay.visible .modal-content {
-            transform: scale(1);
-        }
+        .modal-overlay.visible .modal-content { transform: scale(1); }
         .modal-close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: #f1f5f9;
-            border-radius: 50%;
-            width: 2.5rem;
-            height: 2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: #64748b;
-            cursor: pointer;
+            position: absolute; top: 1rem; right: 1rem;
+            background: #f1f5f9; border-radius: 50%;
+            width: 2.5rem; height: 2.5rem;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; color: #64748b; cursor: pointer;
             transition: all 0.3s ease;
         }
-        .modal-close-btn:hover {
-            background: #e2e8f0;
-            transform: rotate(180deg);
-        }
+        .modal-close-btn:hover { background: #e2e8f0; transform: rotate(90deg); }
     </style>
 </head>
-<body class="text-gray-700">
+<body class="antialiased">
 
     <!-- News Popup Modal -->
     <div id="news-modal" class="modal-overlay">
-        <div class="modal-content">
+        <div class="modal-content text-center">
             <button id="close-modal-btn" class="modal-close-btn">&times;</button>
-            <div class="text-center">
-                <!-- CORRECTED IMAGE PATH -->
-                <img src="tshirt-promo.png" alt="โปรโมทเสื้อนิธิศ พรรคประชาชน" class="w-full rounded-lg shadow-md mx-auto mb-5">
-                <h2 class="text-2xl font-bold text-gray-800 mb-3">Coming Soon!</h2>
-                <p class="text-gray-600">
-                    เสื้อนิธิศ พรรคประชาชน จะกลับมาเปิดพรีออเดอร์อีกครั้งเร็วๆ นี้ 
-                    ติดตามรายละเอียดได้ที่ช่องทางโซเชียลมีเดีย
-                </p>
-            </div>
+            <img src="tshirt-promo.png" alt="โปรโมทเสื้อนิธิศ พรรคประชาชน" class="w-full max-w-xs rounded-lg shadow-xl mx-auto mb-6">
+            <h2 class="text-3xl font-bold text-orange-500 mb-3">Coming Soon!</h2>
+            <p class="text-gray-700 text-lg">
+                เสื้อ <strong class="font-semibold">"นิธิศ พรรคประชาชน"</strong> กลับมาเปิดพรีออเดอร์อีกครั้งเร็วๆ นี้
+            </p>
+            <p class="text-gray-500 mt-1">ติดตามรายละเอียดได้ที่ช่องทางโซเชียลมีเดีย</p>
+            <a href="#footer" id="follow-us-btn" class="mt-6 inline-block btn btn-primary">
+                ติดตามข่าวสาร
+            </a>
         </div>
     </div>
 
     <!-- Header & Hero Section -->
-    <header class="hero-section text-white">
-        <div class="container mx-auto px-6 py-24 md:py-32 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-tight mb-4">นิธิศ พรรคประชาชน</h1>
-            <p class="text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto text-gray-200">
-                มุ่งมั่นทำงานเพื่อประชาชน สร้างสรรค์สังคม และพัฒนาประเทศ
+    <header class="hero-section text-white min-h-screen flex items-center">
+        <div class="container mx-auto px-6 text-center">
+            <!-- LOGO ADDED HERE -->
+            <img src="นิธิศ.png" alt="นิธิศ พรรคประชาชน Logo" class="mx-auto mb-8 h-24 w-auto" data-aos="zoom-in">
+
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-tight mb-4" data-aos="fade-up" data-aos-delay="100">
+                นิธิศ พรรคประชาชน
+            </h1>
+            <p class="text-lg md:text-xl font-light mb-10 max-w-3xl mx-auto text-gray-200" data-aos="fade-up" data-aos-delay="200">
+                มุ่งมั่นทำงานเพื่อประชาชน สร้างสรรค์สังคม และพัฒนาประเทศให้ก้าวไกล
             </p>
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <a href="store.html" class="btn btn-primary bg-green-500 shadow-green-200/50 hover:shadow-green-300/60">
-                    ร้านค้า
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4" data-aos="fade-up" data-aos-delay="300">
+                <a href="store.html" class="btn btn-primary">
+                    <i data-feather="shopping-cart" class="inline-block mr-2 -mt-1"></i>ร้านค้า
                 </a>
-                <a href="project-archive.html" class="btn btn-primary">
-                    โครงการที่ผ่านมา
-                </a>
-                 <a href="#contact" class="btn btn-secondary">
-                    ติดต่อเรา
+                <a href="project-archive.html" class="btn btn-secondary">
+                    <i data-feather="archive" class="inline-block mr-2 -mt-1"></i>โครงการที่ผ่านมา
                 </a>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="container mx-auto px-6 py-16 md:py-24">
-        
+    <main>
         <!-- Vision & Mission Section -->
-        <section class="text-center mb-20 md:mb-24">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">วิสัยทัศน์และพันธกิจของเรา</h2>
-            <p class="max-w-3xl mx-auto text-gray-600 mb-12">
-                เราเชื่อมั่นว่าการพัฒนาประเทศที่ยั่งยืนเริ่มต้นจากคุณภาพชีวิตที่ดีของประชาชน
-                เราจึงทุ่มเททำงานเพื่อสร้างความเปลี่ยนแปลงที่จับต้องได้ในทุกมิติ
-            </p>
-            <div class="grid md:grid-cols-2 gap-8 text-left">
-                <div class="card p-8">
-                    <h3 class="text-xl font-bold text-orange-500 mb-3">วิสัยทัศน์ (Our Vision)</h3>
-                    <p>เรามุ่งมั่นที่จะเป็นส่วนหนึ่งในการสร้างสังคมไทยที่เท่าเทียม ประชาชนมีสิทธิเสรีภาพ
-                        เข้าถึงโอกาสและการศึกษาที่มีคุณภาพ เพื่อยกระดับคุณภาพชีวิตและขับเคลื่อนเศรษฐกิจของประเทศให้เติบโตอย่างยั่งยืน</p>
+        <section class="py-20 md:py-32 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">วิสัยทัศน์และพันธกิจ</h2>
+                    <p class="max-w-3xl mx-auto text-gray-600 text-lg">
+                        เราเชื่อมั่นว่าการพัฒนาประเทศที่ยั่งยืนเริ่มต้นจากคุณภาพชีวิตที่ดีของประชาชน
+                        เราจึงทุ่มเททำงานเพื่อสร้างความเปลี่ยนแปลงที่จับต้องได้ในทุกมิติ
+                    </p>
                 </div>
-                <div class="card p-8">
-                    <h3 class="text-xl font-bold text-green-500 mb-3">พันธกิจ (Our Mission)</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-600">
-                        <li>ผลักดันนโยบายที่โปร่งใสและเป็นประโยชน์ต่อส่วนรวม</li>
-                        <li>ส่งเสริมการมีส่วนร่วมของประชาชนในการพัฒนาชุมชน</li>
-                        <li>ริเริ่มโครงการเพื่อแก้ปัญหาและพัฒนาสังคมในพื้นที่</li>
-                    </ul>
+                <div class="grid md:grid-cols-2 gap-8 lg:gap-12 text-left">
+                    <div class="card p-8 lg:p-10" data-aos="fade-right" data-aos-delay="100">
+                        <div class="mb-5">
+                            <div class="inline-block p-4 bg-orange-100 text-orange-500 rounded-full">
+                                <i data-feather="eye" class="w-8 h-8"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold text-orange-500 mb-3">วิสัยทัศน์ (Our Vision)</h3>
+                        <p class="text-gray-600 leading-relaxed">เรามุ่งมั่นที่จะเป็นส่วนหนึ่งในการสร้างสังคมไทยที่เท่าเทียม ประชาชนมีสิทธิเสรีภาพ
+                            เข้าถึงโอกาสและการศึกษาที่มีคุณภาพ เพื่อยกระดับคุณภาพชีวิตและขับเคลื่อนเศรษฐกิจของประเทศให้เติบโตอย่างยั่งยืน</p>
+                    </div>
+                    <div class="card p-8 lg:p-10" data-aos="fade-left" data-aos-delay="200">
+                        <div class="mb-5">
+                            <div class="inline-block p-4 bg-green-100 text-green-600 rounded-full">
+                                <i data-feather="target" class="w-8 h-8"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold text-green-600 mb-3">พันธกิจ (Our Mission)</h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start"><i data-feather="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0"></i><span>ผลักดันนโยบายที่โปร่งใสและเป็นประโยชน์ต่อส่วนรวม</span></li>
+                            <li class="flex items-start"><i data-feather="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0"></i><span>ส่งเสริมการมีส่วนร่วมของประชาชนในการพัฒนาชุมชน</span></li>
+                            <li class="flex items-start"><i data-feather="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0"></i><span>ริเริ่มโครงการเพื่อแก้ปัญหาและพัฒนาสังคมในพื้นที่</span></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="card p-8 md:p-12">
-             <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">ติดต่อเรา</h2>
-             <p class="text-center max-w-2xl mx-auto mb-8 text-gray-600">
-                สนใจร่วมงาน, สนับสนุน, หรือมีข้อเสนอแนะ? เรายินดีรับฟังทุกความคิดเห็นจากคุณ
-             </p>
-             <div class="text-center text-gray-700 bg-gray-50 rounded-lg p-6 max-w-md mx-auto">
-                 <p class="font-semibold">คุณนิธิศ บุญฤทธิ์</p>
-                 <p class="mt-2">📧 <a href="mailto:nitit.boonyalit@gmail.com" class="text-orange-500 hover:text-orange-600 transition-colors">nitit.boonyalit@gmail.com</a></p>
-                 <p class="mt-1">📞 <a href="tel:0982279327" class="text-orange-500 hover:text-orange-600 transition-colors">098-227-9327</a></p>
-             </div>
+        <section id="contact" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-6 text-center" data-aos="zoom-in-up">
+                 <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">ติดต่อเรา</h2>
+                 <p class="text-center max-w-2xl mx-auto mb-10 text-gray-600 text-lg">
+                    สนใจร่วมงาน, สนับสนุน, หรือมีข้อเสนอแนะ? เรายินดีรับฟังทุกความคิดเห็นจากคุณ
+                 </p>
+                 <div class="bg-gray-50 rounded-2xl p-8 max-w-lg mx-auto border border-gray-200">
+                     <p class="text-2xl font-semibold text-gray-800">คุณนิธิศ บุญฤทธิ์</p>
+                     <div class="mt-6 space-y-3 text-lg text-gray-700">
+                        <p class="flex items-center justify-center">
+                            <i data-feather="mail" class="w-5 h-5 mr-3 text-orange-500"></i>
+                            <a href="mailto:nitit.boonyalit@gmail.com" class="text-orange-500 hover:text-orange-600 transition-colors">nitit.boonyalit@gmail.com</a>
+                        </p>
+                        <p class="flex items-center justify-center">
+                            <i data-feather="phone" class="w-5 h-5 mr-3 text-orange-500"></i>
+                            <a href="tel:0982279327" class="text-orange-500 hover:text-orange-600 transition-colors">098-227-9327</a>
+                        </p>
+                     </div>
+                 </div>
+            </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-400">
-        <div class="container mx-auto px-6 py-8">
+    <footer id="footer" class="bg-gray-800 text-gray-400">
+        <div class="container mx-auto px-6 py-10">
             <div class="flex flex-col items-center text-center">
-                <!-- Social Media Links -->
+                <!-- LOGO ADDED HERE -->
+                <img src="นิธิศ.png" alt="นิธิศ พรรคประชาชน Logo" class="mb-6 h-16 w-auto opacity-75 brightness-0 invert">
+
                 <div class="flex justify-center space-x-6 mb-6">
-                    <a href="https://www.instagram.com/Nithxd_19" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors duration-300">
+                    <a href="https://www.instagram.com/Nithxd_19" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full hover:bg-gray-700 hover:text-white transition-all duration-300">
                         <span class="sr-only">Instagram</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664 4.771 4.919 4.919 1.266.058 1.644.07 4.85.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.359 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.359-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.359-2.618-6.78-6.98-6.98-1.281-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg>
+                        <i data-feather="instagram" class="w-6 h-6"></i>
                     </a>
-                    <a href="https://www.facebook.com/NithidBoonyalit" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors duration-300">
+                    <a href="https://www.facebook.com/NithidBoonyalit" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full hover:bg-gray-700 hover:text-white transition-all duration-300">
                         <span class="sr-only">Facebook</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+                        <i data-feather="facebook" class="w-6 h-6"></i>
                     </a>
                 </div>
                 <p>&copy; 2025 นิธิศ พรรคประชาชน. All Rights Reserved.</p>
-                <p class="text-sm mt-2">ออกแบบและพัฒนาด้วยความตั้งใจ</p>
+                <p class="text-sm mt-2 text-gray-500">ออกแบบและพัฒนาด้วยความตั้งใจ</p>
             </div>
         </div>
     </footer>
 
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Feather Icons
+            feather.replace();
+
+            // Initialize AOS
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 50,
+            });
+
+            // Modal Logic
             const newsModal = document.getElementById('news-modal');
             const closeModalBtn = document.getElementById('close-modal-btn');
+            const followUsBtn = document.getElementById('follow-us-btn');
 
             const showModal = () => newsModal.classList.add('visible');
             const hideModal = () => newsModal.classList.remove('visible');
 
-            // Show modal after a 1.5-second delay
+            // Show modal after a delay
             setTimeout(showModal, 1500);
 
             // Event listeners to close
             closeModalBtn.addEventListener('click', hideModal);
+            followUsBtn.addEventListener('click', () => {
+                document.getElementById('footer').scrollIntoView({ behavior: 'smooth' });
+                hideModal();
+            });
             newsModal.addEventListener('click', (e) => {
                 if (e.target === newsModal) hideModal();
             });
