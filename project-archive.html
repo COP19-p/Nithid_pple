@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บทสรุปโครงการ: นิธิศ x มูลนิธิกระจกเงา</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter & Kanit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Kanit:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Kanit', 'Inter', sans-serif;
+            background-color: #F8F9FA;
+        }
+        .header-archive {
+            background-color: #374151;
+        }
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid #E5E7EB;
+        }
+        .btn-link {
+            background-color: #FF8C42;
+            color: white;
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+        }
+        .btn-link:hover {
+            background-color: #E07B3A;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="text-gray-700">
+
+    <!-- Back to Main Page Button -->
+    <a href="index.html" title="กลับสู่หน้าหลัก" class="fixed top-5 left-5 z-50 p-3 rounded-full bg-white text-gray-600 shadow-lg hover:bg-gray-100 hover:scale-110 transition-all duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+    </a>
+
+    <!-- Header -->
+    <header class="header-archive text-white pt-16 pb-12 text-center">
+        <div class="relative z-10">
+            <img alt="โลโก้โครงการ" src="https://cop19-p.github.io/Nithidpplexthemirrorf/main_logo.png" class="mx-auto h-24 w-24 mb-4" onerror="this.onerror=null;this.src='https://placehold.co/96x96/FFFFFF/374151?text=Logo';">
+            <h1 class="text-3xl md:text-4xl font-bold tracking-tight">บทสรุปโครงการ</h1>
+            <p class="text-lg text-gray-300 mt-1">นิธิศ พรรคประชาชน x มูลนิธิกระจกเงา</p>
+            <p class="text-sm font-semibold mt-4 bg-red-500/80 inline-block px-3 py-1 rounded-full">[ โครงการสิ้นสุดเมื่อ 30 มิ.ย. 2025 ]</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12 md:py-16 max-w-4xl">
+        
+        <!-- Project Summary Card -->
+        <div class="card p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">เกี่ยวกับโครงการ</h2>
+            <p class="text-gray-600 leading-relaxed">
+                โครงการนี้คือความร่วมมือเพื่อส่งมอบโอกาสทางการศึกษาผ่านเทคโนโลยี โดยรับบริจาคคอมพิวเตอร์และระดมทุนเพื่อจัดซื้ออุปกรณ์ที่จำเป็น
+                มอบให้กับนักเรียนและโรงเรียนที่ขาดแคลนทั่วประเทศผ่านมูลนิธิกระจกเงา
+                ขอขอบคุณผู้สนับสนุนทุกท่านที่ร่วมสร้างการเปลี่ยนแปลงในครั้งนี้
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Donation Summary -->
+            <div class="card p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">สรุปยอดบริจาค</h2>
+                <div class="space-y-3 text-gray-600">
+                    <div class="flex justify-between">
+                        <span>เป้าหมาย:</span>
+                        <span class="font-semibold">10,000 บาท</span>
+                    </div>
+                    <div class="flex justify-between text-gray-800">
+                        <span class="font-bold">ยอดบริจาคสุดท้าย:</span>
+                        <span class="font-bold text-lg">600 บาท</span>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-3 mt-4">
+                    <div class="bg-gradient-to-r from-yellow-400 to-orange-500 h-3 rounded-full" style="width: 6%;"></div>
+                </div>
+                <p class="text-center text-sm text-gray-500 mt-2 font-semibold">ได้รับ 6% ของเป้าหมาย</p>
+            </div>
+
+            <!-- Transparency -->
+            <div class="card p-8 flex flex-col items-center justify-center text-center">
+                <div class="bg-sky-100 text-sky-500 rounded-full h-16 w-16 flex items-center justify-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-3">ความโปร่งใส</h2>
+                <p class="text-gray-600 mb-5">ดูรายงานการเงินและหลักฐานการส่งมอบฉบับเต็ม</p>
+                <a href="https://docs.google.com/spreadsheets/d/1JKdgtfxGAi0VkAueTiL56FT56K5eCNRNZxp_qBIYdos/edit?usp=sharing" target="_blank" class="btn-link">
+                    เปิดรายงานการเงิน
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-200 text-gray-500">
+        <div class="container mx-auto px-6 py-6 text-center">
+            <p class="font-semibold">ผู้จัดโครงการ: นิธิศ บุญฤทธิ์</p>
+            <p class="text-sm mt-1">ติดต่อ: <a href="mailto:nitit.boonyalit@gmail.com" class="hover:text-gray-700">nitit.boonyalit@gmail.com</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>
