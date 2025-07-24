@@ -27,11 +27,31 @@
         }
 
         .hero-section {
-            /* Original orange gradient background */
-            background: linear-gradient(135deg, rgba(255, 110, 60, 0.85), rgba(255, 145, 80, 0.85)), url('https://images.unsplash.com/photo-1590845947676-fa2576f402b5?q=80&w=2070&auto=format&fit=crop');
+            background: linear-gradient(135deg, rgba(255, 110, 60, 0.9), rgba(255, 145, 80, 0.9)), url('https://images.unsplash.com/photo-1590845947676-fa2576f402b5?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
+        }
+
+        .navbar {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        
+        .navbar.scrolled .nav-link {
+            color: #374151; /* gray-700 */
+        }
+        
+        .navbar.scrolled .nav-link:hover {
+            color: #FF6B6B;
+        }
+        
+        .navbar .logo-text {
+            transition: color 0.3s ease-in-out;
         }
 
         .btn {
@@ -41,7 +61,6 @@
             padding: 0.8rem 2.5rem;
         }
 
-        /* Using the original red button color */
         .btn-primary {
             background-color: #FF6B6B;
             color: white;
@@ -51,18 +70,6 @@
         .btn-primary:hover {
             transform: translateY(-3px) scale(1.03);
             box-shadow: 0 7px 25px rgba(255, 107, 107, 0.4);
-        }
-
-        .btn-secondary {
-            background-color: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            color: white;
-            backdrop-filter: blur(5px);
-        }
-
-        .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-3px);
         }
         
         .card {
@@ -108,6 +115,49 @@
 </head>
 <body class="antialiased">
 
+    <!-- Header Section (Navbar + Hero) -->
+    <header class="hero-section relative">
+        <!-- Navigation Bar -->
+        <nav id="navbar" class="navbar fixed top-0 left-0 right-0 z-50">
+            <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+                <!-- Logo -->
+                <a href="#" class="flex items-center">
+                    <img src="นิธิศ.png" alt="นิธิศ พรรคประชาชน Logo" class="h-12 w-auto">
+                    <!-- Removed text from here to avoid repetition -->
+                </a>
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#vision" class="text-white font-medium nav-link hover:text-gray-200 transition-colors">วิสัยทัศน์</a>
+                    <a href="project-archive.html" class="text-white font-medium nav-link hover:text-gray-200 transition-colors">โครงการ</a>
+                    <a href="#contact" class="text-white font-medium nav-link hover:text-gray-200 transition-colors">ติดต่อเรา</a>
+                </div>
+                <div class="md:hidden">
+                    <!-- Mobile Menu Button can be added here -->
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Content -->
+        <div class="pt-48 pb-32 text-white">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight mb-4" data-aos="fade-up">
+                    นิธิศ พรรคประชาชน
+                </h1>
+                <p class="text-lg md:text-xl font-light mb-10 max-w-3xl mx-auto text-gray-200" data-aos="fade-up" data-aos-delay="100">
+                    มุ่งมั่นทำงานเพื่อประชาชน สร้างสรรค์สังคม และพัฒนาประเทศให้ก้าวไกล
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4" data-aos="fade-up" data-aos-delay="200">
+                    <a href="store.html" class="btn btn-primary">
+                        <i data-feather="shopping-cart" class="inline-block mr-2 -mt-1"></i>ร้านค้า
+                    </a>
+                    <a href="project-archive.html" class="btn bg-white/20 border-white/80 text-white backdrop-blur-sm hover:bg-white/30">
+                        <i data-feather="archive" class="inline-block mr-2 -mt-1"></i>โครงการที่ผ่านมา
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <!-- News Popup Modal -->
     <div id="news-modal" class="modal-overlay">
         <div class="modal-content text-center">
@@ -124,33 +174,10 @@
         </div>
     </div>
 
-    <!-- Header & Hero Section -->
-    <header class="hero-section text-white min-h-screen flex items-center">
-        <div class="container mx-auto px-6 text-center">
-            <!-- LOGO ADDED HERE -->
-            <img src="นิธิศ.png" alt="นิธิศ พรรคประชาชน Logo" class="mx-auto mb-8 h-24 w-auto" data-aos="zoom-in">
-
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-tight mb-4" data-aos="fade-up" data-aos-delay="100">
-                นิธิศ พรรคประชาชน
-            </h1>
-            <p class="text-lg md:text-xl font-light mb-10 max-w-3xl mx-auto text-gray-200" data-aos="fade-up" data-aos-delay="200">
-                มุ่งมั่นทำงานเพื่อประชาชน สร้างสรรค์สังคม และพัฒนาประเทศให้ก้าวไกล
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-4" data-aos="fade-up" data-aos-delay="300">
-                <a href="store.html" class="btn btn-primary">
-                    <i data-feather="shopping-cart" class="inline-block mr-2 -mt-1"></i>ร้านค้า
-                </a>
-                <a href="project-archive.html" class="btn btn-secondary">
-                    <i data-feather="archive" class="inline-block mr-2 -mt-1"></i>โครงการที่ผ่านมา
-                </a>
-            </div>
-        </div>
-    </header>
-
     <!-- Main Content -->
     <main>
         <!-- Vision & Mission Section -->
-        <section class="py-20 md:py-32 bg-gray-50">
+        <section id="vision" class="py-20 md:py-24 bg-gray-50">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16" data-aos="fade-up">
                     <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">วิสัยทัศน์และพันธกิจ</h2>
@@ -188,7 +215,7 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-20 md:py-32 bg-white">
+        <section id="contact" class="py-20 md:py-24 bg-white">
             <div class="container mx-auto px-6 text-center" data-aos="zoom-in-up">
                  <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">ติดต่อเรา</h2>
                  <p class="text-center max-w-2xl mx-auto mb-10 text-gray-600 text-lg">
@@ -215,9 +242,9 @@
     <footer id="footer" class="bg-gray-800 text-gray-400">
         <div class="container mx-auto px-6 py-10">
             <div class="flex flex-col items-center text-center">
-                <!-- LOGO ADDED HERE -->
-                <img src="นิธิศ.png" alt="นิธิศ พรรคประชาชน Logo" class="mb-6 h-16 w-auto opacity-75 brightness-0 invert">
-
+                <a href="#" class="mb-6">
+                    <img src="นิธิศ.png" alt="นิธิศ พรรคประชาชน Logo" class="h-16 w-auto opacity-75 brightness-0 invert">
+                </a>
                 <div class="flex justify-center space-x-6 mb-6">
                     <a href="https://www.instagram.com/Nithxd_19" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full hover:bg-gray-700 hover:text-white transition-all duration-300">
                         <span class="sr-only">Instagram</span>
@@ -249,6 +276,17 @@
                 offset: 50,
             });
 
+            // Navbar Scroll Effect
+            const navbar = document.getElementById('navbar');
+            const logoText = document.querySelector('.logo-text'); // Select the logo text
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
             // Modal Logic
             const newsModal = document.getElementById('news-modal');
             const closeModalBtn = document.getElementById('close-modal-btn');
@@ -258,7 +296,7 @@
             const hideModal = () => newsModal.classList.remove('visible');
 
             // Show modal after a delay
-            setTimeout(showModal, 1500);
+            setTimeout(showModal, 2000);
 
             // Event listeners to close
             closeModalBtn.addEventListener('click', hideModal);
