@@ -33,10 +33,14 @@
             color: white;
             transition: all 0.3s ease;
         }
-        .btn-primary:hover {
+        .btn-primary:hover:not(:disabled) {
             background-color: #FF7722;
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(255, 130, 66, 0.3);
+        }
+        .btn-primary:disabled {
+            background-color: #d1d5db;
+            cursor: not-allowed;
         }
         /* Modal Styles */
         .modal-overlay {
@@ -165,8 +169,9 @@
                     <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">เบอร์โทรศัพท์</label>
                     <input type="tel" id="phone" name="phone" class="form-input" placeholder="0812345678" required>
                 </div>
-                <button type="submit" class="w-full py-3 rounded-lg text-white font-semibold btn-primary text-lg mt-4">
-                    ยืนยันข้อมูลและชำระเงิน
+                <button type="submit" id="submit-order-btn" class="w-full py-3 rounded-lg text-white font-semibold btn-primary text-lg mt-4">
+                    <span class="btn-text">ยืนยันข้อมูลและชำระเงิน</span>
+                    <span class="btn-loader hidden">กำลังบันทึก...</span>
                 </button>
             </form>
         </div>
@@ -179,7 +184,7 @@
              <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
                 <i data-feather="check" class="w-10 h-10 text-green-600"></i>
              </div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">ขอบคุณสำหรับคำสั่งซื้อ!</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">ได้รับคำสั่งซื้อแล้ว!</h2>
             <p class="text-gray-600 mb-6">กรุณาสแกน QR Code ด้านล่างเพื่อชำระเงิน</p>
             
             <div class="bg-gray-50 p-4 rounded-lg mb-6">
@@ -188,7 +193,8 @@
                 <p class="text-xl font-bold mt-2">ยอดชำระ: <span id="confirm-price" class="text-orange-500"></span> บาท</p>
             </div>
 
-            <img src="https://placehold.co/300x300/e2e8f0/333?text=PromptPay+QR" alt="QR Code สำหรับชำระเงิน" class="mx-auto rounded-lg shadow-md">
+            <!-- FIXED: Using the user-provided QR code image -->
+            <img src="S__9388034.jpg" alt="QR Code สำหรับชำระเงิน" class="mx-auto rounded-lg shadow-md w-full max-w-xs">
             <p class="text-sm text-gray-500 mt-4">หลังจากชำระเงินแล้ว กรุณาส่งหลักฐานการโอนมาที่... (ตัวอย่าง)</p>
         </div>
     </div>
@@ -200,7 +206,28 @@
         </div>
     </footer>
 
-    <script>
+    <!-- Firebase SDK -->
+    <script type="module">
+        // นำเข้าฟังก์ชันที่จำเป็นจาก SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // การกำหนดค่า Firebase ของเว็บแอปพลิเคชันของคุณ
+        const firebaseConfig = {
+            apiKey: "AIzaSyAmsrtv0hV_a38Yi2aqz1NIL4dyKpdNQ-o",
+            authDomain: "nithidpple-70241.firebaseapp.com",
+            projectId: "nithidpple-70241",
+            storageBucket: "nithidpple-70241.appspot.com",
+            messagingSenderId: "188273475273",
+            appId: "1:188273475273:web:a583fa490067a4049e1718",
+            measurementId: "G-XD9SY572E6"
+        };
+
+        // เริ่มต้น Firebase
+        const app = initializeApp(firebaseConfig);
+        // NEW: เริ่มต้น Firestore
+        const db = getFirestore(app);
+
         document.addEventListener('DOMContentLoaded', () => {
             // --- Initialize Feather Icons ---
             feather.replace();
@@ -213,6 +240,7 @@
             const orderModal = document.getElementById('order-modal');
             const closeOrderModalBtn = document.getElementById('close-order-modal-btn');
             const orderForm = document.getElementById('order-form');
+            const submitOrderBtn = document.getElementById('submit-order-btn');
 
             const confirmModal = document.getElementById('confirm-modal');
             const closeConfirmModalBtn = document.getElementById('close-confirm-modal-btn');
@@ -231,32 +259,55 @@
             const showModal = (modal) => modal.classList.add('visible');
             const hideModal = (modal) => modal.classList.remove('visible');
 
-            // Open Order Modal
-            orderBtn.addEventListener('click', () => {
-                showModal(orderModal);
-            });
-
-            // Close Order Modal
+            orderBtn.addEventListener('click', () => showModal(orderModal));
             closeOrderModalBtn.addEventListener('click', () => hideModal(orderModal));
             orderModal.addEventListener('click', (e) => {
                 if (e.target === orderModal) hideModal(orderModal);
             });
 
-            // Handle Order Submission
-            orderForm.addEventListener('submit', (e) => {
-                e.preventDefault(); // Prevent actual form submission
+            // --- NEW: Handle Order Submission to Firestore ---
+            orderForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
                 
-                // Get selected size and price
-                const selectedSize = document.querySelector('input[name="size"]:checked').value;
-                const currentPrice = priceDisplay.textContent;
+                // แสดงสถานะกำลังโหลด
+                submitOrderBtn.disabled = true;
+                submitOrderBtn.querySelector('.btn-text').classList.add('hidden');
+                submitOrderBtn.querySelector('.btn-loader').classList.remove('hidden');
 
-                // Populate confirmation modal
-                confirmSize.textContent = selectedSize;
-                confirmPrice.textContent = currentPrice;
+                // รวบรวมข้อมูลจากฟอร์ม
+                const orderData = {
+                    name: orderForm.name.value,
+                    address: orderForm.address.value,
+                    phone: orderForm.phone.value,
+                    size: document.querySelector('input[name="size"]:checked').value,
+                    price: parseFloat(priceDisplay.textContent),
+                    status: 'pending_payment', // สถานะเริ่มต้น: รอการชำระเงิน
+                    createdAt: serverTimestamp() // บันทึกเวลาที่สั่งซื้อ
+                };
 
-                // Hide order modal and show confirmation modal
-                hideModal(orderModal);
-                showModal(confirmModal);
+                try {
+                    // บันทึกข้อมูลลงใน Firestore collection ชื่อ 'orders'
+                    const docRef = await addDoc(collection(db, "orders"), orderData);
+                    console.log("Order written with ID: ", docRef.id);
+
+                    // แสดงข้อมูลในหน้ายืนยัน
+                    confirmSize.textContent = orderData.size;
+                    confirmPrice.textContent = orderData.price;
+
+                    // ซ่อนฟอร์มและแสดงหน้ายืนยัน
+                    hideModal(orderModal);
+                    showModal(confirmModal);
+                    orderForm.reset(); // ล้างข้อมูลในฟอร์ม
+
+                } catch (error) {
+                    console.error("Error adding document: ", error);
+                    alert("เกิดข้อผิดพลาดในการบันทึกคำสั่งซื้อ กรุณาลองใหม่อีกครั้ง");
+                } finally {
+                    // คืนค่าปุ่มให้เป็นปกติ
+                    submitOrderBtn.disabled = false;
+                    submitOrderBtn.querySelector('.btn-text').classList.remove('hidden');
+                    submitOrderBtn.querySelector('.btn-loader').classList.add('hidden');
+                }
             });
 
             // Close Confirmation Modal
