@@ -19,7 +19,7 @@
     <style>
         body {
             font-family: 'Kanit', 'Inter', sans-serif;
-            background-color: #f9fafb; /* Slightly lighter gray */
+            background-color: #f9fafb;
         }
         .size-selector input:checked + label {
             border-color: #FF8C42;
@@ -47,9 +47,15 @@
             position: fixed; inset: 0;
             background: rgba(17, 24, 39, 0.8);
             backdrop-filter: blur(8px);
-            display: flex; align-items: center; justify-content: center;
+            display: flex; 
+            /* FIXED: align-items: flex-start to allow scrolling from top */
+            align-items: flex-start; 
+            justify-content: center;
             z-index: 1000; opacity: 0; visibility: hidden;
             transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            /* FIXED: Add scrolling for long content */
+            overflow-y: auto;
+            padding: 2rem 1rem; /* Add padding for spacing */
         }
         .modal-overlay.visible { opacity: 1; visibility: visible; }
         .modal-content {
@@ -57,6 +63,8 @@
             width: 90%; max-width: 550px; position: relative;
             transform: scale(0.95);
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+             /* FIXED: Ensure modal is centered and has margin */
+            margin: auto 0;
         }
         .modal-overlay.visible .modal-content { transform: scale(1); }
         .modal-close-btn {
@@ -69,17 +77,20 @@
         }
         .modal-close-btn:hover { background: #e2e8f0; transform: rotate(90deg); }
         .form-input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.5rem;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            width: 100%; padding: 0.75rem 1rem; border: 1px solid #d1d5db;
+            border-radius: 0.5rem; transition: border-color 0.2s, box-shadow 0.2s;
         }
         .form-input:focus {
-            outline: none;
-            border-color: #FF8C42;
+            outline: none; border-color: #FF8C42;
             box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.2);
         }
+        /* File Upload Styling */
+        .file-upload-wrapper {
+            border: 2px dashed #d1d5db; padding: 1.5rem; border-radius: 0.75rem;
+            text-align: center; cursor: pointer; transition: border-color 0.3s;
+        }
+        .file-upload-wrapper:hover { border-color: #FF8C42; }
+        .file-upload-wrapper.dragging { background-color: #FFF7ED; border-color: #FF8C42; }
     </style>
 </head>
 <body class="text-gray-700">
@@ -92,8 +103,7 @@
                 <span>ร้านค้า</span>
             </a>
             <a href="index.html" class="text-gray-600 hover:text-orange-500 transition-colors flex items-center">
-                <i data-feather="arrow-left" class="mr-2 h-4 w-4"></i>
-                กลับสู่หน้าหลัก
+                <i data-feather="arrow-left" class="mr-2 h-4 w-4"></i> กลับสู่หน้าหลัก
             </a>
         </div>
     </header>
@@ -101,50 +111,33 @@
     <!-- Main Product Section -->
     <main class="container mx-auto px-6 py-12 md:py-16">
         <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-start">
-            <!-- Product Image -->
             <div class="bg-white p-4 rounded-2xl shadow-lg">
                 <img src="tshirt-promo.png" alt="เสื้อยืดนิธิศ พรรคประชาชน" class="w-full rounded-lg aspect-square object-cover">
             </div>
-
-            <!-- Product Details -->
             <div>
                 <span class="inline-block bg-orange-100 text-orange-600 text-sm font-semibold px-3 py-1 rounded-full mb-4">Limited Edition</span>
                 <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-3">เสื้อยืด นิธิศ พรรคประชาชน</h1>
-                
-                <p class="text-gray-600 leading-relaxed mb-8">
-                    เสื้อยืดคุณภาพดี ผลิตจากผ้า TC COMB สกรีนลายด้วยระบบ DFT ที่ให้สีสด คมชัดและทนทาน
-                    ร่วมเป็นส่วนหนึ่งและสนับสนุนการทำงานของเราผ่านเสื้อยืดรุ่นพิเศษนี้
-                </p>
-
-                <!-- Size Selector -->
+                <p class="text-gray-600 leading-relaxed mb-8">เสื้อยืดคุณภาพดี ผลิตจากผ้า TC COMB สกรีนลายด้วยระบบ DFT ที่ให้สีสด คมชัดและทนทาน ร่วมเป็นส่วนหนึ่งและสนับสนุนการทำงานของเราผ่านเสื้อยืดรุ่นพิเศษนี้</p>
                 <div class="mb-8">
                     <h2 class="text-lg font-semibold text-gray-800 mb-3">เลือกขนาด (Size)</h2>
                     <div id="size-selector" class="flex flex-wrap gap-3 size-selector">
-                        <input type="radio" name="size" id="s" value="S" data-price="230" class="sr-only">
-                        <label for="s" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">S</label>
-                        
-                        <input type="radio" name="size" id="m" value="M" data-price="230" class="sr-only" checked>
-                        <label for="m" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">M</label>
-
-                        <input type="radio" name="size" id="l" value="L" data-price="230" class="sr-only">
-                        <label for="l" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">L</label>
-
-                        <input type="radio" name="size" id="xl" value="XL" data-price="280" class="sr-only">
-                        <label for="xl" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">XL</label>
-
-                        <input type="radio" name="size" id="2xl" value="2XL" data-price="319" class="sr-only">
-                        <label for="2xl" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">2XL</label>
+                        <input type="radio" name="size" id="s" value="S" data-price="230" class="sr-only"><label for="s" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">S</label>
+                        <input type="radio" name="size" id="m" value="M" data-price="230" class="sr-only" checked><label for="m" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">M</label>
+                        <input type="radio" name="size" id="l" value="L" data-price="230" class="sr-only"><label for="l" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">L</label>
+                        <input type="radio" name="size" id="xl" value="XL" data-price="280" class="sr-only"><label for="xl" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">XL</label>
+                        <input type="radio" name="size" id="2xl" value="2XL" data-price="319" class="sr-only"><label for="2xl" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">2XL</label>
                     </div>
                 </div>
-
-                <!-- Price & Action Button -->
                 <div>
+                    <div class="text-lg mb-4">
+                        <p>ค่าสินค้า: <span id="price-display" class="font-semibold">230</span> บาท</p>
+                        <p>ค่าจัดส่ง: <span class="font-semibold">30</span> บาท</p>
+                    </div>
                     <p class="text-3xl font-bold text-gray-800 mb-4">
-                        ราคา: <span id="price-display">230</span> บาท
+                        ยอดรวม: <span id="total-price-display">260</span> บาท
                     </p>
                     <button id="order-btn" class="w-full py-3 rounded-lg text-white font-semibold btn-primary text-lg">
-                        <i data-feather="shopping-cart" class="inline-block mr-2 -mt-1"></i>
-                        สั่งซื้อสินค้า
+                        <i data-feather="shopping-cart" class="inline-block mr-2 -mt-1"></i> สั่งซื้อสินค้า
                     </button>
                 </div>
             </div>
@@ -170,7 +163,7 @@
                     <input type="tel" id="phone" name="phone" class="form-input" placeholder="0812345678" required>
                 </div>
                 <button type="submit" id="submit-order-btn" class="w-full py-3 rounded-lg text-white font-semibold btn-primary text-lg mt-4">
-                    <span class="btn-text">ยืนยันข้อมูลและชำระเงิน</span>
+                    <span class="btn-text">ยืนยันข้อมูลและดำเนินการต่อ</span>
                     <span class="btn-loader hidden">กำลังบันทึก...</span>
                 </button>
             </form>
@@ -181,21 +174,39 @@
     <div id="confirm-modal" class="modal-overlay">
         <div class="modal-content text-center">
              <button id="close-confirm-modal-btn" class="modal-close-btn">&times;</button>
-             <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
-                <i data-feather="check" class="w-10 h-10 text-green-600"></i>
+             <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-5">
+                <i data-feather="credit-card" class="w-9 h-9 text-blue-600"></i>
              </div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">ได้รับคำสั่งซื้อแล้ว!</h2>
-            <p class="text-gray-600 mb-6">กรุณาสแกน QR Code ด้านล่างเพื่อชำระเงิน</p>
-            
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">ขั้นตอนสุดท้าย: ชำระเงิน</h2>
+            <p class="text-gray-600 mb-6">กรุณาสแกน QR Code และอัปโหลดหลักฐานการชำระเงิน</p>
             <div class="bg-gray-50 p-4 rounded-lg mb-6">
-                <h3 class="font-semibold text-gray-800">สรุปรายการ:</h3>
                 <p>เสื้อยืด นิธิศ พรรคประชาชน (ขนาด <span id="confirm-size" class="font-semibold"></span>)</p>
                 <p class="text-xl font-bold mt-2">ยอดชำระ: <span id="confirm-price" class="text-orange-500"></span> บาท</p>
             </div>
+            <img src="S__9388034.jpg" alt="QR Code สำหรับชำระเงิน" class="mx-auto rounded-lg shadow-md w-full max-w-xs mb-6">
+            <form id="payment-form">
+                <label for="slip-upload" class="file-upload-wrapper block">
+                    <i data-feather="upload-cloud" class="w-10 h-10 text-gray-400 mx-auto mb-2"></i>
+                    <span id="slip-text" class="text-gray-600">คลิกเพื่ออัปโหลดสลิป</span>
+                    <input type="file" id="slip-upload" class="sr-only" accept="image/*" required>
+                </label>
+                <button type="submit" id="submit-payment-btn" class="w-full py-3 mt-4 rounded-lg text-white font-semibold btn-primary text-lg">
+                    <span class="btn-text">ยืนยันการชำระเงิน</span>
+                    <span class="btn-loader hidden">กำลังอัปโหลด...</span>
+                </button>
+            </form>
+        </div>
+    </div>
 
-            <!-- FIXED: Using the user-provided QR code image -->
-            <img src="S__9388034.jpg" alt="QR Code สำหรับชำระเงิน" class="mx-auto rounded-lg shadow-md w-full max-w-xs">
-            <p class="text-sm text-gray-500 mt-4">หลังจากชำระเงินแล้ว กรุณาส่งหลักฐานการโอนมาที่... (ตัวอย่าง)</p>
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal-overlay">
+        <div class="modal-content text-center">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
+                <i data-feather="check" class="w-10 h-10 text-green-600"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">การสั่งซื้อเสร็จสมบูรณ์!</h2>
+            <p class="text-gray-600 mb-6">ทีมงานได้รับข้อมูลของท่านแล้ว และจะดำเนินการจัดส่งโดยเร็วที่สุด ขอบคุณครับ</p>
+            <button id="close-success-modal-btn" class="w-full py-3 rounded-lg text-white font-semibold btn-primary">ปิด</button>
         </div>
     </div>
 
@@ -208,11 +219,10 @@
 
     <!-- Firebase SDK -->
     <script type="module">
-        // นำเข้าฟังก์ชันที่จำเป็นจาก SDKs
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, doc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
-        // การกำหนดค่า Firebase ของเว็บแอปพลิเคชันของคุณ
         const firebaseConfig = {
             apiKey: "AIzaSyAmsrtv0hV_a38Yi2aqz1NIL4dyKpdNQ-o",
             authDomain: "nithidpple-70241.firebaseapp.com",
@@ -223,18 +233,17 @@
             measurementId: "G-XD9SY572E6"
         };
 
-        // เริ่มต้น Firebase
         const app = initializeApp(firebaseConfig);
-        // NEW: เริ่มต้น Firestore
         const db = getFirestore(app);
+        const storage = getStorage(app);
+        let currentOrderId = null; // Variable to hold the current order ID
 
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Initialize Feather Icons ---
             feather.replace();
 
-            // --- Elements ---
             const sizeSelector = document.getElementById('size-selector');
             const priceDisplay = document.getElementById('price-display');
+            const totalPriceDisplay = document.getElementById('total-price-display');
             const orderBtn = document.getElementById('order-btn');
             
             const orderModal = document.getElementById('order-modal');
@@ -246,75 +255,133 @@
             const closeConfirmModalBtn = document.getElementById('close-confirm-modal-btn');
             const confirmSize = document.getElementById('confirm-size');
             const confirmPrice = document.getElementById('confirm-price');
+            const paymentForm = document.getElementById('payment-form');
+            const slipUpload = document.getElementById('slip-upload');
+            const slipText = document.getElementById('slip-text');
+            const submitPaymentBtn = document.getElementById('submit-payment-btn');
 
-            // --- Price Logic ---
-            sizeSelector.addEventListener('change', (e) => {
-                if (e.target.name === 'size') {
-                    const selectedRadio = e.target;
-                    priceDisplay.textContent = selectedRadio.dataset.price;
-                }
-            });
+            const successModal = document.getElementById('success-modal');
+            const closeSuccessModalBtn = document.getElementById('close-success-modal-btn');
+            
+            const shippingCost = 30;
 
-            // --- Modal Logic ---
+            function updatePrice() {
+                const selectedRadio = document.querySelector('input[name="size"]:checked');
+                const itemPrice = parseFloat(selectedRadio.dataset.price);
+                const totalPrice = itemPrice + shippingCost;
+                priceDisplay.textContent = itemPrice;
+                totalPriceDisplay.textContent = totalPrice;
+            }
+
+            sizeSelector.addEventListener('change', updatePrice);
+            updatePrice(); // Initial price calculation
+
             const showModal = (modal) => modal.classList.add('visible');
             const hideModal = (modal) => modal.classList.remove('visible');
 
             orderBtn.addEventListener('click', () => showModal(orderModal));
             closeOrderModalBtn.addEventListener('click', () => hideModal(orderModal));
-            orderModal.addEventListener('click', (e) => {
-                if (e.target === orderModal) hideModal(orderModal);
-            });
+            orderModal.addEventListener('click', (e) => { if (e.target === orderModal) hideModal(orderModal); });
 
-            // --- NEW: Handle Order Submission to Firestore ---
             orderForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                
-                // แสดงสถานะกำลังโหลด
                 submitOrderBtn.disabled = true;
                 submitOrderBtn.querySelector('.btn-text').classList.add('hidden');
                 submitOrderBtn.querySelector('.btn-loader').classList.remove('hidden');
 
-                // รวบรวมข้อมูลจากฟอร์ม
+                const itemPrice = parseFloat(priceDisplay.textContent);
+                const totalPrice = itemPrice + shippingCost;
+
                 const orderData = {
                     name: orderForm.name.value,
                     address: orderForm.address.value,
                     phone: orderForm.phone.value,
                     size: document.querySelector('input[name="size"]:checked').value,
-                    price: parseFloat(priceDisplay.textContent),
-                    status: 'pending_payment', // สถานะเริ่มต้น: รอการชำระเงิน
-                    createdAt: serverTimestamp() // บันทึกเวลาที่สั่งซื้อ
+                    price: itemPrice,
+                    shippingCost: shippingCost,
+                    totalPrice: totalPrice,
+                    status: 'pending_payment',
+                    createdAt: serverTimestamp()
                 };
 
                 try {
-                    // บันทึกข้อมูลลงใน Firestore collection ชื่อ 'orders'
                     const docRef = await addDoc(collection(db, "orders"), orderData);
-                    console.log("Order written with ID: ", docRef.id);
+                    currentOrderId = docRef.id; // Store the new order ID
+                    console.log("Order created with ID: ", currentOrderId);
 
-                    // แสดงข้อมูลในหน้ายืนยัน
                     confirmSize.textContent = orderData.size;
-                    confirmPrice.textContent = orderData.price;
+                    confirmPrice.textContent = orderData.totalPrice;
 
-                    // ซ่อนฟอร์มและแสดงหน้ายืนยัน
                     hideModal(orderModal);
                     showModal(confirmModal);
-                    orderForm.reset(); // ล้างข้อมูลในฟอร์ม
-
+                    orderForm.reset();
                 } catch (error) {
                     console.error("Error adding document: ", error);
                     alert("เกิดข้อผิดพลาดในการบันทึกคำสั่งซื้อ กรุณาลองใหม่อีกครั้ง");
                 } finally {
-                    // คืนค่าปุ่มให้เป็นปกติ
                     submitOrderBtn.disabled = false;
                     submitOrderBtn.querySelector('.btn-text').classList.remove('hidden');
                     submitOrderBtn.querySelector('.btn-loader').classList.add('hidden');
                 }
             });
 
-            // Close Confirmation Modal
             closeConfirmModalBtn.addEventListener('click', () => hideModal(confirmModal));
-            confirmModal.addEventListener('click', (e) => {
-                if (e.target === confirmModal) hideModal(confirmModal);
+            confirmModal.addEventListener('click', (e) => { if (e.target === confirmModal) hideModal(confirmModal); });
+
+            slipUpload.addEventListener('change', () => {
+                if (slipUpload.files.length > 0) {
+                    slipText.textContent = slipUpload.files[0].name;
+                    slipText.classList.add('text-green-600', 'font-semibold');
+                } else {
+                    slipText.textContent = 'คลิกเพื่ออัปโหลดสลิป';
+                    slipText.classList.remove('text-green-600', 'font-semibold');
+                }
             });
+
+            paymentForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const file = slipUpload.files[0];
+                if (!file || !currentOrderId) {
+                    alert('กรุณาเลือกไฟล์สลิปและตรวจสอบว่ามีรหัสคำสั่งซื้อ');
+                    return;
+                }
+
+                submitPaymentBtn.disabled = true;
+                submitPaymentBtn.querySelector('.btn-text').classList.add('hidden');
+                submitPaymentBtn.querySelector('.btn-loader').classList.remove('hidden');
+
+                try {
+                    const filePath = `payment_slips/${currentOrderId}/${file.name}`;
+                    const storageRef = ref(storage, filePath);
+                    const uploadResult = await uploadBytes(storageRef, file);
+                    const downloadURL = await getDownloadURL(uploadResult.ref);
+                    
+                    console.log('File available at', downloadURL);
+
+                    const orderDocRef = doc(db, "orders", currentOrderId);
+                    await updateDoc(orderDocRef, {
+                        paymentSlipUrl: downloadURL,
+                        status: 'pending_verification' // Status updated to waiting for verification
+                    });
+
+                    hideModal(confirmModal);
+                    showModal(successModal);
+                    paymentForm.reset();
+                    slipText.textContent = 'คลิกเพื่ออัปโหลดสลิป';
+                    slipText.classList.remove('text-green-600', 'font-semibold');
+
+                } catch (error) {
+                    console.error("Error uploading slip: ", error);
+                    alert("เกิดข้อผิดพลาดในการอัปโหลดสลิป กรุณาลองใหม่อีกครั้ง");
+                } finally {
+                    submitPaymentBtn.disabled = false;
+                    submitPaymentBtn.querySelector('.btn-text').classList.remove('hidden');
+                    submitPaymentBtn.querySelector('.btn-loader').classList.add('hidden');
+                }
+            });
+
+            closeSuccessModalBtn.addEventListener('click', () => hideModal(successModal));
+            successModal.addEventListener('click', (e) => { if (e.target === successModal) hideModal(successModal); });
         });
     </script>
 </body>
