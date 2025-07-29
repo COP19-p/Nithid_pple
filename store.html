@@ -42,18 +42,17 @@
             background-color: #d1d5db;
             cursor: not-allowed;
         }
-        /* Modal Styles */
         .modal-overlay {
             position: fixed; inset: 0;
             background: rgba(17, 24, 39, 0.8);
             backdrop-filter: blur(8px);
             display: flex; 
-            align-items: flex-start; /* Aligns modal to the top */
+            align-items: flex-start;
             justify-content: center;
             z-index: 1000; opacity: 0; visibility: hidden;
             transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: auto; /* Enables scrolling for the whole overlay */
-            padding: 2rem 1rem; /* Provides spacing from screen edges */
+            overflow-y: auto;
+            padding: 2rem 1rem;
         }
         .modal-overlay.visible { opacity: 1; visibility: visible; }
         .modal-content {
@@ -61,7 +60,7 @@
             width: 90%; max-width: 550px; position: relative;
             transform: scale(0.95);
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            margin: auto 0; /* Helps center the modal vertically within the scrollable area */
+            margin: auto 0;
         }
         .modal-overlay.visible .modal-content { transform: scale(1); }
         .modal-close-btn {
@@ -140,7 +139,7 @@
         </div>
     </main>
 
-    <!-- Order Form Modal -->
+    <!-- Modals -->
     <div id="order-modal" class="modal-overlay">
         <div class="modal-content">
             <button id="close-order-modal-btn" class="modal-close-btn">&times;</button>
@@ -166,7 +165,6 @@
         </div>
     </div>
 
-    <!-- Confirmation & Payment Modal -->
     <div id="confirm-modal" class="modal-overlay">
         <div class="modal-content text-center">
              <button id="close-confirm-modal-btn" class="modal-close-btn">&times;</button>
@@ -182,7 +180,6 @@
             <img src="S__9388034.jpg" alt="QR Code สำหรับชำระเงิน" class="mx-auto rounded-lg shadow-md w-full max-w-xs mb-6">
             <form id="payment-form">
                 <label for="slip-upload" class="file-upload-wrapper block">
-                    <!-- NEW: Image preview tag -->
                     <img id="slip-preview" class="hidden mx-auto mb-4 rounded-lg max-h-40">
                     <div id="slip-placeholder">
                         <i data-feather="upload-cloud" class="w-10 h-10 text-gray-400 mx-auto mb-2"></i>
@@ -198,7 +195,6 @@
         </div>
     </div>
 
-    <!-- Success Modal -->
     <div id="success-modal" class="modal-overlay">
         <div class="modal-content text-center">
             <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
@@ -222,7 +218,10 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, doc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
+        
+        // IMPORTANT: Cloud Function URL
+        // หลังจาก Deploy Function แล้ว ให้นำ URL ของ Function มาวางที่นี่
+        const CLOUD_FUNCTION_URL = "YOUR_CLOUD_FUNCTION_URL_HERE"; 
 
         const firebaseConfig = {
             apiKey: "AIzaSyAmsrtv0hV_a38Yi2aqz1NIL4dyKpdNQ-o",
@@ -236,39 +235,33 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const storage = getStorage(app);
         const auth = getAuth(app);
         let currentOrderId = null;
         let currentUser = null;
 
         document.addEventListener('DOMContentLoaded', () => {
             feather.replace();
-
+            // ... (โค้ดส่วน UI elements เหมือนเดิมทั้งหมด) ...
             const sizeSelector = document.getElementById('size-selector');
             const priceDisplay = document.getElementById('price-display');
             const totalPriceDisplay = document.getElementById('total-price-display');
             const orderBtn = document.getElementById('order-btn');
             const orderBtnText = document.getElementById('order-btn-text');
-            
             const orderModal = document.getElementById('order-modal');
             const closeOrderModalBtn = document.getElementById('close-order-modal-btn');
             const orderForm = document.getElementById('order-form');
             const submitOrderBtn = document.getElementById('submit-order-btn');
-
             const confirmModal = document.getElementById('confirm-modal');
             const closeConfirmModalBtn = document.getElementById('close-confirm-modal-btn');
             const confirmSize = document.getElementById('confirm-size');
             const confirmPrice = document.getElementById('confirm-price');
             const paymentForm = document.getElementById('payment-form');
             const slipUpload = document.getElementById('slip-upload');
-            const slipText = document.getElementById('slip-text');
             const slipPreview = document.getElementById('slip-preview');
             const slipPlaceholder = document.getElementById('slip-placeholder');
             const submitPaymentBtn = document.getElementById('submit-payment-btn');
-
             const successModal = document.getElementById('success-modal');
             const closeSuccessModalBtn = document.getElementById('close-success-modal-btn');
-            
             const shippingCost = 30;
 
             onAuthStateChanged(auth, (user) => {
@@ -352,7 +345,6 @@
             closeConfirmModalBtn.addEventListener('click', () => hideModal(confirmModal));
             confirmModal.addEventListener('click', (e) => { if (e.target === confirmModal) hideModal(confirmModal); });
 
-            // NEW: Slip preview logic
             slipUpload.addEventListener('change', () => {
                 const file = slipUpload.files[0];
                 if (file) {
@@ -369,48 +361,67 @@
                 }
             });
 
+            // --- NEW: UPLOAD LOGIC USING CLOUD FUNCTION ---
             paymentForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const file = slipUpload.files[0];
-                if (!file || !currentOrderId) return alert('กรุณาเลือกไฟล์สลิป');
+                if (!file) return alert('กรุณาเลือกไฟล์สลิป');
+                if (!currentOrderId) return alert('ไม่พบรหัสคำสั่งซื้อ กรุณาลองสั่งซื้อใหม่อีกครั้ง');
+                if (CLOUD_FUNCTION_URL === "YOUR_CLOUD_FUNCTION_URL_HERE") {
+                    return alert("ข้อผิดพลาด: ยังไม่ได้ตั้งค่า URL ของ Cloud Function");
+                }
 
                 submitPaymentBtn.disabled = true;
                 submitPaymentBtn.querySelector('.btn-text').classList.add('hidden');
                 submitPaymentBtn.querySelector('.btn-loader').classList.remove('hidden');
 
-                try {
-                    // NEW: Standardized file naming
-                    const fileExtension = file.name.split('.').pop();
-                    const newFileName = `slip_${Date.now()}.${fileExtension}`;
-                    const filePath = `payment_slips/${currentOrderId}/${newFileName}`;
-                    const storageRef = ref(storage, filePath);
+                // Convert file to Base64
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = async () => {
+                    const base64File = reader.result.split(',')[1];
                     
-                    const uploadResult = await uploadBytes(storageRef, file);
-                    const downloadURL = await getDownloadURL(uploadResult.ref);
-                    
-                    console.log('File available at', downloadURL);
+                    try {
+                        const response = await fetch(CLOUD_FUNCTION_URL, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                file: base64File,
+                                fileName: file.name,
+                                orderId: currentOrderId
+                            })
+                        });
 
-                    const orderDocRef = doc(db, "orders", currentOrderId);
-                    await updateDoc(orderDocRef, {
-                        paymentSlipUrl: downloadURL,
-                        status: 'pending_verification'
-                    });
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            throw new Error(errorData.error || 'Server error');
+                        }
 
-                    hideModal(confirmModal);
-                    showModal(successModal);
-                    paymentForm.reset();
-                    slipPreview.classList.add('hidden');
-                    slipPlaceholder.classList.remove('hidden');
+                        const result = await response.json();
+                        console.log("Upload successful:", result);
 
-                } catch (error) {
-                    // NEW: More detailed error alert
-                    console.error("Upload Error:", error);
-                    alert(`เกิดข้อผิดพลาดในการอัปโหลด: ${error.code}\nกรุณาตรวจสอบการตั้งค่า Firebase Storage Rules อีกครั้ง`);
-                } finally {
+                        hideModal(confirmModal);
+                        showModal(successModal);
+                        paymentForm.reset();
+                        slipPreview.classList.add('hidden');
+                        slipPlaceholder.classList.remove('hidden');
+
+                    } catch (error) {
+                        console.error("--- UPLOAD FAILED ---", error);
+                        alert(`เกิดข้อผิดพลาดในการอัปโหลด: ${error.message}`);
+                    } finally {
+                        submitPaymentBtn.disabled = false;
+                        submitPaymentBtn.querySelector('.btn-text').classList.remove('hidden');
+                        submitPaymentBtn.querySelector('.btn-loader').classList.add('hidden');
+                    }
+                };
+                reader.onerror = (error) => {
+                    console.error("File reading error:", error);
+                    alert("เกิดข้อผิดพลาดในการอ่านไฟล์");
                     submitPaymentBtn.disabled = false;
                     submitPaymentBtn.querySelector('.btn-text').classList.remove('hidden');
                     submitPaymentBtn.querySelector('.btn-loader').classList.add('hidden');
-                }
+                };
             });
 
             closeSuccessModalBtn.addEventListener('click', () => {
