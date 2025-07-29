@@ -218,10 +218,8 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, doc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        
-        // IMPORTANT: Cloud Function URL
-        // หลังจาก Deploy Function แล้ว ให้นำ URL ของ Function มาวางที่นี่
-        const CLOUD_FUNCTION_URL = "YOUR_CLOUD_FUNCTION_URL_HERE"; 
+        // RE-ADDED: Import Firebase Storage modules
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAmsrtv0hV_a38Yi2aqz1NIL4dyKpdNQ-o",
@@ -236,12 +234,13 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
+        const storage = getStorage(app); // RE-ADDED: Initialize Storage
         let currentOrderId = null;
         let currentUser = null;
 
         document.addEventListener('DOMContentLoaded', () => {
             feather.replace();
-            // ... (โค้ดส่วน UI elements เหมือนเดิมทั้งหมด) ...
+            
             const sizeSelector = document.getElementById('size-selector');
             const priceDisplay = document.getElementById('price-display');
             const totalPriceDisplay = document.getElementById('total-price-display');
@@ -361,67 +360,50 @@
                 }
             });
 
-            // --- NEW: UPLOAD LOGIC USING CLOUD FUNCTION ---
+            // REVERTED: UPLOAD LOGIC USING FIREBASE STORAGE SDK
             paymentForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const file = slipUpload.files[0];
                 if (!file) return alert('กรุณาเลือกไฟล์สลิป');
                 if (!currentOrderId) return alert('ไม่พบรหัสคำสั่งซื้อ กรุณาลองสั่งซื้อใหม่อีกครั้ง');
-                if (CLOUD_FUNCTION_URL === "YOUR_CLOUD_FUNCTION_URL_HERE") {
-                    return alert("ข้อผิดพลาด: ยังไม่ได้ตั้งค่า URL ของ Cloud Function");
-                }
 
                 submitPaymentBtn.disabled = true;
                 submitPaymentBtn.querySelector('.btn-text').classList.add('hidden');
                 submitPaymentBtn.querySelector('.btn-loader').classList.remove('hidden');
 
-                // Convert file to Base64
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = async () => {
-                    const base64File = reader.result.split(',')[1];
+                try {
+                    const fileExtension = file.name.split('.').pop();
+                    const newFileName = `slip_${Date.now()}.${fileExtension}`;
+                    const filePath = `payment_slips/${currentOrderId}/${newFileName}`;
+                    const storageRef = ref(storage, filePath);
                     
-                    try {
-                        const response = await fetch(CLOUD_FUNCTION_URL, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                file: base64File,
-                                fileName: file.name,
-                                orderId: currentOrderId
-                            })
-                        });
+                    console.log(`[DEBUG] Starting direct upload to: ${filePath}`);
+                    const uploadResult = await uploadBytes(storageRef, file);
+                    console.log("[DEBUG] Direct upload successful!", uploadResult);
+                    
+                    const downloadURL = await getDownloadURL(uploadResult.ref);
+                    console.log('[DEBUG] File available at', downloadURL);
 
-                        if (!response.ok) {
-                            const errorData = await response.json();
-                            throw new Error(errorData.error || 'Server error');
-                        }
+                    const orderDocRef = doc(db, "orders", currentOrderId);
+                    await updateDoc(orderDocRef, {
+                        paymentSlipUrl: downloadURL,
+                        status: 'pending_verification'
+                    });
 
-                        const result = await response.json();
-                        console.log("Upload successful:", result);
+                    hideModal(confirmModal);
+                    showModal(successModal);
+                    paymentForm.reset();
+                    slipPreview.classList.add('hidden');
+                    slipPlaceholder.classList.remove('hidden');
 
-                        hideModal(confirmModal);
-                        showModal(successModal);
-                        paymentForm.reset();
-                        slipPreview.classList.add('hidden');
-                        slipPlaceholder.classList.remove('hidden');
-
-                    } catch (error) {
-                        console.error("--- UPLOAD FAILED ---", error);
-                        alert(`เกิดข้อผิดพลาดในการอัปโหลด: ${error.message}`);
-                    } finally {
-                        submitPaymentBtn.disabled = false;
-                        submitPaymentBtn.querySelector('.btn-text').classList.remove('hidden');
-                        submitPaymentBtn.querySelector('.btn-loader').classList.add('hidden');
-                    }
-                };
-                reader.onerror = (error) => {
-                    console.error("File reading error:", error);
-                    alert("เกิดข้อผิดพลาดในการอ่านไฟล์");
+                } catch (error) {
+                    console.error("--- UPLOAD FAILED ---", error);
+                    alert(`เกิดข้อผิดพลาดในการอัปโหลด: ${error.message}\nกรุณาตรวจสอบ Console (F12) และการตั้งค่า CORS/Rules`);
+                } finally {
                     submitPaymentBtn.disabled = false;
                     submitPaymentBtn.querySelector('.btn-text').classList.remove('hidden');
                     submitPaymentBtn.querySelector('.btn-loader').classList.add('hidden');
-                };
+                }
             });
 
             closeSuccessModalBtn.addEventListener('click', () => {
