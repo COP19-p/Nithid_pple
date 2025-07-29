@@ -129,9 +129,13 @@
             font-weight: 500; transition: all 0.2s ease;
             border: 1px solid #d1d5db;
         }
-        .social-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .social-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .google-btn { background-color: white; color: #374151; }
         .facebook-btn { background-color: #1877F2; color: white; border-color: #1877F2;}
+        .social-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
         
         #auth-form input {
             width: 100%; padding: 0.75rem 1rem;
@@ -153,7 +157,6 @@
             <div class="container mx-auto px-6 py-3 flex justify-between items-center">
                 <!-- Logo -->
                 <a href="#" class="flex items-center">
-                    <!-- FIXED: Changed src to a relative path for your logo -->
                     <img src="main_logo.png" alt="นิธิศ พรรคประชาชน Logo" class="h-16 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/120x64/f8f9fa/333?text=Logo';">
                 </a>
                 <!-- Navigation Links -->
@@ -175,7 +178,6 @@
                     </div>
                 </div>
                 <div class="md:hidden">
-                    <!-- Mobile Menu Button can be added here -->
                     <button id="mobile-menu-btn" class="text-white">
                         <i data-feather="menu" class="w-7 h-7"></i>
                     </button>
@@ -208,7 +210,6 @@
     <div id="news-modal" class="modal-overlay">
         <div class="modal-content text-center">
             <button id="close-news-modal-btn" class="modal-close-btn">&times;</button>
-             <!-- FIXED: Changed src to a relative path for your promo image -->
             <img src="tshirt-promo.png" alt="โปรโมทเสื้อนิธิศ พรรคประชาชน" class="w-full max-w-xs rounded-lg shadow-xl mx-auto mb-6" onerror="this.onerror=null;this.src='https://placehold.co/400x400/f8f9fa/333?text=Image+Not+Found';">
             <h2 class="text-3xl font-bold text-orange-500 mb-3">Coming Soon!</h2>
             <p class="text-gray-700 text-lg">
@@ -236,9 +237,10 @@
                     <svg class="w-5 h-5 mr-3" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"></path><path fill="#FF3D00" d="M6.306 14.691l6.057 4.844C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"></path><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.222 0-9.521-3.354-11.088-7.918l-6.063 4.854C9.562 38.236 16.27 44 24 44z"></path><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C42.012 36.49 44 30.686 44 24c0-1.341-.138-2.65-.389-3.917z"></path></svg>
                     เข้าสู่ระบบด้วย Google
                 </button>
-                <button id="facebook-login-btn" class="social-btn facebook-btn w-full">
+                <!-- FIXED: Disabled Facebook login button -->
+                <button id="facebook-login-btn" class="social-btn facebook-btn w-full" disabled>
                      <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.04C6.5 2.04 2 6.53 2 12.06c0 5.52 4.5 10.02 10 10.02c5.5 0 10-4.5 10-10.02C22 6.53 17.5 2.04 12 2.04zM16.5 8.25h-2.25c-.41 0-.5.2-.5.5v1.5h2.75l-.25 2.5h-2.5v7.5h-3V12.75H8.5v-2.5h2.25V8.5c0-1.4.75-2.25 2.25-2.25h2.25v2.5z"></path></svg>
-                    เข้าสู่ระบบด้วย Facebook
+                    เข้าสู่ระบบด้วย Facebook (ปิดใช้งานชั่วคราว)
                 </button>
             </div>
 
@@ -333,7 +335,6 @@
         <div class="container mx-auto px-6 py-10">
             <div class="flex flex-col items-center text-center">
                 <a href="#" class="mb-6">
-                    <!-- FIXED: Changed src to a relative path for your logo -->
                     <img src="main_logo.png" alt="นิธิศ พรรคประชาชน Logo" class="h-24 w-auto opacity-75 brightness-0 invert" onerror="this.onerror=null;this.src='https://placehold.co/150x80/f8f9fa/333?text=Logo';">
                 </a>
                 <div class="flex justify-center space-x-6 mb-6">
@@ -375,10 +376,9 @@
             apiKey: "AIzaSyAmsrtv0hV_a38Yi2aqz1NIL4dyKpdNQ-o",
             authDomain: "nithidpple-70241.firebaseapp.com",
             projectId: "nithidpple-70241",
-            storageBucket: "nithidpple-70241.appspot.com", // Corrected domain
+            storageBucket: "nithidpple-70241.appspot.com",
             messagingSenderId: "188273475273",
             appId: "1:188273475273:web:a583fa490067a4049e1718",
-            // FIXED: Added a comma after the previous line
             measurementId: "G-XD9SY572E6"
         };
 
@@ -386,7 +386,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const googleProvider = new GoogleAuthProvider();
-        const facebookProvider = new FacebookAuthProvider();
+        // const facebookProvider = new FacebookAuthProvider(); // FIXED: Commented out
 
         document.addEventListener('DOMContentLoaded', () => {
             // --- Initialize Core Scripts ---
@@ -513,7 +513,7 @@
                     });
             };
             googleLoginBtn.addEventListener('click', () => socialLogin(googleProvider));
-            facebookLoginBtn.addEventListener('click', () => socialLogin(facebookProvider));
+            // facebookLoginBtn.addEventListener('click', () => socialLogin(facebookProvider)); // FIXED: Commented out
 
             // Email/Password Auth
             authForm.addEventListener('submit', (e) => {
