@@ -13,20 +13,68 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Kanit:wght@300;400;500;700&display=swap" rel="stylesheet">
 
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
     <style>
         body {
             font-family: 'Kanit', 'Inter', sans-serif;
-            background-color: #F8F9FA;
+            background-color: #f9fafb; /* Slightly lighter gray */
         }
         .size-selector input:checked + label {
             border-color: #FF8C42;
             background-color: #FFF7ED;
             color: #FF8C42;
             font-weight: 600;
+            box-shadow: 0 0 0 2px #FF8C42;
         }
-        .btn-disabled {
-            background-color: #D1D5DB;
-            cursor: not-allowed;
+        .btn-primary {
+            background-color: #FF8C42;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #FF7722;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 130, 66, 0.3);
+        }
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed; inset: 0;
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000; opacity: 0; visibility: hidden;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .modal-overlay.visible { opacity: 1; visibility: visible; }
+        .modal-content {
+            background: white; padding: 2rem; border-radius: 1.5rem;
+            width: 90%; max-width: 550px; position: relative;
+            transform: scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .modal-overlay.visible .modal-content { transform: scale(1); }
+        .modal-close-btn {
+            position: absolute; top: 1rem; right: 1rem;
+            background: #f1f5f9; border-radius: 50%;
+            width: 2.5rem; height: 2.5rem;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; color: #64748b; cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .modal-close-btn:hover { background: #e2e8f0; transform: rotate(90deg); }
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #FF8C42;
+            box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.2);
         }
     </style>
 </head>
@@ -35,24 +83,29 @@
     <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-xl font-bold text-orange-500">นิธิศ พรรคประชาชน</a>
-            <a href="index.html" class="text-gray-600 hover:text-orange-500 transition-colors">กลับสู่หน้าหลัก &rarr;</a>
+            <a href="index.html" class="text-xl font-bold text-orange-500 flex items-center gap-2">
+                <img src="main_logo.png" class="h-8 w-auto" alt="Logo">
+                <span>ร้านค้า</span>
+            </a>
+            <a href="index.html" class="text-gray-600 hover:text-orange-500 transition-colors flex items-center">
+                <i data-feather="arrow-left" class="mr-2 h-4 w-4"></i>
+                กลับสู่หน้าหลัก
+            </a>
         </div>
     </header>
 
     <!-- Main Product Section -->
     <main class="container mx-auto px-6 py-12 md:py-16">
-        <div class="grid md:grid-cols-2 gap-12 items-start">
+        <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-start">
             <!-- Product Image -->
             <div class="bg-white p-4 rounded-2xl shadow-lg">
-                <!-- CORRECTED IMAGE PATH -->
-                <img src="tshirt-promo.png" alt="เสื้อยืดนิธิศ พรรคประชาชน" class="w-full rounded-lg">
+                <img src="tshirt-promo.png" alt="เสื้อยืดนิธิศ พรรคประชาชน" class="w-full rounded-lg aspect-square object-cover">
             </div>
 
             <!-- Product Details -->
             <div>
+                <span class="inline-block bg-orange-100 text-orange-600 text-sm font-semibold px-3 py-1 rounded-full mb-4">Limited Edition</span>
                 <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-3">เสื้อยืด นิธิศ พรรคประชาชน</h1>
-                <p class="text-gray-500 mb-6">Limited Edition</p>
                 
                 <p class="text-gray-600 leading-relaxed mb-8">
                     เสื้อยืดคุณภาพดี ผลิตจากผ้า TC COMB สกรีนลายด้วยระบบ DFT ที่ให้สีสด คมชัดและทนทาน
@@ -62,35 +115,83 @@
                 <!-- Size Selector -->
                 <div class="mb-8">
                     <h2 class="text-lg font-semibold text-gray-800 mb-3">เลือกขนาด (Size)</h2>
-                    <div class="flex flex-wrap gap-3 size-selector">
-                        <input type="radio" name="size" id="s" class="sr-only">
+                    <div id="size-selector" class="flex flex-wrap gap-3 size-selector">
+                        <input type="radio" name="size" id="s" value="S" data-price="230" class="sr-only">
                         <label for="s" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">S</label>
                         
-                        <input type="radio" name="size" id="m" class="sr-only" checked>
+                        <input type="radio" name="size" id="m" value="M" data-price="230" class="sr-only" checked>
                         <label for="m" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">M</label>
 
-                        <input type="radio" name="size" id="l" class="sr-only">
+                        <input type="radio" name="size" id="l" value="L" data-price="230" class="sr-only">
                         <label for="l" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">L</label>
 
-                        <input type="radio" name="size" id="xl" class="sr-only">
+                        <input type="radio" name="size" id="xl" value="XL" data-price="280" class="sr-only">
                         <label for="xl" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">XL</label>
 
-                        <input type="radio" name="size" id="2xl" class="sr-only">
+                        <input type="radio" name="size" id="2xl" value="2XL" data-price="319" class="sr-only">
                         <label for="2xl" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">2XL</label>
                     </div>
                 </div>
 
                 <!-- Price & Action Button -->
                 <div>
-                    <p class="text-3xl font-bold text-gray-800 mb-4">230-319 บาท</p>
-                    <button class="w-full py-3 rounded-lg text-white font-semibold btn-disabled">
-                        เร็วๆ นี้ (Coming Soon)
+                    <p class="text-3xl font-bold text-gray-800 mb-4">
+                        ราคา: <span id="price-display">230</span> บาท
+                    </p>
+                    <button id="order-btn" class="w-full py-3 rounded-lg text-white font-semibold btn-primary text-lg">
+                        <i data-feather="shopping-cart" class="inline-block mr-2 -mt-1"></i>
+                        สั่งซื้อสินค้า
                     </button>
-                    <p class="text-center text-sm text-gray-500 mt-3">ยังไม่เปิดให้สั่งซื้อในขณะนี้</p>
                 </div>
             </div>
         </div>
     </main>
+
+    <!-- Order Form Modal -->
+    <div id="order-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="close-order-modal-btn" class="modal-close-btn">&times;</button>
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">กรอกข้อมูลเพื่อจัดส่ง</h2>
+            <form id="order-form" class="space-y-5">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">ชื่อ-นามสกุล</label>
+                    <input type="text" id="name" name="name" class="form-input" placeholder="สมชาย ใจดี" required>
+                </div>
+                <div>
+                    <label for="address" class="block text-sm font-medium text-gray-700 mb-1">ที่อยู่สำหรับจัดส่ง</label>
+                    <textarea id="address" name="address" rows="4" class="form-input" placeholder="บ้านเลขที่, ถนน, ตำบล, อำเภอ, จังหวัด, รหัสไปรษณีย์" required></textarea>
+                </div>
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">เบอร์โทรศัพท์</label>
+                    <input type="tel" id="phone" name="phone" class="form-input" placeholder="0812345678" required>
+                </div>
+                <button type="submit" class="w-full py-3 rounded-lg text-white font-semibold btn-primary text-lg mt-4">
+                    ยืนยันข้อมูลและชำระเงิน
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmation & Payment Modal -->
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-content text-center">
+             <button id="close-confirm-modal-btn" class="modal-close-btn">&times;</button>
+             <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
+                <i data-feather="check" class="w-10 h-10 text-green-600"></i>
+             </div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">ขอบคุณสำหรับคำสั่งซื้อ!</h2>
+            <p class="text-gray-600 mb-6">กรุณาสแกน QR Code ด้านล่างเพื่อชำระเงิน</p>
+            
+            <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                <h3 class="font-semibold text-gray-800">สรุปรายการ:</h3>
+                <p>เสื้อยืด นิธิศ พรรคประชาชน (ขนาด <span id="confirm-size" class="font-semibold"></span>)</p>
+                <p class="text-xl font-bold mt-2">ยอดชำระ: <span id="confirm-price" class="text-orange-500"></span> บาท</p>
+            </div>
+
+            <img src="https://placehold.co/300x300/e2e8f0/333?text=PromptPay+QR" alt="QR Code สำหรับชำระเงิน" class="mx-auto rounded-lg shadow-md">
+            <p class="text-sm text-gray-500 mt-4">หลังจากชำระเงินแล้ว กรุณาส่งหลักฐานการโอนมาที่... (ตัวอย่าง)</p>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-gray-400 mt-16">
@@ -99,5 +200,71 @@
         </div>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Initialize Feather Icons ---
+            feather.replace();
+
+            // --- Elements ---
+            const sizeSelector = document.getElementById('size-selector');
+            const priceDisplay = document.getElementById('price-display');
+            const orderBtn = document.getElementById('order-btn');
+            
+            const orderModal = document.getElementById('order-modal');
+            const closeOrderModalBtn = document.getElementById('close-order-modal-btn');
+            const orderForm = document.getElementById('order-form');
+
+            const confirmModal = document.getElementById('confirm-modal');
+            const closeConfirmModalBtn = document.getElementById('close-confirm-modal-btn');
+            const confirmSize = document.getElementById('confirm-size');
+            const confirmPrice = document.getElementById('confirm-price');
+
+            // --- Price Logic ---
+            sizeSelector.addEventListener('change', (e) => {
+                if (e.target.name === 'size') {
+                    const selectedRadio = e.target;
+                    priceDisplay.textContent = selectedRadio.dataset.price;
+                }
+            });
+
+            // --- Modal Logic ---
+            const showModal = (modal) => modal.classList.add('visible');
+            const hideModal = (modal) => modal.classList.remove('visible');
+
+            // Open Order Modal
+            orderBtn.addEventListener('click', () => {
+                showModal(orderModal);
+            });
+
+            // Close Order Modal
+            closeOrderModalBtn.addEventListener('click', () => hideModal(orderModal));
+            orderModal.addEventListener('click', (e) => {
+                if (e.target === orderModal) hideModal(orderModal);
+            });
+
+            // Handle Order Submission
+            orderForm.addEventListener('submit', (e) => {
+                e.preventDefault(); // Prevent actual form submission
+                
+                // Get selected size and price
+                const selectedSize = document.querySelector('input[name="size"]:checked').value;
+                const currentPrice = priceDisplay.textContent;
+
+                // Populate confirmation modal
+                confirmSize.textContent = selectedSize;
+                confirmPrice.textContent = currentPrice;
+
+                // Hide order modal and show confirmation modal
+                hideModal(orderModal);
+                showModal(confirmModal);
+            });
+
+            // Close Confirmation Modal
+            closeConfirmModalBtn.addEventListener('click', () => hideModal(confirmModal));
+            confirmModal.addEventListener('click', (e) => {
+                if (e.target === confirmModal) hideModal(confirmModal);
+            });
+        });
+    </script>
 </body>
 </html>
