@@ -157,7 +157,6 @@
                     <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">เบอร์โทรศัพท์</label>
                     <input type="tel" id="phone" name="phone" class="form-input" placeholder="0812345678" required>
                 </div>
-                 <!-- FIXED: Added error display area -->
                 <div id="order-error" class="text-red-500 text-sm text-center h-4"></div>
                 <button type="submit" id="submit-order-btn" class="w-full py-3 rounded-lg text-white font-semibold btn-primary text-lg mt-4">
                     <span class="btn-text">ยืนยันข้อมูลและดำเนินการต่อ</span>
@@ -189,7 +188,6 @@
                     </div>
                     <input type="file" id="slip-upload" class="sr-only" accept="image/*" required>
                 </label>
-                <!-- FIXED: Added error display area -->
                 <div id="payment-error" class="text-red-500 text-sm text-center h-4 mt-2"></div>
                 <button type="submit" id="submit-payment-btn" class="w-full py-3 mt-4 rounded-lg text-white font-semibold btn-primary text-lg">
                     <span class="btn-text">ยืนยันการชำระเงิน</span>
@@ -213,7 +211,6 @@
     <!-- Footer -->
     <footer class="bg-gray-800 text-gray-400 mt-16">
         <div class="container mx-auto px-6 py-8 text-center">
-            <!-- FIXED: Dynamic copyright year -->
             <p>&copy; <span id="copyright-year"></span> นิธิศ พรรคประชาชน. All Rights Reserved.</p>
         </div>
     </footer>
@@ -228,13 +225,16 @@
         // ===================================================================================
         // CRITICAL SECURITY WARNING:
         // Do NOT expose your Firebase config keys in client-side code in a real application.
-        // This is a major security risk. Use environment variables and a backend server.
         // ===================================================================================
         const firebaseConfig = {
             apiKey: "AIzaSyAmsrtv0hV_a38Yi2aqz1NIL4dyKpdNQ-o",
             authDomain: "nithidpple-70241.firebaseapp.com",
             projectId: "nithidpple-70241",
-            storageBucket: "nithidpple-70241.appspot.com",
+            // ===================================================================================
+            //  *** FINAL FIX: Corrected the storageBucket URL ***
+            //  This ensures the website sends files to the same address we configured for CORS.
+            // ===================================================================================
+            storageBucket: "nithidpple-70241.firebasestorage.app", 
             messagingSenderId: "188273475273",
             appId: "1:188273475273:web:a583fa490067a4049e1718",
             measurementId: "G-XD9SY572E6"
@@ -260,7 +260,7 @@
             const closeOrderModalBtn = document.getElementById('close-order-modal-btn');
             const orderForm = document.getElementById('order-form');
             const submitOrderBtn = document.getElementById('submit-order-btn');
-            const orderError = document.getElementById('order-error'); // FIXED
+            const orderError = document.getElementById('order-error');
             const confirmModal = document.getElementById('confirm-modal');
             const closeConfirmModalBtn = document.getElementById('close-confirm-modal-btn');
             const confirmSize = document.getElementById('confirm-size');
@@ -270,12 +270,11 @@
             const slipPreview = document.getElementById('slip-preview');
             const slipPlaceholder = document.getElementById('slip-placeholder');
             const submitPaymentBtn = document.getElementById('submit-payment-btn');
-            const paymentError = document.getElementById('payment-error'); // FIXED
+            const paymentError = document.getElementById('payment-error');
             const successModal = document.getElementById('success-modal');
             const closeSuccessModalBtn = document.getElementById('close-success-modal-btn');
             const shippingCost = 30;
             
-            // FIXED: Set copyright year dynamically
             document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
             onAuthStateChanged(auth, (user) => {
@@ -309,7 +308,6 @@
                 if (currentUser) {
                     showModal(orderModal);
                 } else {
-                    // This is a fallback. The main page should handle login.
                     alert('กรุณากลับไปหน้าหลักเพื่อล็อคอินก่อนทำการสั่งซื้อ');
                     window.location.href = 'index.html';
                 }
@@ -398,7 +396,6 @@
                 submitPaymentBtn.querySelector('.btn-loader').classList.remove('hidden');
 
                 try {
-                    // --- STEP 1: UPLOAD FILE TO FIREBASE STORAGE ---
                     const fileExtension = file.name.split('.').pop();
                     const newFileName = `slip_${Date.now()}.${fileExtension}`;
                     const filePath = `payment_slips/${currentOrderId}/${newFileName}`;
@@ -407,14 +404,12 @@
                     const uploadResult = await uploadBytes(storageRef, file);
                     const downloadURL = await getDownloadURL(uploadResult.ref);
 
-                    // --- STEP 2: UPDATE FIRESTORE DOCUMENT WITH URL ---
                     const orderDocRef = doc(db, "orders", currentOrderId);
                     await updateDoc(orderDocRef, {
                         paymentSlipUrl: downloadURL,
                         status: 'pending_verification'
                     });
 
-                    // --- STEP 3: SHOW SUCCESS ---
                     hideModal(confirmModal);
                     showModal(successModal);
                     paymentForm.reset();
@@ -423,41 +418,7 @@
 
                 } catch (error) {
                     console.error("--- UPLOAD FAILED ---", error);
-                    // FIXED: Display user-friendly error in the UI
                     paymentError.textContent = `อัปโหลดล้มเหลว: ${error.code}`;
-                    
-                    // =================================================================================================
-                    //  *** คำแนะนำสำหรับนักพัฒนา ***
-                    //  หากเกิดข้อผิดพลาด 'storage/unauthorized' หรือ 'storage/object-not-found' 
-                    //  ให้ตรวจสอบการตั้งค่า Rules ของ Firebase Storage และ CORS
-                    //
-                    //  1. ไปที่ Firebase Console -> Storage -> Rules
-                    //  2. แก้ไข Rules เพื่ออนุญาตให้ผู้ใช้ที่ล็อคอินแล้วสามารถเขียนไฟล์ได้ตาม path ที่กำหนด
-                    //     ตัวอย่าง Rules:
-                    //     
-                    //     rules_version = '2';
-                    //     service firebase.storage {
-                    //       match /b/{bucket}/o {
-                    //         // อนุญาตให้อ่านไฟล์ทั้งหมดได้ (ถ้าต้องการ)
-                    //         match /{allPaths=**} {
-                    //           allow read;
-                    //         }
-                    //
-                    //         // อนุญาตให้ผู้ใช้ที่ล็อคอินแล้วเท่านั้น ที่จะเขียนไฟล์ในโฟลเดอร์ของตัวเองได้
-                    //         // โดยเช็คว่า userId ในเอกสาร order ตรงกับ uid ของคนที่กำลังอัปโหลด
-                    //         match /payment_slips/{orderId}/{fileName} {
-                    //           allow write: if request.auth != null && 
-                    //                         get(/databases/$(database)/documents/orders/$(orderId)).data.userId == request.auth.uid;
-                    //         }
-                    //       }
-                    //     }
-                    //
-                    //  3. ตรวจสอบการตั้งค่า CORS ของ Storage Bucket บน Google Cloud Platform
-                    //     - ไปที่ https://console.cloud.google.com/storage/browser
-                    //     - เลือก Bucket ของโปรเจกต์ (เช่น nithidpple-70241.appspot.com)
-                    //     - ไปที่แท็บ "สิทธิ์" (Permissions) -> "การกำหนดค่า CORS"
-                    //     - เพิ่ม Origin ของเว็บไซต์คุณ (เช่น https://your-website.com)
-                    // =================================================================================================
                 } finally {
                     submitPaymentBtn.disabled = false;
                     submitPaymentBtn.querySelector('.btn-text').classList.remove('hidden');
