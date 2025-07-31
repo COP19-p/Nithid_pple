@@ -222,18 +222,10 @@
         import { getFirestore, collection, addDoc, doc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
-        // ===================================================================================
-        // CRITICAL SECURITY WARNING:
-        // Do NOT expose your Firebase config keys in client-side code in a real application.
-        // ===================================================================================
         const firebaseConfig = {
             apiKey: "AIzaSyAmsrtv0hV_a38Yi2aqz1NIL4dyKpdNQ-o",
             authDomain: "nithidpple-70241.firebaseapp.com",
             projectId: "nithidpple-70241",
-            // ===================================================================================
-            //  *** FINAL FIX: Corrected the storageBucket URL ***
-            //  This ensures the website sends files to the same address we configured for CORS.
-            // ===================================================================================
             storageBucket: "nithidpple-70241.firebasestorage.app", 
             messagingSenderId: "188273475273",
             appId: "1:188273475273:web:a583fa490067a4049e1718",
@@ -250,7 +242,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             feather.replace();
             
-            // --- Element Selectors ---
             const sizeSelector = document.getElementById('size-selector');
             const priceDisplay = document.getElementById('price-display');
             const totalPriceDisplay = document.getElementById('total-price-display');
@@ -278,6 +269,7 @@
             document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
             onAuthStateChanged(auth, (user) => {
+                console.log("[AUTH] Auth state changed. User:", user ? user.uid : 'Logged out');
                 if (user) {
                     currentUser = user;
                     orderBtn.disabled = false;
@@ -340,8 +332,10 @@
                 };
 
                 try {
+                    console.log("[ORDER] Creating order document with data:", orderData);
                     const docRef = await addDoc(collection(db, "orders"), orderData);
                     currentOrderId = docRef.id;
+                    console.log("[ORDER] Successfully created order with ID:", currentOrderId);
                     
                     confirmSize.textContent = orderData.size;
                     confirmPrice.textContent = orderData.totalPrice;
@@ -350,7 +344,7 @@
                     showModal(confirmModal);
                     orderForm.reset();
                 } catch (error) {
-                    console.error("Error adding document: ", error);
+                    console.error("[ORDER] Error adding document:", error);
                     orderError.textContent = "เกิดข้อผิดพลาดในการบันทึกคำสั่งซื้อ";
                 } finally {
                     submitOrderBtn.disabled = false;
@@ -394,6 +388,9 @@
                 submitPaymentBtn.disabled = true;
                 submitPaymentBtn.querySelector('.btn-text').classList.add('hidden');
                 submitPaymentBtn.querySelector('.btn-loader').classList.remove('hidden');
+                
+                console.log(`[UPLOAD] Starting upload for order ID: ${currentOrderId}`);
+                console.log(`[UPLOAD] File details:`, file);
 
                 try {
                     const fileExtension = file.name.split('.').pop();
@@ -401,14 +398,19 @@
                     const filePath = `payment_slips/${currentOrderId}/${newFileName}`;
                     const storageRef = ref(storage, filePath);
                     
+                    console.log(`[UPLOAD] Uploading to path: ${filePath}`);
                     const uploadResult = await uploadBytes(storageRef, file);
+                    console.log("[UPLOAD] Upload successful. Getting download URL...");
                     const downloadURL = await getDownloadURL(uploadResult.ref);
+                    console.log("[UPLOAD] Got download URL:", downloadURL);
 
                     const orderDocRef = doc(db, "orders", currentOrderId);
+                    console.log("[FIRESTORE] Updating order document with slip URL...");
                     await updateDoc(orderDocRef, {
                         paymentSlipUrl: downloadURL,
                         status: 'pending_verification'
                     });
+                    console.log("[FIRESTORE] Document updated successfully.");
 
                     hideModal(confirmModal);
                     showModal(successModal);
@@ -417,8 +419,12 @@
                     slipPlaceholder.classList.remove('hidden');
 
                 } catch (error) {
-                    console.error("--- UPLOAD FAILED ---", error);
-                    paymentError.textContent = `อัปโหลดล้มเหลว: ${error.code}`;
+                    // Enhanced error logging
+                    console.error("--- UPLOAD FAILED ---");
+                    console.error("Error Code:", error.code);
+                    console.error("Error Message:", error.message);
+                    console.error("Full Error Object:", error);
+                    paymentError.textContent = `อัปโหลดล้มเหลว: ${error.code}. กรุณาตรวจสอบ Console สำหรับข้อมูลเพิ่มเติม`;
                 } finally {
                     submitPaymentBtn.disabled = false;
                     submitPaymentBtn.querySelector('.btn-text').classList.remove('hidden');
