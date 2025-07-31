@@ -49,19 +49,23 @@
         .navbar.scrolled .nav-link:hover {
             color: #FF6B6B;
         }
-
-        .navbar.scrolled #login-btn, .navbar.scrolled #user-profile-container {
+        
+        .navbar.scrolled .logo-text, .navbar.scrolled #user-display-name {
              color: #374151;
-             border-color: #d1d5db;
+        }
+        
+        .navbar.scrolled #logout-btn i {
+            color: #374151;
+        }
+
+        .navbar.scrolled #login-btn {
+            color: #374151;
+            border-color: #d1d5db;
         }
          .navbar.scrolled #login-btn:hover {
-             background-color: #f3f4f6;
-             color: #FF6B6B;
-        }
-
-        .navbar .logo-text {
-            transition: color 0.3s ease-in-out;
-        }
+            background-color: #f3f4f6;
+            color: #FF6B6B;
+         }
 
         .btn {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -159,13 +163,13 @@
                 <a href="#" class="flex items-center">
                     <img src="main_logo.png" alt="นิธิศ พรรคประชาชน Logo" class="h-16 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/120x64/f8f9fa/333?text=Logo';">
                 </a>
-                <!-- Navigation Links -->
+                <!-- Desktop Navigation Links -->
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#vision" class="text-white font-medium nav-link hover:text-gray-200 transition-colors">วิสัยทัศน์</a>
                     <a href="project-archive.html" class="text-white font-medium nav-link hover:text-gray-200 transition-colors">โครงการ</a>
                     <a href="#contact" class="text-white font-medium nav-link hover:text-gray-200 transition-colors">ติดต่อเรา</a>
                 </div>
-                <!-- Auth Buttons -->
+                <!-- Desktop Auth Buttons -->
                 <div class="hidden md:flex items-center space-x-4">
                     <button id="login-btn" class="btn border border-white/80 text-white hover:bg-white/20">
                         เข้าสู่ระบบ
@@ -177,11 +181,25 @@
                         </button>
                     </div>
                 </div>
+                <!-- Mobile Menu Button -->
                 <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-white">
+                    <button id="mobile-menu-btn" class="text-white p-2">
                         <i data-feather="menu" class="w-7 h-7"></i>
                     </button>
                 </div>
+            </div>
+            <!-- Mobile Menu Panel -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md">
+                 <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                    <a href="#vision" class="text-gray-700 hover:bg-orange-500 hover:text-white block px-3 py-2 rounded-md text-base font-medium">วิสัยทัศน์</a>
+                    <a href="project-archive.html" class="text-gray-700 hover:bg-orange-500 hover:text-white block px-3 py-2 rounded-md text-base font-medium">โครงการ</a>
+                    <a href="#contact" class="text-gray-700 hover:bg-orange-500 hover:text-white block px-3 py-2 rounded-md text-base font-medium">ติดต่อเรา</a>
+                    <div class="border-t border-gray-200 my-2"></div>
+                    <!-- Mobile Auth Section -->
+                    <div id="mobile-auth-section" class="px-2 py-2">
+                        <!-- This content will be dynamically set by JavaScript based on auth state -->
+                    </div>
+                 </div>
             </div>
         </nav>
 
@@ -237,7 +255,6 @@
                     <svg class="w-5 h-5 mr-3" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"></path><path fill="#FF3D00" d="M6.306 14.691l6.057 4.844C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"></path><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.222 0-9.521-3.354-11.088-7.918l-6.063 4.854C9.562 38.236 16.27 44 24 44z"></path><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C42.012 36.49 44 30.686 44 24c0-1.341-.138-2.65-.389-3.917z"></path></svg>
                     เข้าสู่ระบบด้วย Google
                 </button>
-                <!-- FIXED: Disabled Facebook login button -->
                 <button id="facebook-login-btn" class="social-btn facebook-btn w-full" disabled>
                      <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.04C6.5 2.04 2 6.53 2 12.06c0 5.52 4.5 10.02 10 10.02c5.5 0 10-4.5 10-10.02C22 6.53 17.5 2.04 12 2.04zM16.5 8.25h-2.25c-.41 0-.5.2-.5.5v1.5h2.75l-.25 2.5h-2.5v7.5h-3V12.75H8.5v-2.5h2.25V8.5c0-1.4.75-2.25 2.25-2.25h2.25v2.5z"></path></svg>
                     เข้าสู่ระบบด้วย Facebook (ปิดใช้งานชั่วคราว)
@@ -314,17 +331,17 @@
                     สนใจร่วมงาน, สนับสนุน, หรือมีข้อเสนอแนะ? เรายินดีรับฟังทุกความคิดเห็นจากคุณ
                  </p>
                  <div class="bg-gray-50 rounded-2xl p-8 max-w-lg mx-auto border border-gray-200">
-                         <p class="text-2xl font-semibold text-gray-800">คุณนิธิศ บุญฤทธิ์</p>
-                         <div class="mt-6 space-y-3 text-lg text-gray-700">
-                                 <p class="flex items-center justify-center">
-                                     <i data-feather="mail" class="w-5 h-5 mr-3 text-orange-500"></i>
-                                     <a href="mailto:nitit.boonyalit@gmail.com" class="text-orange-500 hover:text-orange-600 transition-colors">nitit.boonyalit@gmail.com</a>
-                                 </p>
-                                 <p class="flex items-center justify-center">
-                                     <i data-feather="phone" class="w-5 h-5 mr-3 text-orange-500"></i>
-                                     <a href="tel:0982279327" class="text-orange-500 hover:text-orange-600 transition-colors">098-227-9327</a>
-                                 </p>
-                         </div>
+                           <p class="text-2xl font-semibold text-gray-800">คุณนิธิศ บุญฤทธิ์</p>
+                           <div class="mt-6 space-y-3 text-lg text-gray-700">
+                                   <p class="flex items-center justify-center">
+                                       <i data-feather="mail" class="w-5 h-5 mr-3 text-orange-500"></i>
+                                       <a href="mailto:nitit.boonyalit@gmail.com" class="text-orange-500 hover:text-orange-600 transition-colors">nitit.boonyalit@gmail.com</a>
+                                   </p>
+                                   <p class="flex items-center justify-center">
+                                       <i data-feather="phone" class="w-5 h-5 mr-3 text-orange-500"></i>
+                                       <a href="tel:0982279327" class="text-orange-500 hover:text-orange-600 transition-colors">098-227-9327</a>
+                                   </p>
+                           </div>
                  </div>
             </div>
         </section>
@@ -347,7 +364,7 @@
                         <i data-feather="facebook" class="w-6 h-6"></i>
                     </a>
                 </div>
-                <p>&copy; 2025 นิธิศ พรรคประชาชน. All Rights Reserved.</p>
+                <p>&copy; <span id="copyright-year"></span> นิธิศ พรรคประชาชน. All Rights Reserved.</p>
                 <p class="text-sm mt-2 text-gray-500">ออกแบบและพัฒนาด้วยความตั้งใจ</p>
             </div>
         </div>
@@ -365,15 +382,21 @@
             onAuthStateChanged,
             signInWithPopup,
             GoogleAuthProvider,
-            FacebookAuthProvider,
+            // FacebookAuthProvider, // Uncomment to enable Facebook Login
             createUserWithEmailAndPassword,
             signInWithEmailAndPassword,
             signOut
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-        // Your web app's Firebase configuration
+        // ===================================================================================
+        // CRITICAL SECURITY WARNING:
+        // Do NOT expose your Firebase config keys in client-side code in a real application.
+        // This is a major security risk.
+        // Use environment variables and a backend service to protect your keys.
+        // For more info, see: https://firebase.google.com/docs/web/setup#secure-your-config
+        // ===================================================================================
         const firebaseConfig = {
-            apiKey: "AIzaSyAmsrtv0hV_a38Yi2aqz1NIL4dyKpdNQ-o",
+            apiKey: "AIzaSyAmsrtv0hV_a38Yi2aqz1NIL4dyKpdNQ-o", // <-- WARNING: EXPOSED KEY
             authDomain: "nithidpple-70241.firebaseapp.com",
             projectId: "nithidpple-70241",
             storageBucket: "nithidpple-70241.appspot.com",
@@ -386,7 +409,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const googleProvider = new GoogleAuthProvider();
-        // const facebookProvider = new FacebookAuthProvider(); // FIXED: Commented out
+        // const facebookProvider = new FacebookAuthProvider(); // Uncomment to enable Facebook Login
 
         document.addEventListener('DOMContentLoaded', () => {
             // --- Initialize Core Scripts ---
@@ -399,21 +422,26 @@
 
             // --- UI Elements ---
             const navbar = document.getElementById('navbar');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileAuthSection = document.getElementById('mobile-auth-section');
             
             // News Modal Elements
             const newsModal = document.getElementById('news-modal');
             const closeNewsModalBtn = document.getElementById('close-news-modal-btn');
             const followUsBtn = document.getElementById('follow-us-btn');
 
-            // Auth Elements
+            // Auth Elements (Desktop)
             const loginBtn = document.getElementById('login-btn');
             const logoutBtn = document.getElementById('logout-btn');
             const userProfileContainer = document.getElementById('user-profile-container');
             const userDisplayName = document.getElementById('user-display-name');
+            
+            // Auth Modal Elements
             const authModal = document.getElementById('auth-modal');
             const closeAuthModalBtn = document.getElementById('close-auth-modal-btn');
             const googleLoginBtn = document.getElementById('google-login-btn');
-            const facebookLoginBtn = document.getElementById('facebook-login-btn');
+            // const facebookLoginBtn = document.getElementById('facebook-login-btn');
             const authForm = document.getElementById('auth-form');
             const emailInput = document.getElementById('email-input');
             const passwordInput = document.getElementById('password-input');
@@ -436,6 +464,14 @@
                 }
             });
 
+            // ** FIXED: Mobile Menu Toggle **
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // ** FIXED: Dynamic Copyright Year **
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
             // --- News Modal Logic ---
             const showNewsModal = () => newsModal.classList.add('visible');
             const hideNewsModal = () => {
@@ -450,8 +486,9 @@
             closeNewsModalBtn.addEventListener('click', hideNewsModal);
             followUsBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                document.querySelector(e.currentTarget.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
                 hideNewsModal();
+                const targetId = e.currentTarget.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
             });
             newsModal.addEventListener('click', (e) => {
                 if (e.target === newsModal) hideNewsModal();
@@ -463,7 +500,9 @@
             const showAuthModal = () => authModal.classList.add('visible');
             const hideAuthModal = () => authModal.classList.remove('visible');
 
+            // Listen on main desktop button
             loginBtn.addEventListener('click', showAuthModal);
+            
             closeAuthModalBtn.addEventListener('click', hideAuthModal);
             authModal.addEventListener('click', (e) => {
                 if (e.target === authModal) hideAuthModal();
@@ -473,6 +512,7 @@
             authToggleBtn.addEventListener('click', () => {
                 isRegisterMode = !isRegisterMode;
                 authError.textContent = '';
+                authForm.reset();
                 if (isRegisterMode) {
                     authTitle.textContent = 'สมัครสมาชิก';
                     authSubmitBtn.textContent = 'สร้างบัญชี';
@@ -486,34 +526,62 @@
                 }
             });
 
-            // Handle Auth State Changes
+            // Handle Auth State Changes and Update UI
             onAuthStateChanged(auth, user => {
-                if (user) {
-                    // User is signed in
+                updateUIForAuthState(user);
+            });
+            
+            function updateUIForAuthState(user) {
+                 if (user) {
+                    // --- User is SIGNED IN ---
+                    // Desktop UI
                     loginBtn.classList.add('hidden');
                     userProfileContainer.classList.remove('hidden');
                     userProfileContainer.classList.add('flex');
                     userDisplayName.textContent = user.displayName || user.email.split('@')[0];
+                    
+                    // Mobile UI
+                    mobileAuthSection.innerHTML = `
+                        <div class="flex items-center justify-center space-x-3 py-2">
+                           <span class="text-gray-800 font-medium">${user.displayName || user.email.split('@')[0]}</span>
+                           <button id="mobile-logout-btn" class="p-2 rounded-full hover:bg-gray-200" title="ออกจากระบบ">
+                               <i data-feather="log-out" class="w-5 h-5 text-gray-700"></i>
+                           </button>
+                        </div>
+                    `;
+                    document.getElementById('mobile-logout-btn').addEventListener('click', handleLogout);
+
                     feather.replace(); // Re-render icons after DOM change
                     hideAuthModal();
+                    mobileMenu.classList.add('hidden'); // Close mobile menu on auth change
                 } else {
-                    // User is signed out
+                    // --- User is SIGNED OUT ---
+                    // Desktop UI
                     loginBtn.classList.remove('hidden');
                     userProfileContainer.classList.add('hidden');
                     userProfileContainer.classList.remove('flex');
+
+                    // Mobile UI
+                    mobileAuthSection.innerHTML = `
+                        <button id="mobile-login-btn" class="w-full btn btn-primary">
+                            เข้าสู่ระบบ / สมัครสมาชิก
+                        </button>
+                    `;
+                    document.getElementById('mobile-login-btn').addEventListener('click', showAuthModal);
                 }
-            });
+            }
+
 
             // Social Logins
-            const socialLogin = (provider) => {
+            const handleSocialLogin = (provider) => {
                 signInWithPopup(auth, provider)
                     .catch((error) => {
                         console.error("Social login error:", error);
                         authError.textContent = "เกิดข้อผิดพลาดในการเข้าสู่ระบบ";
                     });
             };
-            googleLoginBtn.addEventListener('click', () => socialLogin(googleProvider));
-            // facebookLoginBtn.addEventListener('click', () => socialLogin(facebookProvider)); // FIXED: Commented out
+            googleLoginBtn.addEventListener('click', () => handleSocialLogin(googleProvider));
+            // facebookLoginBtn.addEventListener('click', () => handleSocialLogin(facebookProvider)); // Uncomment to enable
 
             // Email/Password Auth
             authForm.addEventListener('submit', (e) => {
@@ -537,24 +605,27 @@
                 }
             });
             
-            // Logout
-            logoutBtn.addEventListener('click', () => {
+            // Logout Handler
+            const handleLogout = () => {
                 signOut(auth).catch(error => console.error("Logout error:", error));
-            });
+            };
+            logoutBtn.addEventListener('click', handleLogout);
 
-            // Helper for error messages
+            // Helper for user-friendly error messages
             function getAuthErrorMessage(errorCode) {
                 switch (errorCode) {
                     case 'auth/invalid-email':
                         return 'รูปแบบอีเมลไม่ถูกต้อง';
                     case 'auth/user-not-found':
                     case 'auth/wrong-password':
+                    case 'auth/invalid-credential': // New error code for wrong password in recent SDKs
                          return 'อีเมลหรือรหัสผ่านไม่ถูกต้อง';
                     case 'auth/email-already-in-use':
                         return 'อีเมลนี้มีผู้ใช้งานแล้ว';
                     case 'auth/weak-password':
                         return 'รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร';
                     default:
+                        console.error("Firebase Auth Error:", errorCode);
                         return 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง';
                 }
             }
