@@ -332,10 +332,8 @@
                 };
 
                 try {
-                    console.log("[ORDER] Creating order document with data:", orderData);
                     const docRef = await addDoc(collection(db, "orders"), orderData);
                     currentOrderId = docRef.id;
-                    console.log("[ORDER] Successfully created order with ID:", currentOrderId);
                     
                     confirmSize.textContent = orderData.size;
                     confirmPrice.textContent = orderData.totalPrice;
@@ -383,7 +381,6 @@
                      paymentError.textContent = 'ไม่พบรหัสคำสั่งซื้อ กรุณาลองใหม่';
                     return;
                 }
-                // *** NEW FIX: Check if user is logged in before uploading ***
                 if (!currentUser) {
                     paymentError.textContent = 'Session หมดอายุ กรุณาล็อคอินใหม่อีกครั้ง';
                     return;
@@ -394,30 +391,23 @@
                 submitPaymentBtn.querySelector('.btn-text').classList.add('hidden');
                 submitPaymentBtn.querySelector('.btn-loader').classList.remove('hidden');
                 
-                console.log(`[UPLOAD] Starting upload for order ID: ${currentOrderId}`);
-                console.log(`[UPLOAD] Uploading as user: ${currentUser.uid}`);
-
                 try {
+                    // *** FINAL FIX: Force token refresh before upload ***
+                    await currentUser.getIdToken(true);
+                    console.log("[AUTH] Token refreshed successfully before upload.");
+
                     const fileExtension = file.name.split('.').pop();
                     const newFileName = `slip_${Date.now()}.${fileExtension}`;
                     const filePath = `payment_slips/${currentOrderId}/${newFileName}`;
                     const storageRef = ref(storage, filePath);
                     
-                    // *** NEW FIX: Add metadata to the upload for the new security rule ***
-                    const metadata = {
-                        customMetadata: {
-                            'userId': currentUser.uid
-                        }
-                    };
-                    
-                    console.log(`[UPLOAD] Uploading to path: ${filePath} with metadata.`);
-                    const uploadResult = await uploadBytes(storageRef, file, metadata);
+                    console.log(`[UPLOAD] Uploading to path: ${filePath}`);
+                    const uploadResult = await uploadBytes(storageRef, file);
                     console.log("[UPLOAD] Upload successful. Getting download URL...");
                     const downloadURL = await getDownloadURL(uploadResult.ref);
                     console.log("[UPLOAD] Got download URL:", downloadURL);
 
                     const orderDocRef = doc(db, "orders", currentOrderId);
-                    console.log("[FIRESTORE] Updating order document with slip URL...");
                     await updateDoc(orderDocRef, {
                         paymentSlipUrl: downloadURL,
                         status: 'pending_verification'
@@ -434,8 +424,7 @@
                     console.error("--- UPLOAD FAILED ---");
                     console.error("Error Code:", error.code);
                     console.error("Error Message:", error.message);
-                    console.error("Full Error Object:", error);
-                    paymentError.textContent = `อัปโหลดล้มเหลว: ${error.code}. กรุณาตรวจสอบ Console`;
+                    paymentError.textContent = `อัปโหลดล้มเหลว: ${error.code}.`;
                 } finally {
                     submitPaymentBtn.disabled = false;
                     submitPaymentBtn.querySelector('.btn-text').classList.remove('hidden');
