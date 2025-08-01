@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แผงควบคุมแอดมิน - นิธิศ พรรคประชาชน</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        body { font-family: 'Kanit', sans-serif; background-color: #f9fafb; }
+        .status-pending { background-color: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 9999px; font-size: 0.875rem; font-weight: 500; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-gray-800">แผงควบคุมแอดมิน</h1>
+            <div class="flex items-center space-x-4">
+                <a href="index.html" class="text-sm text-gray-600 hover:text-orange-500">กลับหน้าหลัก</a>
+                <button id="logout-btn" class="p-2 rounded-full text-gray-600 hover:bg-gray-100" title="ออกจากระบบ"><i data-feather="log-out" class="w-5 h-5"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="container mx-auto px-6 py-8">
+        <div id="loading-state" class="text-center py-16"><p class="text-gray-500">กำลังตรวจสอบสิทธิ์และโหลดข้อมูล...</p></div>
+        <div id="access-denied" class="hidden text-center py-16 bg-red-50 border border-red-200 rounded-lg">
+            <h2 class="text-2xl font-bold text-red-700">ไม่สามารถเข้าถึงได้</h2>
+            <p class="text-red-600 mt-2">คุณไม่มีสิทธิ์ในการเข้าถึงหน้านี้</p>
+            <a href="index.html" class="mt-4 inline-block bg-red-600 text-white font-semibold px-6 py-2 rounded-lg hover:bg-red-700">กลับหน้าหลัก</a>
+        </div>
+
+        <div id="admin-dashboard" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-gray-800">รายการสั่งซื้อทั้งหมด</h2>
+                <span id="order-count" class="text-lg font-semibold text-gray-600"></span>
+            </div>
+            <div class="bg-white rounded-lg shadow overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-600">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">วันที่สั่งซื้อ</th>
+                            <th scope="col" class="px-6 py-3">อีเมลลูกค้า</th>
+                            <th scope="col" class="px-6 py-3">ขนาด</th>
+                            <th scope="col" class="px-6 py-3">จำนวน</th>
+                            <th scope="col" class="px-6 py-3">ที่อยู่</th>
+                            <th scope="col" class="px-6 py-3">สถานะ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-table-body">
+                        <tr id="no-orders-row"><td colspan="6" class="text-center px-6 py-10 text-gray-500">ยังไม่มีรายการสั่งซื้อ...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAmsrtv0hV_a38Yi2aqz1NIL4dyKpdNQ-o",
+            authDomain: "nithidpple-70241.firebaseapp.com",
+            projectId: "nithidpple-70241",
+            storageBucket: "nithidpple-70241.appspot.com",
+            messagingSenderId: "188273475273",
+            appId: "1:188273475273:web:a583fa490067a4049e1718",
+            measurementId: "G-XD9SY572E6"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // --- ส่วนสำคัญ: กำหนดค่าแอดมิน ---
+        // ใส่ User ID (UID) ของคุณในนี้ เพื่อกำหนดสิทธิ์การเป็นแอดมิน
+        const adminUIDs = ['ZcMhfcltUkR5lilpFnpLEU4P0E63'];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            feather.replace();
+            const ui = {
+                loading: document.getElementById('loading-state'),
+                denied: document.getElementById('access-denied'),
+                dashboard: document.getElementById('admin-dashboard'),
+                logoutBtn: document.getElementById('logout-btn'),
+                orderCount: document.getElementById('order-count'),
+                ordersBody: document.getElementById('orders-table-body'),
+                noOrdersRow: document.getElementById('no-orders-row')
+            };
+
+            ui.logoutBtn.addEventListener('click', () => signOut(auth));
+
+            onAuthStateChanged(auth, user => {
+                if (user && adminUIDs.includes(user.uid)) {
+                    ui.loading.classList.add('hidden');
+                    ui.dashboard.classList.remove('hidden');
+                    loadOrders();
+                } else {
+                    ui.loading.classList.add('hidden');
+                    ui.denied.classList.remove('hidden');
+                    // ถ้าไม่ได้ login หรือไม่ใช่ admin ก็อาจจะ redirect ไปหน้าหลัก
+                    if (!user) setTimeout(() => window.location.href = 'index.html', 3000);
+                }
+            });
+
+            function loadOrders() {
+                const q = query(collection(db, "orders"), orderBy("orderedAt", "desc"));
+                onSnapshot(q, (snapshot) => {
+                    ui.ordersBody.innerHTML = '';
+                    ui.orderCount.textContent = `${snapshot.size} รายการ`;
+                    if (snapshot.empty) {
+                        ui.ordersBody.appendChild(ui.noOrdersRow);
+                    } else {
+                        snapshot.forEach(doc => {
+                            const order = doc.data();
+                            const orderDate = order.orderedAt?.toDate().toLocaleString('th-TH') || 'N/A';
+                            const row = document.createElement('tr');
+                            row.className = 'bg-white border-b hover:bg-gray-50';
+                            row.innerHTML = `
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${orderDate}</td>
+                                <td class="px-6 py-4">${order.userEmail}</td>
+                                <td class="px-6 py-4">${order.size}</td>
+                                <td class="px-6 py-4">${order.quantity}</td>
+                                <td class="px-6 py-4 whitespace-pre-wrap">${order.address}</td>
+                                <td class="px-6 py-4"><span class="status-pending">รอดำเนินการ</span></td>
+                            `;
+                            ui.ordersBody.appendChild(row);
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
