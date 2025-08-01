@@ -4,243 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>นิธิศ พรรคประชาชน | สร้างสรรค์สังคม พัฒนาประเทศ</title>
-
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Fonts: Kanit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
-
-    <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
     <style>
-        body {
-            font-family: 'Kanit', sans-serif;
-            background-color: #F8F9FA;
-            color: #212529;
-        }
-
-        .hero-section {
-            background: linear-gradient(135deg, rgba(255, 110, 60, 0.9), rgba(255, 145, 80, 0.9)), url('https://images.unsplash.com/photo-1590845947676-fa2576f402b5?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .navbar {
-            transition: all 0.3s ease-in-out;
-        }
-
-        .navbar.scrolled {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        }
-        
-        .navbar.scrolled .nav-link {
-            color: #374151; /* gray-700 */
-        }
-        
-        .navbar.scrolled .nav-link:hover {
-            color: #FF6B6B;
-        }
-        
-        .navbar.scrolled .logo-text, .navbar.scrolled #user-display-name {
-             color: #374151;
-        }
-        
-        .navbar.scrolled #logout-btn i {
-            color: #374151;
-        }
-
-        .navbar.scrolled #login-btn {
-            color: #374151;
-            border-color: #d1d5db;
-        }
-         .navbar.scrolled #login-btn:hover {
-            background-color: #f3f4f6;
-            color: #FF6B6B;
-         }
-
-        .btn {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 9999px;
-            font-weight: 600;
-            padding: 0.75rem 2rem;
-        }
-
-        .btn-primary {
-            background-color: #FF6B6B;
-            color: white;
-            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 7px 25px rgba(255, 107, 107, 0.4);
-        }
-        
-        .card {
-            background-color: white;
-            border-radius: 1rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-            transition: all 0.3s ease;
-            border: 1px solid #E5E7EB;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-        }
-
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed; inset: 0;
-            background: rgba(17, 24, 39, 0.8);
-            backdrop-filter: blur(8px);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 1000; opacity: 0; visibility: hidden;
-            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        body { font-family: 'Kanit', sans-serif; background-color: #F8F9FA; color: #212529; }
+        .hero-section { background: linear-gradient(135deg, rgba(255, 110, 60, 0.9), rgba(255, 145, 80, 0.9)), url('https://images.unsplash.com/photo-1590845947676-fa2576f402b5?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; }
+        .navbar { transition: all 0.3s ease-in-out; }
+        .navbar.scrolled { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+        .navbar.scrolled .nav-link, .navbar.scrolled #user-display-name, .navbar.scrolled #logout-btn i, .navbar.scrolled #login-btn { color: #374151; }
+        .navbar.scrolled .nav-link:hover { color: #FF6B6B; }
+        .navbar.scrolled #login-btn { border-color: #d1d5db; }
+        .navbar.scrolled #login-btn:hover { background-color: #f3f4f6; color: #FF6B6B; }
+        .btn { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 9999px; font-weight: 600; padding: 0.75rem 2rem; }
+        .btn-primary { background-color: #FF6B6B; color: white; box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3); }
+        .btn-primary:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 7px 25px rgba(255, 107, 107, 0.4); }
+        .card { background-color: white; border-radius: 1rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07); transition: all 0.3s ease; border: 1px solid #E5E7EB; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12); }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(17, 24, 39, 0.8); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .modal-overlay.visible { opacity: 1; visibility: visible; }
-        .modal-content {
-            background: white; padding: 2.5rem; border-radius: 1.5rem;
-            width: 90%; max-width: 500px; position: relative;
-            transform: scale(0.95);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        .modal-content { background: white; padding: 2.5rem; border-radius: 1.5rem; width: 90%; max-width: 500px; position: relative; transform: scale(0.95); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .modal-overlay.visible .modal-content { transform: scale(1); }
-        .modal-close-btn {
-            position: absolute; top: 1rem; right: 1rem;
-            background: #f1f5f9; border-radius: 50%;
-            width: 2.5rem; height: 2.5rem;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; color: #64748b; cursor: pointer;
-            transition: all 0.3s ease;
-        }
+        .modal-close-btn { position: absolute; top: 1rem; right: 1rem; background: #f1f5f9; border-radius: 50%; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #64748b; cursor: pointer; transition: all 0.3s ease; }
         .modal-close-btn:hover { background: #e2e8f0; transform: rotate(90deg); }
-
-        /* Auth Modal Specific Styles */
         #auth-modal .modal-content { max-width: 420px; }
-        .social-btn {
-            display: flex; align-items: center; justify-content: center;
-            padding: 0.75rem; border-radius: 0.5rem;
-            font-weight: 500; transition: all 0.2s ease;
-            border: 1px solid #d1d5db;
-        }
+        .social-btn { display: flex; align-items: center; justify-content: center; padding: 0.75rem; border-radius: 0.5rem; font-weight: 500; transition: all 0.2s ease; border: 1px solid #d1d5db; }
         .social-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .google-btn { background-color: white; color: #374151; }
-        .facebook-btn { background-color: #1877F2; color: white; border-color: #1877F2;}
-        .social-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        #auth-form input {
-            width: 100%; padding: 0.75rem 1rem;
-            border: 1px solid #d1d5db; border-radius: 0.5rem;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        #auth-form input:focus {
-            outline: none; border-color: #FF6B6B;
-            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
-        }
+        .social-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        #auth-form input { width: 100%; padding: 0.75rem 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem; transition: border-color 0.2s, box-shadow 0.2s; }
+        #auth-form input:focus { outline: none; border-color: #FF6B6B; box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2); }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Header Section (Navbar + Hero) -->
     <header class="hero-section relative">
-        <!-- Navigation Bar -->
         <nav id="navbar" class="navbar fixed top-0 left-0 right-0 z-50">
             <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-                <!-- Logo -->
-                <a href="#" class="flex items-center">
-                    <img src="main_logo.png" alt="นิธิศ พรรคประชาชน Logo" class="h-16 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/120x64/f8f9fa/333?text=Logo';">
-                </a>
-                <!-- Desktop Navigation Links -->
+                <a href="#" class="flex items-center"><img src="main_logo.png" alt="Logo" class="h-16 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/120x64/f8f9fa/333?text=Logo';"></a>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#vision" class="text-white font-medium nav-link hover:text-gray-200 transition-colors">วิสัยทัศน์</a>
-                    <a href="project-archive.html" class="text-white font-medium nav-link hover:text-gray-200 transition-colors">โครงการ</a>
-                    <a href="#contact" class="text-white font-medium nav-link hover:text-gray-200 transition-colors">ติดต่อเรา</a>
+                    <a href="#vision" class="text-white font-medium nav-link hover:text-gray-200">วิสัยทัศน์</a>
+                    <a href="project-archive.html" class="text-white font-medium nav-link hover:text-gray-200">โครงการ</a>
+                    <a href="#contact" class="text-white font-medium nav-link hover:text-gray-200">ติดต่อเรา</a>
+                    <a id="admin-link-desktop" href="admin.html" class="hidden text-white font-semibold nav-link hover:text-gray-200 border-b-2 border-orange-400">แผงควบคุมแอดมิน</a>
                 </div>
-                <!-- Desktop Auth Buttons -->
                 <div class="hidden md:flex items-center space-x-4">
-                    <button id="login-btn" class="btn border border-white/80 text-white hover:bg-white/20">
-                        เข้าสู่ระบบ
-                    </button>
+                    <button id="login-btn" class="btn border border-white/80 text-white hover:bg-white/20">เข้าสู่ระบบ</button>
                     <div id="user-profile-container" class="hidden items-center space-x-3">
                         <span id="user-display-name" class="text-white font-medium"></span>
-                        <button id="logout-btn" class="p-2 rounded-full hover:bg-white/20" title="ออกจากระบบ">
-                            <i data-feather="log-out" class="w-5 h-5 text-white"></i>
-                        </button>
+                        <button id="logout-btn" class="p-2 rounded-full hover:bg-white/20" title="ออกจากระบบ"><i data-feather="log-out" class="w-5 h-5 text-white"></i></button>
                     </div>
                 </div>
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-white p-2">
-                        <i data-feather="menu" class="w-7 h-7"></i>
-                    </button>
-                </div>
+                <div class="md:hidden"><button id="mobile-menu-btn" class="text-white p-2"><i data-feather="menu" class="w-7 h-7"></i></button></div>
             </div>
-            <!-- Mobile Menu Panel -->
             <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md">
                  <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
                     <a href="#vision" class="text-gray-700 hover:bg-orange-500 hover:text-white block px-3 py-2 rounded-md text-base font-medium">วิสัยทัศน์</a>
                     <a href="project-archive.html" class="text-gray-700 hover:bg-orange-500 hover:text-white block px-3 py-2 rounded-md text-base font-medium">โครงการ</a>
                     <a href="#contact" class="text-gray-700 hover:bg-orange-500 hover:text-white block px-3 py-2 rounded-md text-base font-medium">ติดต่อเรา</a>
+                    <a id="admin-link-mobile" href="admin.html" class="hidden text-orange-500 hover:bg-orange-500 hover:text-white block px-3 py-2 rounded-md text-base font-bold">แผงควบคุมแอดมิน</a>
                     <div class="border-t border-gray-200 my-2"></div>
-                    <!-- Mobile Auth Section -->
-                    <div id="mobile-auth-section" class="px-2 py-2">
-                        <!-- This content will be dynamically set by JavaScript based on auth state -->
-                    </div>
+                    <div id="mobile-auth-section" class="px-2 py-2"></div>
                  </div>
             </div>
         </nav>
-
-        <!-- Hero Content -->
         <div class="pt-48 pb-32 text-white">
             <div class="container mx-auto px-6 text-center">
-                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight mb-4" data-aos="fade-up">
-                    นิธิศ พรรคประชาชน
-                </h1>
-                <p class="text-lg md:text-xl font-light mb-10 max-w-3xl mx-auto text-gray-200" data-aos="fade-up" data-aos-delay="100">
-                    มุ่งมั่นทำงานเพื่อประชาชน สร้างสรรค์สังคม และพัฒนาประเทศให้ก้าวไกล
-                </p>
+                <h1 class="text-5xl md:text-7xl font-extrabold" data-aos="fade-up">นิธิศ พรรคประชาชน</h1>
+                <p class="text-lg md:text-xl font-light my-6 max-w-3xl mx-auto text-gray-200" data-aos="fade-up" data-aos-delay="100">มุ่งมั่นทำงานเพื่อประชาชน สร้างสรรค์สังคม และพัฒนาประเทศให้ก้าวไกล</p>
                 <div class="flex flex-col sm:flex-row justify-center items-center gap-4" data-aos="fade-up" data-aos-delay="200">
-                    <a href="store.html" class="btn btn-primary">
-                        <i data-feather="shopping-cart" class="inline-block mr-2 -mt-1"></i>ร้านค้า
-                    </a>
-                    <a href="project-archive.html" class="btn bg-white/20 border-white/80 text-white backdrop-blur-sm hover:bg-white/30">
-                        <i data-feather="archive" class="inline-block mr-2 -mt-1"></i>โครงการที่ผ่านมา
-                    </a>
+                    <a href="store.html" class="btn btn-primary"><i data-feather="shopping-cart" class="inline-block mr-2 -mt-1"></i>ร้านค้า</a>
+                    <a href="project-archive.html" class="btn bg-white/20 border-white/80 text-white backdrop-blur-sm hover:bg-white/30"><i data-feather="archive" class="inline-block mr-2 -mt-1"></i>โครงการที่ผ่านมา</a>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- News Popup Modal -->
     <div id="news-modal" class="modal-overlay">
         <div class="modal-content text-center">
             <button id="close-news-modal-btn" class="modal-close-btn">&times;</button>
-            <img src="tshirt-promo.png" alt="โปรโมทเสื้อนิธิศ พรรคประชาชน" class="w-full max-w-xs rounded-lg shadow-xl mx-auto mb-6" onerror="this.onerror=null;this.src='https://placehold.co/400x400/f8f9fa/333?text=Image+Not+Found';">
+            <img src="tshirt-promo.png" alt="โปรโมทเสื้อ" class="w-full max-w-xs rounded-lg shadow-xl mx-auto mb-6" onerror="this.onerror=null;this.src='https://placehold.co/400x400/f8f9fa/333?text=Image';">
             <h2 class="text-3xl font-bold text-orange-500 mb-3">Coming Soon!</h2>
-            <p class="text-gray-700 text-lg">
-                เสื้อ <strong class="font-semibold">"นิธิศ พรรคประชาชน"</strong> กลับมาเปิดพรีออเดอร์อีกครั้งเร็วๆ นี้
-            </p>
+            <p class="text-gray-700 text-lg">เสื้อ <strong>"นิธิศ พรรคประชาชน"</strong> กลับมาเปิดพรีออเดอร์อีกครั้งเร็วๆ นี้</p>
             <p class="text-gray-500 mt-1">ติดตามรายละเอียดได้ที่ช่องทางโซเชียลมีเดีย</p>
-            <a href="#footer" id="follow-us-btn" class="mt-6 inline-block btn btn-primary">
-                ติดตามข่าวสาร
-            </a>
+            <a href="#footer" id="follow-us-btn" class="mt-6 inline-block btn btn-primary">ติดตามข่าวสาร</a>
         </div>
     </div>
 
-    <!-- Auth Modal -->
     <div id="auth-modal" class="modal-overlay">
         <div class="modal-content">
             <button id="close-auth-modal-btn" class="modal-close-btn">&times;</button>
@@ -248,121 +100,68 @@
                 <h2 id="auth-title" class="text-3xl font-bold text-gray-800">เข้าสู่ระบบ</h2>
                 <p class="text-gray-500 mt-2">เพื่อเข้าถึงบริการทั้งหมดของเรา</p>
             </div>
-
-            <!-- Social Logins -->
             <div class="space-y-4 mb-6">
-                <button id="google-login-btn" class="social-btn google-btn w-full">
-                    <svg class="w-5 h-5 mr-3" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"></path><path fill="#FF3D00" d="M6.306 14.691l6.057 4.844C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"></path><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.222 0-9.521-3.354-11.088-7.918l-6.063 4.854C9.562 38.236 16.27 44 24 44z"></path><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C42.012 36.49 44 30.686 44 24c0-1.341-.138-2.65-.389-3.917z"></path></svg>
-                    เข้าสู่ระบบด้วย Google
-                </button>
-                <button id="facebook-login-btn" class="social-btn facebook-btn w-full" disabled>
-                     <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.04C6.5 2.04 2 6.53 2 12.06c0 5.52 4.5 10.02 10 10.02c5.5 0 10-4.5 10-10.02C22 6.53 17.5 2.04 12 2.04zM16.5 8.25h-2.25c-.41 0-.5.2-.5.5v1.5h2.75l-.25 2.5h-2.5v7.5h-3V12.75H8.5v-2.5h2.25V8.5c0-1.4.75-2.25 2.25-2.25h2.25v2.5z"></path></svg>
-                    เข้าสู่ระบบด้วย Facebook (ปิดใช้งานชั่วคราว)
-                </button>
+                <button id="google-login-btn" class="social-btn bg-white text-gray-800 w-full"><svg class="w-5 h-5 mr-3" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"></path><path fill="#FF3D00" d="M6.306 14.691l6.057 4.844C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"></path><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.222 0-9.521-3.354-11.088-7.918l-6.063 4.854C9.562 38.236 16.27 44 24 44z"></path><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C42.012 36.49 44 30.686 44 24c0-1.341-.138-2.65-.389-3.917z"></path></svg>เข้าสู่ระบบด้วย Google</button>
+                <button class="social-btn bg-blue-600 text-white w-full" disabled><svg class="w-5 h-5 mr-3" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.04C6.5 2.04 2 6.53 2 12.06c0 5.52 4.5 10.02 10 10.02c5.5 0 10-4.5 10-10.02C22 6.53 17.5 2.04 12 2.04zM16.5 8.25h-2.25c-.41 0-.5.2-.5.5v1.5h2.75l-.25 2.5h-2.5v7.5h-3V12.75H8.5v-2.5h2.25V8.5c0-1.4.75-2.25 2.25-2.25h2.25v2.5z"></path></svg>เข้าสู่ระบบด้วย Facebook (ปิดใช้งาน)</button>
             </div>
-
-            <!-- Divider -->
-            <div class="flex items-center my-6">
-                <hr class="flex-grow border-t border-gray-300">
-                <span class="mx-4 text-gray-500 text-sm">หรือ</span>
-                <hr class="flex-grow border-t border-gray-300">
-            </div>
-
-            <!-- Email/Password Form -->
+            <div class="flex items-center my-6"><hr class="flex-grow border-t"><span class="mx-4 text-gray-500 text-sm">หรือ</span><hr class="flex-grow border-t"></div>
             <form id="auth-form" class="space-y-4">
                 <input type="email" id="email-input" placeholder="อีเมล" required class="text-center">
                 <input type="password" id="password-input" placeholder="รหัสผ่าน" required class="text-center">
                 <div id="auth-error" class="text-red-500 text-sm text-center h-4"></div>
                 <button type="submit" id="auth-submit-btn" class="w-full btn btn-primary">เข้าสู่ระบบ</button>
             </form>
-            
-            <p class="text-center text-sm text-gray-600 mt-6">
-                <span id="auth-toggle-text">ยังไม่มีบัญชี?</span>
-                <button id="auth-toggle-btn" class="font-semibold text-orange-500 hover:underline">สมัครสมาชิก</button>
-            </p>
+            <p class="text-center text-sm text-gray-600 mt-6"><span id="auth-toggle-text">ยังไม่มีบัญชี?</span> <button id="auth-toggle-btn" class="font-semibold text-orange-500 hover:underline">สมัครสมาชิก</button></p>
         </div>
     </div>
 
-    <!-- Main Content -->
     <main>
-        <!-- Vision & Mission Section -->
         <section id="vision" class="py-20 md:py-24 bg-gray-50">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16" data-aos="fade-up">
                     <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">วิสัยทัศน์และพันธกิจ</h2>
-                    <p class="max-w-3xl mx-auto text-gray-600 text-lg">
-                        เราเชื่อมั่นว่าการพัฒนาประเทศที่ยั่งยืนเริ่มต้นจากคุณภาพชีวิตที่ดีของประชาชน
-                        เราจึงทุ่มเททำงานเพื่อสร้างความเปลี่ยนแปลงที่จับต้องได้ในทุกมิติ
-                    </p>
+                    <p class="max-w-3xl mx-auto text-gray-600 text-lg">เราเชื่อมั่นว่าการพัฒนาประเทศที่ยั่งยืนเริ่มต้นจากคุณภาพชีวิตที่ดีของประชาชน เราจึงทุ่มเททำงานเพื่อสร้างความเปลี่ยนแปลงที่จับต้องได้ในทุกมิติ</p>
                 </div>
                 <div class="grid md:grid-cols-2 gap-8 lg:gap-12 text-left">
                     <div class="card p-8 lg:p-10" data-aos="fade-right" data-aos-delay="100">
-                        <div class="mb-5">
-                            <div class="inline-block p-4 bg-orange-100 text-orange-500 rounded-full">
-                                <i data-feather="eye" class="w-8 h-8"></i>
-                            </div>
-                        </div>
+                        <div class="mb-5"><div class="inline-block p-4 bg-orange-100 text-orange-500 rounded-full"><i data-feather="eye" class="w-8 h-8"></i></div></div>
                         <h3 class="text-2xl font-bold text-orange-500 mb-3">วิสัยทัศน์ (Our Vision)</h3>
-                        <p class="text-gray-600 leading-relaxed">เรามุ่งมั่นที่จะเป็นส่วนหนึ่งในการสร้างสังคมไทยที่เท่าเทียม ประชาชนมีสิทธิเสรีภาพ
-                            เข้าถึงโอกาสและการศึกษาที่มีคุณภาพ เพื่อยกระดับคุณภาพชีวิตและขับเคลื่อนเศรษฐกิจของประเทศให้เติบโตอย่างยั่งยืน</p>
+                        <p class="text-gray-600 leading-relaxed">เรามุ่งมั่นที่จะเป็นส่วนหนึ่งในการสร้างสังคมไทยที่เท่าเทียม ประชาชนมีสิทธิเสรีภาพ เข้าถึงโอกาสและการศึกษาที่มีคุณภาพ เพื่อยกระดับคุณภาพชีวิตและขับเคลื่อนเศรษฐกิจของประเทศให้เติบโตอย่างยั่งยืน</p>
                     </div>
                     <div class="card p-8 lg:p-10" data-aos="fade-left" data-aos-delay="200">
-                        <div class="mb-5">
-                            <div class="inline-block p-4 bg-green-100 text-green-600 rounded-full">
-                                <i data-feather="target" class="w-8 h-8"></i>
-                            </div>
-                        </div>
+                        <div class="mb-5"><div class="inline-block p-4 bg-green-100 text-green-600 rounded-full"><i data-feather="target" class="w-8 h-8"></i></div></div>
                         <h3 class="text-2xl font-bold text-green-600 mb-3">พันธกิจ (Our Mission)</h3>
                         <ul class="space-y-3 text-gray-600">
-                            <li class="flex items-start"><i data-feather="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0"></i><span>ผลักดันนโยบายที่โปร่งใสและเป็นประโยชน์ต่อส่วนรวม</span></li>
-                            <li class="flex items-start"><i data-feather="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0"></i><span>ส่งเสริมการมีส่วนร่วมของประชาชนในการพัฒนาชุมชน</span></li>
-                            <li class="flex items-start"><i data-feather="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0"></i><span>ริเริ่มโครงการเพื่อแก้ปัญหาและพัฒนาสังคมในพื้นที่</span></li>
+                            <li class="flex items-start"><i data-feather="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1 shrink-0"></i><span>ผลักดันนโยบายที่โปร่งใสและเป็นประโยชน์ต่อส่วนรวม</span></li>
+                            <li class="flex items-start"><i data-feather="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1 shrink-0"></i><span>ส่งเสริมการมีส่วนร่วมของประชาชนในการพัฒนาชุมชน</span></li>
+                            <li class="flex items-start"><i data-feather="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1 shrink-0"></i><span>ริเริ่มโครงการเพื่อแก้ปัญหาและพัฒนาสังคมในพื้นที่</span></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Contact Section -->
         <section id="contact" class="py-20 md:py-24 bg-white">
             <div class="container mx-auto px-6 text-center" data-aos="zoom-in-up">
                  <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">ติดต่อเรา</h2>
-                 <p class="text-center max-w-2xl mx-auto mb-10 text-gray-600 text-lg">
-                    สนใจร่วมงาน, สนับสนุน, หรือมีข้อเสนอแนะ? เรายินดีรับฟังทุกความคิดเห็นจากคุณ
-                 </p>
-                 <div class="bg-gray-50 rounded-2xl p-8 max-w-lg mx-auto border border-gray-200">
-                           <p class="text-2xl font-semibold text-gray-800">คุณนิธิศ บุญฤทธิ์</p>
-                           <div class="mt-6 space-y-3 text-lg text-gray-700">
-                                   <p class="flex items-center justify-center">
-                                       <i data-feather="mail" class="w-5 h-5 mr-3 text-orange-500"></i>
-                                       <a href="mailto:nitit.boonyalit@gmail.com" class="text-orange-500 hover:text-orange-600 transition-colors">nitit.boonyalit@gmail.com</a>
-                                   </p>
-                                   <p class="flex items-center justify-center">
-                                       <i data-feather="phone" class="w-5 h-5 mr-3 text-orange-500"></i>
-                                       <a href="tel:0982279327" class="text-orange-500 hover:text-orange-600 transition-colors">098-227-9327</a>
-                                   </p>
-                           </div>
+                 <p class="text-center max-w-2xl mx-auto mb-10 text-gray-600 text-lg">สนใจร่วมงาน, สนับสนุน, หรือมีข้อเสนอแนะ? เรายินดีรับฟังทุกความคิดเห็นจากคุณ</p>
+                 <div class="bg-gray-50 rounded-2xl p-8 max-w-lg mx-auto border">
+                    <p class="text-2xl font-semibold text-gray-800">คุณนิธิศ บุญฤทธิ์</p>
+                    <div class="mt-6 space-y-3 text-lg text-gray-700">
+                        <p class="flex items-center justify-center"><i data-feather="mail" class="w-5 h-5 mr-3 text-orange-500"></i><a href="mailto:nitit.boonyalit@gmail.com" class="text-orange-500 hover:text-orange-600">nitit.boonyalit@gmail.com</a></p>
+                        <p class="flex items-center justify-center"><i data-feather="phone" class="w-5 h-5 mr-3 text-orange-500"></i><a href="tel:0982279327" class="text-orange-500 hover:text-orange-600">098-227-9327</a></p>
+                    </div>
                  </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer id="footer" class="bg-gray-800 text-gray-400">
         <div class="container mx-auto px-6 py-10">
             <div class="flex flex-col items-center text-center">
-                <a href="#" class="mb-6">
-                    <img src="main_logo.png" alt="นิธิศ พรรคประชาชน Logo" class="h-24 w-auto opacity-75 brightness-0 invert" onerror="this.onerror=null;this.src='https://placehold.co/150x80/f8f9fa/333?text=Logo';">
-                </a>
+                <a href="#" class="mb-6"><img src="main_logo.png" alt="Logo" class="h-24 w-auto opacity-75 brightness-0 invert" onerror="this.onerror=null;this.src='https://placehold.co/150x80/f8f9fa/333?text=Logo';"></a>
                 <div class="flex justify-center space-x-6 mb-6">
-                    <a href="https://www.instagram.com/Nithxd_19" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full hover:bg-gray-700 hover:text-white transition-all duration-300">
-                        <span class="sr-only">Instagram</span>
-                        <i data-feather="instagram" class="w-6 h-6"></i>
-                    </a>
-                    <a href="https://www.facebook.com/NithidBoonyalit" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full hover:bg-gray-700 hover:text-white transition-all duration-300">
-                        <span class="sr-only">Facebook</span>
-                        <i data-feather="facebook" class="w-6 h-6"></i>
-                    </a>
+                    <a href="https://www.instagram.com/Nithxd_19" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full hover:bg-gray-700 hover:text-white"><i data-feather="instagram" class="w-6 h-6"></i></a>
+                    <a href="https://www.facebook.com/NithidBoonyalit" target="_blank" rel="noopener noreferrer" class="p-2 rounded-full hover:bg-gray-700 hover:text-white"><i data-feather="facebook" class="w-6 h-6"></i></a>
                 </div>
                 <p>&copy; <span id="copyright-year"></span> นิธิศ พรรคประชาชน. All Rights Reserved.</p>
                 <p class="text-sm mt-2 text-gray-500">ออกแบบและพัฒนาด้วยความตั้งใจ</p>
@@ -370,33 +169,13 @@
         </div>
     </footer>
 
-    <!-- AOS Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <!-- Firebase SDK -->
     <script type="module">
-        // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { 
-            getAuth, 
-            onAuthStateChanged,
-            signInWithPopup,
-            GoogleAuthProvider,
-            // FacebookAuthProvider, // Uncomment to enable Facebook Login
-            createUserWithEmailAndPassword,
-            signInWithEmailAndPassword,
-            signOut
-        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-        // ===================================================================================
-        // CRITICAL SECURITY WARNING:
-        // Do NOT expose your Firebase config keys in client-side code in a real application.
-        // This is a major security risk.
-        // Use environment variables and a backend service to protect your keys.
-        // For more info, see: https://firebase.google.com/docs/web/setup#secure-your-config
-        // ===================================================================================
         const firebaseConfig = {
-            apiKey: "AIzaSyAmsrtv0hV_a38Yi2aqz1NIL4dyKpdNQ-o", // <-- WARNING: EXPOSED KEY
+            apiKey: "AIzaSyAmsrtv0hV_a38Yi2aqz1NIL4dyKpdNQ-o",
             authDomain: "nithidpple-70241.firebaseapp.com",
             projectId: "nithidpple-70241",
             storageBucket: "nithidpple-70241.appspot.com",
@@ -405,228 +184,132 @@
             measurementId: "G-XD9SY572E6"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const googleProvider = new GoogleAuthProvider();
-        // const facebookProvider = new FacebookAuthProvider(); // Uncomment to enable Facebook Login
+
+        // --- ส่วนสำคัญ: กำหนดค่าแอดมิน ---
+        // ใส่ User ID (UID) ของคุณในนี้ เพื่อกำหนดสิทธิ์การเป็นแอดมิน
+        // สามารถดูวิธีหา UID ได้ในคำอธิบายด้านล่าง
+        const adminUIDs = ['ZcMhfcltUkR5lilpFnpLEU4P0E63'];
 
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Initialize Core Scripts ---
             feather.replace();
-            AOS.init({
-                duration: 800,
-                once: true,
-                offset: 50,
-            });
+            AOS.init({ duration: 800, once: true, offset: 50 });
 
-            // --- UI Elements ---
-            const navbar = document.getElementById('navbar');
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileAuthSection = document.getElementById('mobile-auth-section');
-            
-            // News Modal Elements
-            const newsModal = document.getElementById('news-modal');
-            const closeNewsModalBtn = document.getElementById('close-news-modal-btn');
-            const followUsBtn = document.getElementById('follow-us-btn');
+            const ui = {
+                navbar: document.getElementById('navbar'),
+                mobileMenuBtn: document.getElementById('mobile-menu-btn'),
+                mobileMenu: document.getElementById('mobile-menu'),
+                mobileAuthSection: document.getElementById('mobile-auth-section'),
+                newsModal: document.getElementById('news-modal'),
+                closeNewsModalBtn: document.getElementById('close-news-modal-btn'),
+                followUsBtn: document.getElementById('follow-us-btn'),
+                loginBtn: document.getElementById('login-btn'),
+                logoutBtn: document.getElementById('logout-btn'),
+                userProfile: document.getElementById('user-profile-container'),
+                userName: document.getElementById('user-display-name'),
+                adminLinkDesktop: document.getElementById('admin-link-desktop'),
+                adminLinkMobile: document.getElementById('admin-link-mobile'),
+                authModal: {
+                    overlay: document.getElementById('auth-modal'),
+                    closeBtn: document.getElementById('close-auth-modal-btn'),
+                    title: document.getElementById('auth-title'),
+                    form: document.getElementById('auth-form'),
+                    email: document.getElementById('email-input'),
+                    password: document.getElementById('password-input'),
+                    error: document.getElementById('auth-error'),
+                    submitBtn: document.getElementById('auth-submit-btn'),
+                    toggleText: document.getElementById('auth-toggle-text'),
+                    toggleBtn: document.getElementById('auth-toggle-btn'),
+                    googleBtn: document.getElementById('google-login-btn')
+                }
+            };
 
-            // Auth Elements (Desktop)
-            const loginBtn = document.getElementById('login-btn');
-            const logoutBtn = document.getElementById('logout-btn');
-            const userProfileContainer = document.getElementById('user-profile-container');
-            const userDisplayName = document.getElementById('user-display-name');
-            
-            // Auth Modal Elements
-            const authModal = document.getElementById('auth-modal');
-            const closeAuthModalBtn = document.getElementById('close-auth-modal-btn');
-            const googleLoginBtn = document.getElementById('google-login-btn');
-            // const facebookLoginBtn = document.getElementById('facebook-login-btn');
-            const authForm = document.getElementById('auth-form');
-            const emailInput = document.getElementById('email-input');
-            const passwordInput = document.getElementById('password-input');
-            const authError = document.getElementById('auth-error');
-            const authTitle = document.getElementById('auth-title');
-            const authSubmitBtn = document.getElementById('auth-submit-btn');
-            const authToggleText = document.getElementById('auth-toggle-text');
-            const authToggleBtn = document.getElementById('auth-toggle-btn');
-            
             let isRegisterMode = false;
 
-            // --- Core Logic ---
-
-            // Navbar Scroll Effect
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-
-            // ** FIXED: Mobile Menu Toggle **
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-            
-            // ** FIXED: Dynamic Copyright Year **
+            // --- Event Listeners ---
+            window.addEventListener('scroll', () => ui.navbar.classList.toggle('scrolled', window.scrollY > 50));
+            ui.mobileMenuBtn.addEventListener('click', () => ui.mobileMenu.classList.toggle('hidden'));
             document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
-            // --- News Modal Logic ---
-            const showNewsModal = () => newsModal.classList.add('visible');
+            // News Modal
             const hideNewsModal = () => {
-                newsModal.classList.remove('visible');
-                sessionStorage.setItem('modalClosedInSession', 'true');
+                ui.newsModal.classList.remove('visible');
+                sessionStorage.setItem('modalClosed', 'true');
             };
+            if (!sessionStorage.getItem('modalClosed')) setTimeout(() => ui.newsModal.classList.add('visible'), 2000);
+            ui.closeNewsModalBtn.addEventListener('click', hideNewsModal);
+            ui.followUsBtn.addEventListener('click', hideNewsModal);
+            ui.newsModal.addEventListener('click', e => e.target === ui.newsModal && hideNewsModal());
 
-            if (!sessionStorage.getItem('modalClosedInSession')) {
-                setTimeout(showNewsModal, 2000);
-            }
+            // Auth Modal
+            const showAuthModal = () => ui.authModal.overlay.classList.add('visible');
+            const hideAuthModal = () => ui.authModal.overlay.classList.remove('visible');
+            ui.loginBtn.addEventListener('click', showAuthModal);
+            ui.authModal.closeBtn.addEventListener('click', hideAuthModal);
+            ui.authModal.overlay.addEventListener('click', e => e.target === ui.authModal.overlay && hideAuthModal());
 
-            closeNewsModalBtn.addEventListener('click', hideNewsModal);
-            followUsBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                hideNewsModal();
-                const targetId = e.currentTarget.getAttribute('href');
-                document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
-            });
-            newsModal.addEventListener('click', (e) => {
-                if (e.target === newsModal) hideNewsModal();
-            });
-
-            // --- Authentication Logic ---
-            
-            // Show/Hide Auth Modal
-            const showAuthModal = () => authModal.classList.add('visible');
-            const hideAuthModal = () => authModal.classList.remove('visible');
-
-            // Listen on main desktop button
-            loginBtn.addEventListener('click', showAuthModal);
-            
-            closeAuthModalBtn.addEventListener('click', hideAuthModal);
-            authModal.addEventListener('click', (e) => {
-                if (e.target === authModal) hideAuthModal();
-            });
-
-            // Toggle between Login and Register
-            authToggleBtn.addEventListener('click', () => {
+            ui.authModal.toggleBtn.addEventListener('click', () => {
                 isRegisterMode = !isRegisterMode;
-                authError.textContent = '';
-                authForm.reset();
-                if (isRegisterMode) {
-                    authTitle.textContent = 'สมัครสมาชิก';
-                    authSubmitBtn.textContent = 'สร้างบัญชี';
-                    authToggleText.textContent = 'มีบัญชีอยู่แล้ว?';
-                    authToggleBtn.textContent = 'เข้าสู่ระบบ';
-                } else {
-                    authTitle.textContent = 'เข้าสู่ระบบ';
-                    authSubmitBtn.textContent = 'เข้าสู่ระบบ';
-                    authToggleText.textContent = 'ยังไม่มีบัญชี?';
-                    authToggleBtn.textContent = 'สมัครสมาชิก';
-                }
+                ui.authModal.form.reset();
+                ui.authModal.error.textContent = '';
+                ui.authModal.title.textContent = isRegisterMode ? 'สมัครสมาชิก' : 'เข้าสู่ระบบ';
+                ui.authModal.submitBtn.textContent = isRegisterMode ? 'สร้างบัญชี' : 'เข้าสู่ระบบ';
+                ui.authModal.toggleText.textContent = isRegisterMode ? 'มีบัญชีอยู่แล้ว?' : 'ยังไม่มีบัญชี?';
+                ui.authModal.toggleBtn.textContent = isRegisterMode ? 'เข้าสู่ระบบ' : 'สมัครสมาชิก';
             });
 
-            // Handle Auth State Changes and Update UI
+            // --- Firebase Logic ---
             onAuthStateChanged(auth, user => {
-                updateUIForAuthState(user);
-            });
-            
-            function updateUIForAuthState(user) {
-                 if (user) {
-                    // --- User is SIGNED IN ---
-                    // Desktop UI
-                    loginBtn.classList.add('hidden');
-                    userProfileContainer.classList.remove('hidden');
-                    userProfileContainer.classList.add('flex');
-                    userDisplayName.textContent = user.displayName || user.email.split('@')[0];
+                if (user) { // User is logged in
+                    const isAdmin = adminUIDs.includes(user.uid);
+                    ui.userName.textContent = user.displayName || user.email.split('@')[0];
+                    ui.userProfile.classList.remove('hidden');
+                    ui.userProfile.classList.add('flex');
+                    ui.loginBtn.classList.add('hidden');
+                    ui.adminLinkDesktop.classList.toggle('hidden', !isAdmin);
+                    ui.adminLinkMobile.classList.toggle('hidden', !isAdmin);
                     
-                    // Mobile UI
-                    mobileAuthSection.innerHTML = `
-                        <div class="flex items-center justify-center space-x-3 py-2">
-                           <span class="text-gray-800 font-medium">${user.displayName || user.email.split('@')[0]}</span>
-                           <button id="mobile-logout-btn" class="p-2 rounded-full hover:bg-gray-200" title="ออกจากระบบ">
-                               <i data-feather="log-out" class="w-5 h-5 text-gray-700"></i>
-                           </button>
-                        </div>
-                    `;
+                    ui.mobileAuthSection.innerHTML = `<div class="flex items-center justify-center space-x-3 py-2"><span class="text-gray-800 font-medium">${ui.userName.textContent}</span><button id="mobile-logout-btn" class="p-2 rounded-full hover:bg-gray-200"><i data-feather="log-out" class="w-5 h-5 text-gray-700"></i></button></div>`;
                     document.getElementById('mobile-logout-btn').addEventListener('click', handleLogout);
-
-                    feather.replace(); // Re-render icons after DOM change
+                    feather.replace();
                     hideAuthModal();
-                    mobileMenu.classList.add('hidden'); // Close mobile menu on auth change
-                } else {
-                    // --- User is SIGNED OUT ---
-                    // Desktop UI
-                    loginBtn.classList.remove('hidden');
-                    userProfileContainer.classList.add('hidden');
-                    userProfileContainer.classList.remove('flex');
-
-                    // Mobile UI
-                    mobileAuthSection.innerHTML = `
-                        <button id="mobile-login-btn" class="w-full btn btn-primary">
-                            เข้าสู่ระบบ / สมัครสมาชิก
-                        </button>
-                    `;
+                } else { // User is logged out
+                    ui.userProfile.classList.add('hidden');
+                    ui.userProfile.classList.remove('flex');
+                    ui.loginBtn.classList.remove('hidden');
+                    ui.adminLinkDesktop.classList.add('hidden');
+                    ui.adminLinkMobile.classList.add('hidden');
+                    
+                    ui.mobileAuthSection.innerHTML = `<button id="mobile-login-btn" class="w-full btn btn-primary">เข้าสู่ระบบ / สมัครสมาชิก</button>`;
                     document.getElementById('mobile-login-btn').addEventListener('click', showAuthModal);
                 }
-            }
-
-
-            // Social Logins
-            const handleSocialLogin = (provider) => {
-                signInWithPopup(auth, provider)
-                    .catch((error) => {
-                        console.error("Social login error:", error);
-                        authError.textContent = "เกิดข้อผิดพลาดในการเข้าสู่ระบบ";
-                    });
-            };
-            googleLoginBtn.addEventListener('click', () => handleSocialLogin(googleProvider));
-            // facebookLoginBtn.addEventListener('click', () => handleSocialLogin(facebookProvider)); // Uncomment to enable
-
-            // Email/Password Auth
-            authForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const email = emailInput.value;
-                const password = passwordInput.value;
-                authError.textContent = '';
-
-                if (isRegisterMode) {
-                    // Register new user
-                    createUserWithEmailAndPassword(auth, email, password)
-                        .catch(error => {
-                            authError.textContent = getAuthErrorMessage(error.code);
-                        });
-                } else {
-                    // Sign in existing user
-                    signInWithEmailAndPassword(auth, email, password)
-                        .catch(error => {
-                            authError.textContent = getAuthErrorMessage(error.code);
-                        });
-                }
             });
-            
-            // Logout Handler
-            const handleLogout = () => {
-                signOut(auth).catch(error => console.error("Logout error:", error));
-            };
-            logoutBtn.addEventListener('click', handleLogout);
 
-            // Helper for user-friendly error messages
-            function getAuthErrorMessage(errorCode) {
-                switch (errorCode) {
-                    case 'auth/invalid-email':
-                        return 'รูปแบบอีเมลไม่ถูกต้อง';
+            const handleLogout = () => signOut(auth).catch(e => console.error("Logout error", e));
+            ui.logoutBtn.addEventListener('click', handleLogout);
+            
+            ui.authModal.googleBtn.addEventListener('click', () => signInWithPopup(auth, googleProvider).catch(e => ui.authModal.error.textContent = "เกิดข้อผิดพลาดในการเข้าสู่ระบบด้วย Google"));
+
+            ui.authModal.form.addEventListener('submit', e => {
+                e.preventDefault();
+                const email = ui.authModal.email.value;
+                const password = ui.authModal.password.value;
+                ui.authModal.error.textContent = '';
+                const authFunction = isRegisterMode ? createUserWithEmailAndPassword : signInWithEmailAndPassword;
+                authFunction(auth, email, password).catch(error => ui.authModal.error.textContent = getAuthErrorMessage(error.code));
+            });
+
+            function getAuthErrorMessage(code) {
+                switch (code) {
+                    case 'auth/invalid-email': return 'รูปแบบอีเมลไม่ถูกต้อง';
                     case 'auth/user-not-found':
                     case 'auth/wrong-password':
-                    case 'auth/invalid-credential': // New error code for wrong password in recent SDKs
-                         return 'อีเมลหรือรหัสผ่านไม่ถูกต้อง';
-                    case 'auth/email-already-in-use':
-                        return 'อีเมลนี้มีผู้ใช้งานแล้ว';
-                    case 'auth/weak-password':
-                        return 'รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร';
-                    default:
-                        console.error("Firebase Auth Error:", errorCode);
-                        return 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง';
+                    case 'auth/invalid-credential': return 'อีเมลหรือรหัสผ่านไม่ถูกต้อง';
+                    case 'auth/email-already-in-use': return 'อีเมลนี้มีผู้ใช้งานแล้ว';
+                    case 'auth/weak-password': return 'รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร';
+                    default: return 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง';
                 }
             }
         });
