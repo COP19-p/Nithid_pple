@@ -110,20 +110,23 @@
                 <div class="mb-8">
                     <h2 class="text-lg font-semibold text-gray-800 mb-3">เลือกขนาด (Size)</h2>
                     <div id="size-selector" class="flex flex-wrap gap-3 size-selector">
-                        <input type="radio" name="size" id="s" value="S" data-price="230" class="sr-only"><label for="s" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">S</label>
-                        <input type="radio" name="size" id="m" value="M" data-price="230" class="sr-only" checked><label for="m" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">M</label>
-                        <input type="radio" name="size" id="l" value="L" data-price="230" class="sr-only"><label for="l" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">L</label>
-                        <input type="radio" name="size" id="xl" value="XL" data-price="280" class="sr-only"><label for="xl" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">XL</label>
+                        <!-- === PRICE UPDATED HERE === -->
+                        <input type="radio" name="size" id="s" value="S" data-price="250" class="sr-only"><label for="s" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">S</label>
+                        <input type="radio" name="size" id="m" value="M" data-price="250" class="sr-only" checked><label for="m" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">M</label>
+                        <input type="radio" name="size" id="l" value="L" data-price="250" class="sr-only"><label for="l" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">L</label>
+                        <input type="radio" name="size" id="xl" value="XL" data-price="279" class="sr-only"><label for="xl" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">XL</label>
                         <input type="radio" name="size" id="2xl" value="2XL" data-price="319" class="sr-only"><label for="2xl" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">2XL</label>
                     </div>
                 </div>
                 <div>
                     <div class="text-lg mb-4">
-                        <p>ค่าสินค้า: <span id="price-display" class="font-semibold">230</span> บาท</p>
+                        <!-- === INITIAL PRICE DISPLAY UPDATED HERE === -->
+                        <p>ค่าสินค้า: <span id="price-display" class="font-semibold">250</span> บาท</p>
                         <p>ค่าจัดส่ง: <span class="font-semibold">60</span> บาท</p>
                     </div>
                     <p class="text-3xl font-bold text-gray-800 mb-4">
-                        ยอดรวม: <span id="total-price-display">290</span> บาท
+                        <!-- === INITIAL TOTAL PRICE DISPLAY UPDATED HERE === -->
+                        ยอดรวม: <span id="total-price-display">310</span> บาท
                     </p>
                     <button id="order-btn" class="w-full py-3 rounded-lg text-white font-semibold btn-primary text-lg" disabled>
                         <i data-feather="shopping-cart" class="inline-block mr-2 -mt-1"></i> 
@@ -256,7 +259,7 @@
             const paymentError = document.getElementById('payment-error');
             const successModal = document.getElementById('success-modal');
             const closeSuccessModalBtn = document.getElementById('close-success-modal-btn');
-            const shippingCost = 60; // <--- Changed Value
+            const shippingCost = 60; 
             
             document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
@@ -292,6 +295,8 @@
                 if (currentUser) {
                     showModal(orderModal);
                 } else {
+                    // Replaced alert with a more user-friendly approach if possible, but for now, it redirects.
+                    // A custom modal would be better than an alert.
                     alert('กรุณากลับไปหน้าหลักเพื่อล็อคอินก่อนทำการสั่งซื้อ');
                     window.location.href = 'index.html';
                 }
@@ -384,7 +389,7 @@
                 submitPaymentBtn.querySelector('.btn-loader').classList.remove('hidden');
                 
                 try {
-                    // *** FINAL FIX: Force token refresh before upload ***
+                    // Force token refresh before upload to ensure it's not expired
                     await currentUser.getIdToken(true);
                     console.log("[AUTH] Token refreshed successfully before upload.");
 
