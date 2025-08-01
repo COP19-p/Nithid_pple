@@ -110,7 +110,6 @@
                 <div class="mb-8">
                     <h2 class="text-lg font-semibold text-gray-800 mb-3">เลือกขนาด (Size)</h2>
                     <div id="size-selector" class="flex flex-wrap gap-3 size-selector">
-                        <!-- === PRICE UPDATED HERE === -->
                         <input type="radio" name="size" id="s" value="S" data-price="250" class="sr-only"><label for="s" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">S</label>
                         <input type="radio" name="size" id="m" value="M" data-price="250" class="sr-only" checked><label for="m" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">M</label>
                         <input type="radio" name="size" id="l" value="L" data-price="250" class="sr-only"><label for="l" class="px-5 py-2 border rounded-full cursor-pointer transition-colors">L</label>
@@ -120,12 +119,10 @@
                 </div>
                 <div>
                     <div class="text-lg mb-4">
-                        <!-- === INITIAL PRICE DISPLAY UPDATED HERE === -->
                         <p>ค่าสินค้า: <span id="price-display" class="font-semibold">250</span> บาท</p>
                         <p>ค่าจัดส่ง: <span class="font-semibold">60</span> บาท</p>
                     </div>
                     <p class="text-3xl font-bold text-gray-800 mb-4">
-                        <!-- === INITIAL TOTAL PRICE DISPLAY UPDATED HERE === -->
                         ยอดรวม: <span id="total-price-display">310</span> บาท
                     </p>
                     <button id="order-btn" class="w-full py-3 rounded-lg text-white font-semibold btn-primary text-lg" disabled>
@@ -221,7 +218,7 @@
             apiKey: "AIzaSyAmsrtv0hV_a38Yi2aqz1NIL4dyKpdNQ-o",
             authDomain: "nithidpple-70241.firebaseapp.com",
             projectId: "nithidpple-70241",
-            storageBucket: "nithidpple-70241.firebasestorage.app", 
+            storageBucket: "nithidpple-70241.appspot.com", 
             messagingSenderId: "188273475273",
             appId: "1:188273475273:web:a583fa490067a4049e1718",
             measurementId: "G-XD9SY572E6"
@@ -237,42 +234,44 @@
         document.addEventListener('DOMContentLoaded', () => {
             feather.replace();
             
-            const sizeSelector = document.getElementById('size-selector');
-            const priceDisplay = document.getElementById('price-display');
-            const totalPriceDisplay = document.getElementById('total-price-display');
-            const orderBtn = document.getElementById('order-btn');
-            const orderBtnText = document.getElementById('order-btn-text');
-            const orderModal = document.getElementById('order-modal');
-            const closeOrderModalBtn = document.getElementById('close-order-modal-btn');
-            const orderForm = document.getElementById('order-form');
-            const submitOrderBtn = document.getElementById('submit-order-btn');
-            const orderError = document.getElementById('order-error');
-            const confirmModal = document.getElementById('confirm-modal');
-            const closeConfirmModalBtn = document.getElementById('close-confirm-modal-btn');
-            const confirmSize = document.getElementById('confirm-size');
-            const confirmPrice = document.getElementById('confirm-price');
-            const paymentForm = document.getElementById('payment-form');
-            const slipUpload = document.getElementById('slip-upload');
-            const slipPreview = document.getElementById('slip-preview');
-            const slipPlaceholder = document.getElementById('slip-placeholder');
-            const submitPaymentBtn = document.getElementById('submit-payment-btn');
-            const paymentError = document.getElementById('payment-error');
-            const successModal = document.getElementById('success-modal');
-            const closeSuccessModalBtn = document.getElementById('close-success-modal-btn');
+            const ui = {
+                sizeSelector: document.getElementById('size-selector'),
+                priceDisplay: document.getElementById('price-display'),
+                totalPriceDisplay: document.getElementById('total-price-display'),
+                orderBtn: document.getElementById('order-btn'),
+                orderBtnText: document.getElementById('order-btn-text'),
+                orderModal: document.getElementById('order-modal'),
+                closeOrderModalBtn: document.getElementById('close-order-modal-btn'),
+                orderForm: document.getElementById('order-form'),
+                submitOrderBtn: document.getElementById('submit-order-btn'),
+                orderError: document.getElementById('order-error'),
+                confirmModal: document.getElementById('confirm-modal'),
+                closeConfirmModalBtn: document.getElementById('close-confirm-modal-btn'),
+                confirmSize: document.getElementById('confirm-size'),
+                confirmPrice: document.getElementById('confirm-price'),
+                paymentForm: document.getElementById('payment-form'),
+                slipUpload: document.getElementById('slip-upload'),
+                slipPreview: document.getElementById('slip-preview'),
+                slipPlaceholder: document.getElementById('slip-placeholder'),
+                submitPaymentBtn: document.getElementById('submit-payment-btn'),
+                paymentError: document.getElementById('payment-error'),
+                successModal: document.getElementById('success-modal'),
+                closeSuccessModalBtn: document.getElementById('close-success-modal-btn'),
+            };
+
             const shippingCost = 60; 
             
             document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
             onAuthStateChanged(auth, (user) => {
-                console.log("[AUTH] Auth state changed. User:", user ? user.uid : 'Logged out');
                 if (user) {
                     currentUser = user;
-                    orderBtn.disabled = false;
-                    orderBtnText.textContent = 'สั่งซื้อสินค้า';
+                    ui.orderBtn.disabled = false;
+                    ui.orderBtnText.textContent = 'สั่งซื้อสินค้า';
                 } else {
                     currentUser = null;
-                    orderBtn.disabled = true;
-                    orderBtnText.textContent = 'กรุณาล็อคอินเพื่อสั่งซื้อ';
+                    ui.orderBtn.disabled = true;
+                    ui.orderBtnText.textContent = 'กรุณาล็อคอินเพื่อสั่งซื้อ';
                 }
             });
 
@@ -281,41 +280,39 @@
                 if (!selectedRadio) return;
                 const itemPrice = parseFloat(selectedRadio.dataset.price);
                 const totalPrice = itemPrice + shippingCost;
-                priceDisplay.textContent = itemPrice;
-                totalPriceDisplay.textContent = totalPrice;
+                ui.priceDisplay.textContent = itemPrice;
+                ui.totalPriceDisplay.textContent = totalPrice;
             }
 
-            sizeSelector.addEventListener('change', updatePrice);
+            ui.sizeSelector.addEventListener('change', updatePrice);
             updatePrice();
 
             const showModal = (modal) => modal.classList.add('visible');
             const hideModal = (modal) => modal.classList.remove('visible');
 
-            orderBtn.addEventListener('click', () => {
+            ui.orderBtn.addEventListener('click', () => {
                 if (currentUser) {
-                    showModal(orderModal);
+                    showModal(ui.orderModal);
                 } else {
-                    // Replaced alert with a more user-friendly approach if possible, but for now, it redirects.
-                    // A custom modal would be better than an alert.
                     alert('กรุณากลับไปหน้าหลักเพื่อล็อคอินก่อนทำการสั่งซื้อ');
                     window.location.href = 'index.html';
                 }
             });
 
-            closeOrderModalBtn.addEventListener('click', () => hideModal(orderModal));
-            orderModal.addEventListener('click', (e) => { if (e.target === orderModal) hideModal(orderModal); });
+            ui.closeOrderModalBtn.addEventListener('click', () => hideModal(ui.orderModal));
+            ui.orderModal.addEventListener('click', (e) => { if (e.target === ui.orderModal) hideModal(ui.orderModal); });
 
-            orderForm.addEventListener('submit', async (e) => {
+            ui.orderForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 if (!currentUser) {
-                    orderError.textContent = 'Session หมดอายุ กรุณาล็อคอินใหม่อีกครั้ง';
+                    ui.orderError.textContent = 'Session หมดอายุ กรุณาล็อคอินใหม่อีกครั้ง';
                     return;
                 }
                 
-                orderError.textContent = '';
-                submitOrderBtn.disabled = true;
-                submitOrderBtn.querySelector('.btn-text').classList.add('hidden');
-                submitOrderBtn.querySelector('.btn-loader').classList.remove('hidden');
+                ui.orderError.textContent = '';
+                ui.submitOrderBtn.disabled = true;
+                ui.submitOrderBtn.querySelector('.btn-text').classList.add('hidden');
+                ui.submitOrderBtn.querySelector('.btn-loader').classList.remove('hidden');
 
                 const selectedSizeRadio = document.querySelector('input[name="size"]:checked');
                 const itemPrice = parseFloat(selectedSizeRadio.dataset.price);
@@ -323,7 +320,7 @@
 
                 const orderData = {
                     userId: currentUser.uid, userEmail: currentUser.email,
-                    name: orderForm.name.value, address: orderForm.address.value, phone: orderForm.phone.value,
+                    name: ui.orderForm.name.value, address: ui.orderForm.address.value, phone: ui.orderForm.phone.value,
                     size: selectedSizeRadio.value, price: itemPrice, shippingCost: shippingCost,
                     totalPrice: finalTotalPrice, status: 'pending_payment', createdAt: serverTimestamp()
                 };
@@ -332,108 +329,83 @@
                     const docRef = await addDoc(collection(db, "orders"), orderData);
                     currentOrderId = docRef.id;
                     
-                    confirmSize.textContent = orderData.size;
-                    confirmPrice.textContent = orderData.totalPrice;
+                    ui.confirmSize.textContent = orderData.size;
+                    ui.confirmPrice.textContent = orderData.totalPrice;
 
-                    hideModal(orderModal);
-                    showModal(confirmModal);
-                    orderForm.reset();
+                    hideModal(ui.orderModal);
+                    showModal(ui.confirmModal);
+                    ui.orderForm.reset();
                 } catch (error) {
-                    console.error("[ORDER] Error adding document:", error);
-                    orderError.textContent = "เกิดข้อผิดพลาดในการบันทึกคำสั่งซื้อ";
+                    console.error("[ORDER] Error:", error);
+                    ui.orderError.textContent = "เกิดข้อผิดพลาดในการบันทึกคำสั่งซื้อ";
                 } finally {
-                    submitOrderBtn.disabled = false;
-                    submitOrderBtn.querySelector('.btn-text').classList.remove('hidden');
-                    submitOrderBtn.querySelector('.btn-loader').classList.add('hidden');
+                    ui.submitOrderBtn.disabled = false;
+                    ui.submitOrderBtn.querySelector('.btn-text').classList.remove('hidden');
+                    ui.submitOrderBtn.querySelector('.btn-loader').classList.add('hidden');
                 }
             });
 
-            closeConfirmModalBtn.addEventListener('click', () => hideModal(confirmModal));
-            confirmModal.addEventListener('click', (e) => { if (e.target === confirmModal) hideModal(confirmModal); });
+            ui.closeConfirmModalBtn.addEventListener('click', () => hideModal(ui.confirmModal));
+            ui.confirmModal.addEventListener('click', (e) => { if (e.target === ui.confirmModal) hideModal(ui.confirmModal); });
 
-            slipUpload.addEventListener('change', () => {
-                const file = slipUpload.files[0];
+            ui.slipUpload.addEventListener('change', () => {
+                const file = ui.slipUpload.files[0];
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = (e) => {
-                        slipPreview.src = e.target.result;
-                        slipPreview.classList.remove('hidden');
-                        slipPlaceholder.classList.add('hidden');
+                        ui.slipPreview.src = e.target.result;
+                        ui.slipPreview.classList.remove('hidden');
+                        ui.slipPlaceholder.classList.add('hidden');
                     };
                     reader.readAsDataURL(file);
-                } else {
-                    slipPreview.classList.add('hidden');
-                    slipPlaceholder.classList.remove('hidden');
                 }
             });
 
-            paymentForm.addEventListener('submit', async (e) => {
+            ui.paymentForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const file = slipUpload.files[0];
-                if (!file) {
-                    paymentError.textContent = 'กรุณาเลือกไฟล์สลิป';
-                    return;
-                }
-                if (!currentOrderId) {
-                     paymentError.textContent = 'ไม่พบรหัสคำสั่งซื้อ กรุณาลองใหม่';
-                    return;
-                }
-                if (!currentUser) {
-                    paymentError.textContent = 'Session หมดอายุ กรุณาล็อคอินใหม่อีกครั้ง';
+                const file = ui.slipUpload.files[0];
+                if (!file || !currentOrderId || !currentUser) {
+                    ui.paymentError.textContent = 'ข้อมูลไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง';
                     return;
                 }
 
-                paymentError.textContent = '';
-                submitPaymentBtn.disabled = true;
-                submitPaymentBtn.querySelector('.btn-text').classList.add('hidden');
-                submitPaymentBtn.querySelector('.btn-loader').classList.remove('hidden');
+                ui.paymentError.textContent = '';
+                ui.submitPaymentBtn.disabled = true;
+                ui.submitPaymentBtn.querySelector('.btn-text').classList.add('hidden');
+                ui.submitPaymentBtn.querySelector('.btn-loader').classList.remove('hidden');
                 
                 try {
-                    // Force token refresh before upload to ensure it's not expired
-                    await currentUser.getIdToken(true);
-                    console.log("[AUTH] Token refreshed successfully before upload.");
-
-                    const fileExtension = file.name.split('.').pop();
-                    const newFileName = `slip_${Date.now()}.${fileExtension}`;
-                    const filePath = `payment_slips/${currentOrderId}/${newFileName}`;
+                    const filePath = `payment_slips/${currentOrderId}/${file.name}`;
                     const storageRef = ref(storage, filePath);
-                    
-                    console.log(`[UPLOAD] Uploading to path: ${filePath}`);
                     const uploadResult = await uploadBytes(storageRef, file);
-                    console.log("[UPLOAD] Upload successful. Getting download URL...");
                     const downloadURL = await getDownloadURL(uploadResult.ref);
-                    console.log("[UPLOAD] Got download URL:", downloadURL);
 
                     const orderDocRef = doc(db, "orders", currentOrderId);
                     await updateDoc(orderDocRef, {
                         paymentSlipUrl: downloadURL,
                         status: 'pending_verification'
                     });
-                    console.log("[FIRESTORE] Document updated successfully.");
 
-                    hideModal(confirmModal);
-                    showModal(successModal);
-                    paymentForm.reset();
-                    slipPreview.classList.add('hidden');
-                    slipPlaceholder.classList.remove('hidden');
+                    hideModal(ui.confirmModal);
+                    showModal(ui.successModal);
+                    ui.paymentForm.reset();
+                    ui.slipPreview.classList.add('hidden');
+                    ui.slipPlaceholder.classList.remove('hidden');
 
                 } catch (error) {
-                    console.error("--- UPLOAD FAILED ---");
-                    console.error("Error Code:", error.code);
-                    console.error("Error Message:", error.message);
-                    paymentError.textContent = `อัปโหลดล้มเหลว: ${error.code}.`;
+                    console.error("[UPLOAD] Error:", error);
+                    ui.paymentError.textContent = `อัปโหลดล้มเหลว: ${error.code || 'โปรดลองอีกครั้ง'}`;
                 } finally {
-                    submitPaymentBtn.disabled = false;
-                    submitPaymentBtn.querySelector('.btn-text').classList.remove('hidden');
-                    submitPaymentBtn.querySelector('.btn-loader').classList.add('hidden');
+                    ui.submitPaymentBtn.disabled = false;
+                    ui.submitPaymentBtn.querySelector('.btn-text').classList.remove('hidden');
+                    ui.submitPaymentBtn.querySelector('.btn-loader').classList.add('hidden');
                 }
             });
 
-            closeSuccessModalBtn.addEventListener('click', () => {
-                hideModal(successModal);
+            ui.closeSuccessModalBtn.addEventListener('click', () => {
+                hideModal(ui.successModal);
                 window.location.reload();
             });
-            successModal.addEventListener('click', (e) => { if (e.target === successModal) hideModal(successModal); });
         });
     </script>
 </body>
